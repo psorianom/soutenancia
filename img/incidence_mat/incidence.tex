@@ -1,0 +1,26 @@
+\documentclass[varwidth=true, border=10pt, convert={size=640x}]{standalone}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{forest} 
+\usepackage{adjustbox}
+
+
+\begin{document}
+
+\adjustbox{max height=\dimexpr\textheight-5.5cm\relax,
+           max width=\textwidth}{
+
+\begin{tabular}{clcccccc}
+\hline
+\multicolumn{1}{l}{} &                      & \multicolumn{3}{c}{\textbf{CONSTITUENT}}                                                                                                                                                                                                            & \multicolumn{2}{c}{\textbf{DEPENDENCY}}          & \textbf{SENTENCE}                \\ \hline
+\multicolumn{1}{l}{} & \multicolumn{1}{c}{} & \multicolumn{1}{l}{\begin{tabular}[c]{@{}c@{}}$\textnormal{NP}_1$\\ DT:NN\end{tabular}} & \begin{tabular}[c]{@{}c@{}}$\textnormal{NP}_2$\\ NP:PP:PP\end{tabular} & \begin{tabular}[c]{@{}c@{}}$\textnormal{NP}_3$\\ NNS\end{tabular} & \begin{tabular}[c]{@{}c@{}}{nsubj}\\ contains\end{tabular}  & \begin{tabular}[c]{@{}c@{}}{dobj}\\ contains\end{tabular} & $\textnormal{S}_1$ \\ \hline
+\multirow{4}{*}{\textbf{NN}}  & report               & 1                                                                                       &                                                                        &                                                                   & 1               &                & 1                  \\
+%                     & contains             &                                                                                         &                                                                        &                                                                   &                 &                & 1                  \\
+                     & copies               &                                                                                         & 1                                                                      & 1                                                                 &                 & 1              & 1                  \\
+                     & minutes              &                                                                                         & 1                                                                      &                                                                   &                 &                & 1                  \\
+                     & meetings             &                                                                                         & 1                                                                      &                                                                   &                 &                & 1                  \\ \hline
+\textbf{VB} & contains             &                                                                                         &                                                                        &                                                                   &                 &                & 1                  \\ \hline
+                     
+\end{tabular}
+}
+\end{document}

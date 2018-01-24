@@ -1,0 +1,38 @@
+10:14 -> 10:38
+
+slide 2 : speech un peu court
+slide 9 : speech répétition -> speech à mieux préparé
+
+MR : 
+Remarques 
+- Hypergraph + - pour chaque tâche
+- Motiver les hypergraphes en intro
+- SOA : aller plus loin sur la description de certains travaux existants
+- Discussion sur les différentes méthodes/algo/représentation 
+- Lacunes du SOA : Méthode d'acquisition par fouille de texte / jeux sérieux (Mathieu Lafourcade) / type de relations à citer (motifs séquentiels skip-gram) / type d'information utile pour l'acquisition (statistique) -> cartographie générale pour + - des différentes méthodes 
+- Contributions VS SOA !
++ Contributions intéressantes avec des résultats bons
+
+Questions 
+- WSD : lexicales / syntaxiques -> d'autres ? 
+- WSD : skip-gram VS NP (pour la cooccurrence) -> skip-gram SOA
+- Perspctives -> EI quelles tâches ?
+- Faire des expériences pour mieux comprendre quoi apporte quoi à quoi  
+
+
+	
+MEL :
+Remarques
++ Présentation mieux que le rapport -> utiliser les schémas et des couleurs
++ Mesures d'évaluation qui intègre le nb de sens qui a été soulevé
+- Mettre en avant la nouveauté
+- Manque de détails / formules mathématiques pour rendre la méthode plus reproduisible Ex Jaccard manque de rigueur
+- Ajouter des tests de significativité aux résultats
+- Vertex/Vector -> plus de modélisation formelle
+- Etre plus pédagogique dès l'intro
+
+Questions
+- Peut-on donner plus de poids au corpus d'apprentissage par rapport au corpus externe ? Enrichissement itératif -> Gabriela Passi
+- Polysemy vs Synonymy : HLM pourrait mettre en valeur cette différence
+- Analyser les résultats de façon plus qualitative Ex textes difficiles 
+- 

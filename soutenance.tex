@@ -1,0 +1,1410 @@
+\documentclass[10pt,xcolor=table]{beamer}
+
+\usetheme{metropolis}
+\makeatletter
+\setbeamertemplate{headline}{%
+  \begin{beamercolorbox}[colsep=1.5pt]{upper separation line head}
+  \end{beamercolorbox}
+  \begin{beamercolorbox}{section in head/foot}
+    \vskip2pt\insertnavigation{\paperwidth}\vskip2pt
+  \end{beamercolorbox}%
+  \begin{beamercolorbox}[colsep=1.5pt]{lower separation line head}
+  \end{beamercolorbox}
+}
+\makeatother
+
+\usepackage{appendixnumberbeamer}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{forest} 
+\usepackage{adjustbox}
+\usepackage{mathtools}
+\usepackage{tikz}
+\newcommand*\circled[1]{\tikz[baseline=(char.base)]{
+            \node[shape=circle,draw,inner sep=1pt] (char) {#1};}}
+
+%\usepackage[scale=2]{ccicons}
+
+\usepackage[backend=bibtex,style=alphabetic,sorting=ynt]{biblatex}
+\addbibresource{Thesis_f.bib}
+
+\usepackage{pgfplots}
+\usepgfplotslibrary{dateplot}
+
+\usepackage{xspace}
+\newcommand{\themename}{\textbf{\textsc{metropolis}}\xspace}
+
+% \usepackage[T1]{fontenc} 
+% \usepackage[latin1]{inputenc}
+% \usepackage[frenchb]{babel}
+\usepackage{FiraSans}
+ 
+
+\usepackage[ruled]{algorithm2e}
+
+\SetKwRepeat{Do}{do}{while}%
+\SetKwInput{KwInput}{Input}
+\SetKwInput{KwOutput}{Output}
+
+\hbadness=10000
+
+
+\usepackage{url}
+
+\usepackage{graphicx}
+% % % % % % % % % % % % % % % % % % %DEFINITIONS MINE
+\newcommand\mlex{M^{\scriptscriptstyle L}}
+\newcommand\msyn{M^{\scriptscriptstyle S}}
+\newcommand\mstd{M^{\scriptscriptstyle T}}
+\newcommand\slex{S^{\scriptscriptstyle L}}
+\newcommand\ssyn{S^{\scriptscriptstyle S}}
+\newcommand\sstd{S^{\scriptscriptstyle T}}
+
+
+
+\title{\large Hypergraphs and Information Fusion for Term Representation Enrichment. Applications to Named Entity Recognition and Word Sense Disambiguation}
+\subtitle{\normalsize  Ph.D. Thesis Defense}
+
+% \\ 
+%February 7th 2018 \\ 
+%Supervisor: Sabine Loudcher \\
+%Co-supervisor: Julien Ah-Pine \\ 
+%Laboratoire ERIC \\ Universit\'{e} Lumi\`{e}re Lyon 2}
+\date[February 7th, 2018]{February 7th, 2018}
+\author[Pavel SORIANO-MORALES]{\normalsize Pavel Soriano-Morales\\{Supervised by Sabine Loudcher and Julien Ah-Pine}}
+
+\institute{
+	 \vspace{15mm} % 
+	\begin{center}
+      \includegraphics[height=0.9cm]{Logo/Logo_Lyon_1}% Logo Lyon 1
+      \includegraphics[height=0.9cm]{Logo/Logo-Lyon2}% Logo Lyon 2 
+      \includegraphics[height=0.9cm]{Logo/Logo-udl}% Logo Univ Lyon
+      \includegraphics[height=0.9cm]{Logo/Logo_ISH}% Logo ISH
+      
+      \end{center}
+      }
+ \titlegraphic{\vspace{6mm}\hfill\includegraphics[height=1.3cm]{Logo/4_Logo_ERIC_avec_baseline}} % Logo ERIC
+  
+\begin{document}
+
+\maketitle
+\begin{frame}{Introduction}
+\large  \textbf{Why it is useful to  we research written language understanding?} \hfill
+\vspace{1cm}
+\begin{columns}
+\column{0.5\textwidth}
+\begin{minipage}[c][0.5\textheight][c]{\linewidth}
+\includegraphics[width=1\linewidth]{image2/Chapitre1/guido_google.png}
+\end{minipage}
+\column{0.5\textwidth}
+\begin{minipage}[c][0.5\textheight][c]{\linewidth}
+\includegraphics[width=1\linewidth]{image2/Chapitre1/lda_2d.jpg}
+\end{minipage}
+\end{columns}
+
+%
+% 
+%
+\vspace{\textheight}
+\end{frame}
+
+\begin{frame}{Introduction}
+\large  \textbf{How do we extract meaning from written language?} \hfill
+%\vspace{1cm}
+
+\begin{itemize}
+\item[] {{We use \textbf{Natural Language Processing} (NLP), a field of computer science interested on making computers extract useful information from text}}
+\end{itemize}
+\begin{figure}
+\centering
+\includegraphics[width=1\linewidth]{image2/Chapitre1/nlp_flow2}
+\end{figure}
+\vspace{\textheight}
+\end{frame}
+
+	
+\begin{frame}{Introduction}
+\large  \textbf{In this thesis, we focus on {Feature Representation} and {Knowledge Discovery}} \hfill
+%\vspace{1cm}
+
+
+\begin{columns}
+\column{0.5\textwidth}
+\begin{itemize}
+\item[] How do we represent text for the machine to understand? 
+\end{itemize}
+\begin{minipage}[c][0.5\textheight][c]{\linewidth}
+\centering
+\includegraphics[width=.7\linewidth]{image2/Chapitre1/matrix.png}
+\end{minipage}
+\column{0.5\textwidth}
+\begin{itemize}
+\item[] What techniques do we use to discover meaning from text?
+\end{itemize}
+\begin{minipage}[c][0.5\textheight][c]{\linewidth}
+\centering
+\includegraphics[width=.8\linewidth]{image2/Chapitre1/kdisc.png}
+\end{minipage}
+\end{columns}
+
+\vspace{\textheight}
+\end{frame}
+
+\begin{frame}{Introduction}
+\large  \textbf{Research work carried out in this thesis} \hfill
+  \begin{itemize}%[<+- | alert@+>]
+    \item \textbf{Main Challenges and Contributions}
+    	    \begin{enumerate}%[<+- | alert@+>]
+    	    	 \item What type of model can we employ to represent a corpus using heterogeneous features?
+%    	    	 what type of model can we employ to represent a corpus through a set of heterogeneous features, extracted from itself, while keeping record of the relationships between textual units? How can we organize and store this model as simply and efficiently possible?
+	    	    	 \begin{itemize}
+	    	    	 \item \textit{Hypergraph linguistic model to hold different types of  linguistic information}
+	    	    	 \end{itemize}
+	    	    	 
+    	    	 \item How can we combine these features while dealing with feature sparsity?
+	    	    	 \begin{itemize}
+	    	    	 \item \textit{Multimedia fusion techniques to combine and densify representation spaces}	    	 
+	    	    	 \end{itemize}
+    	    	 \item How can we find and employ communities existing within the language networks?
+    	    	 \begin{itemize}
+    	    	 \item \textit{An alternative network-based algorithm to discover semantically related words within a text}
+    	     	 \end{itemize}
+    	    	 
+        	\end{enumerate}%[<+- | alert@+>]
+    
+
+
+  \end{itemize}
+ \vspace{\textheight}
+\end{frame}
+
+\begin{frame}{Introduction}
+\large  \textbf{Approach Overview} \hfill
+\begin{center}
+\includegraphics[width=1.04\linewidth]{image2/Chapitre1/main_diag_presi.pdf}
+\end{center}
+
+ \vspace{\textheight}
+\end{frame}
+
+
+
+\section{First Contribution: Hypergraph Linguistic Model}
+\begin{frame}{Work Overview}
+%\large  \textbf{Approach Overview} \hfill
+\begin{center}
+\includegraphics[width=1.04\linewidth]{image2/Chapitre3/main_diag_contr1.pdf}
+\end{center}
+
+ \vspace{\textheight}
+\end{frame} 
+
+
+\begin{frame}{Introduction}
+\large \textbf{What type of model can we employ to represent textual features? Which textual features?}
+%todo Add here the networks by choudhury et al venus stuff
+\vspace{.5cm}
+\begin{itemize}
+	\item \textbf{Models used to represent textual information}
+		\begin{itemize}
+		\item Vector Space Models \cite{manning1999foundations}
+		\item Network Models \cite{2004.Mihalcea.SemanticNetworkPageRank}
+		
+		\end{itemize}
+	\vspace{.5cm}
+	\item \textbf{Generally used types of features} 
+		\begin{itemize}
+		\item Lexical: words as they appear in the text
+		\item Syntactic: the role a word plays in the text
+		\item Semantic: the meaning of the word given the text
+		\end{itemize}
+%	\cite{Choudhury2009,sole2010language,Mihalcea2011}
+\end{itemize}
+\vspace{\textheight}
+\end{frame}
+
+\subsection{Hypergraph Representation}
+
+
+
+\begin{frame}{State of the Art and Proposition}
+%\begin{itemize}
+	\large \textbf{How to represent words in a network according to different language properties?}
+%\vspace{.5cm}
+%	\normalsize
+%\end{itemize}
+
+%todo Add here the networks by choudhury et al venus stuff
+
+\begin{itemize}
+	\item \textbf{Existing representations} 
+%	\cite{Choudhury2009,sole2010language,Mihalcea2011}
+	\begin{itemize}
+		\item {Lexical Co-occurrence Networks} \cite{2011.DiMarco.Navigli.ClusteringWebSearch,2011.Jurgens.WSICommunityDetection,2014.Tao.Qian.LexicalChainHypergraphWSI}
+		\item {Syntactic Co-occurrence Networks} \cite{2013.Bronselaer.TextAnalysisWithGraphs}
+		\item Semantic Networks \cite{2010.Siberer.GraphCooccurrenceWSD,2014.Moro.Navigli.EntityLinking_WSD}
+		\item Heterogenous Networks	\cite{2013.Saluja.Graph-BasedUnsupervisedLearning}	
+	\end{itemize}
+\end{itemize}
+\begin{columns}
+\column{0.33\textwidth}
+\textbf{\normalsize Lexical Networks}
+\begin{minipage}[c][0.3\textheight][c]{\linewidth}
+\includegraphics[width=1\linewidth]{image2/Chapitre2/lex_net1.pdf}
+\end{minipage}
+\column{0.33\textwidth}
+\textbf{\normalsize Syntactic Networks} 
+\begin{minipage}[c][0.3\textheight][c]{\linewidth}
+\includegraphics[width=1\linewidth]{image2/Chapitre2/syn_net1.pdf}
+\end{minipage}
+\column{0.32\textwidth}
+\textbf{\normalsize Semantic Networks} 
+\begin{minipage}[c][0.3\textheight][c]{\linewidth}
+\includegraphics[width=1\linewidth]{image2/Chapitre2/sem_net.pdf}
+\end{minipage}
+\end{columns}
+
+
+\end{frame}
+
+\begin{frame}{State of the Art and Proposition}
+\begin{itemize}
+\item \textbf{Limitations of existing representations}
+	\begin{itemize}
+	\item Language networks generally employ a single type of textual information
+	\item The edges of the network may relate maximum two words at each time
+%	\item There is no 
+	\end{itemize}
+\item \textbf{Proposition}
+	\begin{itemize}
+	\item Represent together linguistic co-occurrences through a hypergraph model
+	\begin{itemize}
+	\item Link together three different types of networks, using lexical and syntactic data
+	\item Get a semantic overview at three different levels: short range (with dependency functions), medium range (phrase constituency membership), and long range (lexical  co-occurrence) 
+	\end{itemize}
+	
+	\end{itemize}
+\end{itemize}
+\vspace{\textheight}
+\end{frame}
+
+\begin{frame}{Proposed Model: Definitions}
+\large \textbf{Hypergraph Linguistic Model}
+\begin{itemize}
+	
+	\item \textbf{Hypergraph:}
+	\begin{itemize}
+		\item A graph generalization, where edges may link more than 2 nodes at the same time. It can be seen as a set of sets
+	\end{itemize}
+
+\end{itemize}
+\centering
+\includegraphics[width=1\linewidth]{image2/Chapitre3/graph_vs_hgraph.pdf}
+\vspace{\textheight}
+\end{frame}
+
+
+\begin{frame}{Proposed Model: Definitions}
+\large \textbf{Hypergraph Linguistic Model}
+\begin{itemize}
+	
+	\item \textbf{Linguistic Features:}
+	\begin{enumerate}
+		\item \textbf{CONSTITUENT $\mathbf{(M^N)}$:} noun phrase constituents memberships
+		\item \textbf{DEPENDENCY $\mathbf{(M^S)}$} dependency relations. We consider all types of dependency functions between nouns and verbs,
+		\item \textbf{SENTENCE $\mathbf{(M^L)}$:} lexical context, in this case the window considered is the whole sentence
+	\end{enumerate}
+	\item **Show image with the three different levels**
+\end{itemize}
+\centering
+\vspace{\textheight}
+\end{frame}
+
+
+
+\begin{frame}{Proposed Model: Working Example}
+\begin{itemize}
+	\item \large \textbf{Input:} Set of linguistic features from an entry corpus
+	\item \textbf{Output:} A network relating words according to the input features. Computationally, a key-value structure holding words and their descriptors for fast retrieval
+	\item   \textbf{Example sentence \textbf{S$_1$}:}
+		\begin{itemize}
+			\item[]  \textit{The report contains \textbf{copies} of the minutes of these meetings}. \note{After tokenization,  lemmatization and parsing, we obtain both constituency and dependency trees.}
+		\end{itemize}
+	
+	 
+\end{itemize}
+
+\begin{columns}
+	\column{0.7\textwidth}
+	\begin{minipage}[c][0.4\textheight][c]{\linewidth}
+	\centering
+	\includegraphics[width=.8\linewidth]{img/tree.pdf}
+	\end{minipage}
+	\column{0.35\textwidth}
+	\begin{minipage}[c][0.4\textheight][c]{\linewidth}
+	%  \centering
+	%\large
+	\color{black!40}root(root,~contains) \\
+	\color{black!40}det(report,~The) \\
+	\color{blue!70}{\textbf{dobj(contains,~copies)}}
+	\color{black!40}case(minutes,~of)
+	\end{minipage}
+\end{columns}
+
+\end{frame}
+
+
+\begin{frame}{Proposed Model: Working example}
+
+	\begin{columns}
+	\column{1\textwidth}
+	\begin{minipage}[c][0.4\textheight][c]{\linewidth}
+	  \centering
+	  \includegraphics[width=.6\linewidth]{img/hypergraph_copies.pdf}
+	\end{minipage}
+	\begin{minipage}[c][0.5\textheight][c]{\linewidth}
+		\centering
+		\includegraphics[width=.9\linewidth]{img/incidence_aug.pdf}
+	\end{minipage}
+	\end{columns}
+\end{frame}
+
+\begin{frame}
+\large \textbf{Challenges of textual representations}
+\vspace{1cm}
+
+\begin{columns}
+	\column{0.5\textwidth}
+	\center
+	\large \textbf{Sparsity}
+	\begin{minipage}[c][0.5\textheight][c]{\linewidth}
+	\centering
+	\includegraphics[width=.9\linewidth]{image2/Chapitre2/square_syn.png}
+	\end{minipage}
+	\column{0.5\textwidth}
+	\center
+	\textbf{Heterogeneity}
+	\begin{minipage}[c][0.5\textheight][c]{\linewidth}
+		\centering
+	  	\includegraphics[width=.9\linewidth]{image2/Chapitre2/heterogenous_netw.jpg}
+	\end{minipage}
+\end{columns}
+\vspace{\textheight}
+\end{frame}
+
+
+%\begin{frame}
+%\begin{itemize}
+%	\item \textbf{What to do with our HLM?}
+%	\begin{itemize}
+%		\item We chose to solve Word Sense Induction and Disambiguation (WSI/WSD)
+%		\item Elemental NLP tasks that are naturally solved using the distributional hypothesis
+%	\end{itemize}
+%\end{itemize}
+%\end{frame}
+
+
+\section{Second \bfseries{Contribution}: Combining Features and Dealing with Sparsity}
+
+\begin{frame}{Work Overview}
+%\large  \textbf{Approach Overview} \hfill
+\begin{center}
+\includegraphics[width=1.04\linewidth]{image2/Chapitre3/main_diag_presi_contri2.pdf}
+\end{center}
+
+ \vspace{\textheight}
+\end{frame} 
+\subsection{Term Representation Enrichment}
+
+\begin{frame}{Introduction}
+\large \textbf{Multimedia Fusion Techniques \cite{AtreyHEK10,ahn2010link}}:
+%\vspace{.5cm}
+\begin{itemize}
+\item \large \textbf{Definition}
+	\begin{itemize}
+	\item Set of techniques used in multimedia analysis tasks to integrate multiple media 
+	\item The goal is to obtain rich insights about the data being treated
+	\item We adapt these techniques to our use case: textual information
+	\end{itemize}
+\item \textbf{Main fusion operators:}
+	\begin{itemize}
+	\item Early Fusion $E_\alpha(\cdot)$, 
+	\item Late Fusion $L_\beta(\cdot)$, 
+	\item Cross Fusion $X_\gamma(\cdot), X_F(\cdot)$
+	\item $\alpha$ and $\beta$: Assign an importance weight to each of their operators 
+	\item $\gamma$: number of top similar items to take from the similarity space
+	\end{itemize}
+
+\end{itemize}
+\end{frame}
+
+
+
+
+\begin{frame}{Early Fusion}
+%\large \textbf{Early Fusion}
+\begin{center}
+\includegraphics[width=.7\linewidth]{image2/Chapitre3/ef_diag}
+\end{center}
+\end{frame}
+
+
+\begin{frame}{Late Fusion}
+\begin{columns}
+	\column{0.5\textwidth}
+	\center
+	\begin{minipage}[c][0.5\textheight][c]{\linewidth}
+	\centering
+	\includegraphics[width=.9\linewidth]{image2/Chapitre3/lf1_diag.pdf}
+	\end{minipage}
+	\column{0.5\textwidth}
+	\center
+	\begin{minipage}[c][0.5\textheight][c]{\linewidth}
+		\centering
+	  	\includegraphics[width=.9\linewidth]{image2/Chapitre3/lf2_diag.pdf}
+	\end{minipage}
+\end{columns}
+
+\end{frame}
+
+\begin{frame}{Cross Fusion}
+\begin{center}
+\includegraphics[width=.55\linewidth]{image2/Chapitre3/xf_diag.pdf}
+\end{center}
+\end{frame}
+
+
+\begin{frame}[t]{Levels of Fusion}
+\large \textbf{In our work we distinguish three levels of fusion operators:} 
+\vspace{.5cm}
+\begin{itemize}
+\item  \textbf{First Degree Fusion (1F)}
+	\begin{itemize}
+	\item $E(M^L, M^S)$
+	\item $X_F(S^L, M^S)$
+	\item $X_S(S^S, S^L)$
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}[t]{Levels of Fusion}
+\large \textbf{In our work we distinguish three levels of fusion operators:} 
+\vspace{.5cm}
+\begin{itemize}
+\item  \textbf{Second Degree Fusion (1F)}
+	\begin{itemize}
+	\item Cross Feature Early Fusion: $X_F(S^L, E(M^L, M^S))$
+	\item Cross Feature Cross Similarity Fusion: $X_F(X_S(S^T,S^S),M^T)$
+	\item Early Cross Feature Fusion:  $E(M^T , X_F(S^L , M^T ))$
+	\item Late Cross Feature Fusion: $L(M^T , X_F(S^T , M^T ))$
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+
+
+\begin{frame}[t]{Levels of Fusion}
+\large \textbf{In our work we distinguish three levels of fusion operators:} 
+\vspace{.5cm}
+\begin{itemize}
+\item  \textbf{Higher Degree Fusion (HF)}
+	\begin{itemize}
+	\item $E(M^L , E(E(M^T , L(M^T , X_F (S^T , M^T ))) , L(M_L , X_F (S^S , M^L ))))$
+		\begin{itemize}
+			\item **Show decomposition of operator graphically**
+			
+		\end{itemize}
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}{Work Overview}
+%\large  \textbf{Approach Overview} \hfill
+\begin{center}
+\includegraphics[width=1.04\linewidth]{image2/Chapitre3/main_diag_presi_contri2_1.pdf}
+\end{center}
+
+ \vspace{\textheight}
+\end{frame} 
+
+
+\begin{frame}{SAEWD: A Wikipedia Enriched Hypergraph}
+%\large  \textbf{Approach Overview} \hfill
+\begin{center}
+\includegraphics[width=.7\linewidth]{image2/Chapitre3/flow_chart.pdf}
+\end{center}
+
+ \vspace{\textheight}
+\end{frame} 
+
+\begin{frame}{Wikipedia Feature Enriched Spaces}
+%\textbf{Target word \textit{priest} and its top 5 most similar words using different representation matrices.}
+
+\begin{tabular}{@{}llllll@{}}
+\toprule
+                           & \textbf{\begin{tabular}[c]{@{}l@{}}Lexical\\ Features\\(5.49\%)\\$\mlex$\end{tabular}}              
+                           & \textbf{\begin{tabular}[c]{@{}l@{}}Syntactic\\ Features\\(4.97\%)\\$\msyn$\end{tabular}}        
+                           & \textbf{\begin{tabular}[c]{@{}l@{}}Early\\ Fusion\\(5.23\%)\\$E(\mlex, \msyn)$\end{tabular}}                
+                           & \textbf{\begin{tabular}[c]{@{}l@{}}$X_F$\\Fusion\\(16.75\%)\\$X_F(\ssyn, \mlex)$\end{tabular}}   &
+                           \textbf{\begin{tabular}[c]{@{}l@{}}$X_F$\\Fusion\\ (13.45\%) \\$X_F(\slex, \msyn)$\end{tabular}}                 \\ \midrule
+\multicolumn{1}{c}{\textbf{priest}} & \begin{tabular}[c]{@{}l@{}}priests\\ nun\\ canton\\ sailor\\ burial\end{tabular} & \begin{tabular}[c]{@{}l@{}}monk\\ regent\\ aedile\\ seer\\ meek\end{tabular} & \begin{tabular}[c]{@{}l@{}}sailor\\ regent\\ nuclei\\ nun\\ relic\end{tabular} & \begin{tabular}[c]{@{}l@{}}vassal\\ regent\\ nun\\ sailor\\ monk\end{tabular} & \begin{tabular}[c]{@{}l@{}}sailor\\ fluent\\ dean\\ nuclei\\ chorus\end{tabular} \\
+
+ \bottomrule
+
+\end{tabular}
+\end{frame}
+
+\begin{frame}{Wikipedia Similarity Enriched Spaces}
+\smaller
+\begin{tabular}{@{}lllllll@{}}
+\toprule
+                           & \textbf{\begin{tabular}[c]{@{}l@{}}Lexical\\ Similarity\\(75.25\%)\\$S^L$\end{tabular}}              & \textbf{\begin{tabular}[c]{@{}l@{}}Syntactic\\ Similarity\\(60.64\%)\\$S^S$\end{tabular}}        & \textbf{\begin{tabular}[c]{@{}l@{}}Early\\ Fusion\\(67.94\%)\\$E(S^L, S^S)$\end{tabular}}                & \textbf{\begin{tabular}[c]{@{}l@{}}Late\\ Fusion\\(83.17\%)\\$L(S^L, S^S)$\end{tabular}}                 & \textbf{\begin{tabular}[c]{@{}l@{}}$X_S$\\ Fusion\\(87.22\%)\\$X_S(\ssyn, \slex)$\end{tabular}}  &
+                           \textbf{\begin{tabular}[c]{@{}l@{}}$X_S$\\
+                           Fusion\\(79.69\%)\\$X_S(\slex,\ssyn)$\end{tabular}}                 
+                           \\ \midrule
+\multicolumn{1}{c}{\textbf{priest}} 
+& \begin{tabular}[c]{@{}l@{}}wholly\\burial\\monk\\lingua\\nuclei\end{tabular} &
+\begin{tabular}[c]{@{}l@{}}regent\\ coach\\ broker\\ dream\\tailor\end{tabular} & \begin{tabular}[c]{@{}l@{}}regent\\slang\\ broker\\rebel\\tiger\end{tabular} & \begin{tabular}[c]{@{}l@{}}regent\\slang\\ seer\\ tutor\\cradle\end{tabular} & \begin{tabular}[c]{@{}l@{}}regent\\vassal\\vizier\\leader\\result\end{tabular} & \begin{tabular}[c]{@{}l@{}}sailor\\nuclei\\nun\\canton\\burial\end{tabular} \\
+
+ \bottomrule
+
+\end{tabular}
+\end{frame}
+
+
+
+
+
+\section{Third Contribution: Applications to Named Entity Recognition and Word Sense Disambiguation}
+
+\begin{frame}{Work Overview}
+%\large  \textbf{Approach Overview} \hfill
+\begin{center}
+\includegraphics[width=1.04\linewidth]{image2/Chapitre4/main_diag_presi_contri3.pdf}
+\end{center}
+
+ \vspace{\textheight}
+\end{frame} 
+
+\begin{frame}{Introduction}
+\large \textbf{Applications}
+\vspace{.5cm}
+\begin{itemize}
+\item Use the proposed model  to solve two NLP tasks:
+	\begin{itemize}
+	\item Named Entity Recognition 
+	\item Word Sense Induction and Disambiguation
+	\end{itemize}
+\vspace{.3cm}
+\item These experiments have two main objectives:
+	\begin{itemize}
+	\item Test the effectiveness of fusion enriched representations (heterogeneity + less sparse spaces)
+	\item Leverage the structure of the network built following our proposed model
+	\end{itemize}
+
+\end{itemize}
+\vspace{\textheight}
+\end{frame}
+
+\subsection{Named Entity Recognition (NER)}
+
+
+
+
+\begin{frame}{Introduction}
+\textbf{Definition and Objectives}
+\begin{itemize}
+\item  The goal is to automatically discover  mentions that belong to a well-defined semantic category. 
+\item The classic task of NER involves detecting among four types of entities and a non-entity class:
+	\begin{itemize}
+	\item Location (LOC)
+	\item Organization (ORG)
+	\item Person (PER)
+	\item Miscellaneous (MISC)
+	\item None (O)
+	\end{itemize}
+\item We assess the effectiveness of the classic fusion methods and propose new hybrid combinations 
+\item ** Show here graphical presentation of entities**
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}{Experiment Flow Diagram}
+\centering
+\includegraphics[width=0.85\linewidth]{image2/Chapitre4/diag_metodoNER.pdf}
+\end{frame}
+
+
+\begin{frame}{Representation Spaces}
+\large \textbf{Lexical Space (L)}
+\vspace{1cm}
+\small
+
+\begin{tabular}{ll}
+	
+	\hline 
+	 \textbf{Word} & \textbf{Features} \\ 
+	\hline 
+	Australian & word:Australian, word+1:scientist, word+2:discovers\\ 
+	scientist  &  word-1:Australian, word:scientist, word+1:discovers, word+2:star\\ 
+	discovers & word-2:Australian, word-1:scientist, $\dots$, word+2:telescope \\ 
+	star & word-2:scientist, word-1:discovers, word:star, $\dots$, word+2:telescope \\ 
+	with & word-2:discovers, word-1:star, word:with, word+1:telescope \\ 
+	telescope  &  word-2:star, word-1:with, word:telescope \\ 
+	\hline \
+\end{tabular} 
+\vspace{\textheight}
+\end{frame}
+
+
+\begin{frame}{Representation Spaces}
+	\large \textbf{Syntactic Space (S)}
+	\vspace{1cm}
+	\small
+	
+	
+	\begin{tabular}{ll}
+	\hline 
+	 Word & Contexts \\ 
+	\hline 
+	Australian & scientist/NN/amod\_inv \\ 
+	scientist  &  Australian/JJ/amod, discovers/VBZ/nsubj\_inv\\ 
+	discovers & scientist/NN/nsubj, star/NN/dobj, telescope/NN/nmod:with \\ 
+	star & discovers/VBZ/dobj\_inv \\ 
+	telescope  &  discovers/VBZ/nmod:with\_inv \\ 
+	\hline \
+	\end{tabular} 
+	 
+	\vspace{\textheight}
+\end{frame}
+
+
+
+\begin{frame}{Representation Spaces}
+	\large \textbf{Standard Features Space (T)}
+	\vspace{1cm}
+	\begin{itemize}
+		\item Each word
+		\item Whether it is capitalized
+		\item Prefix and suffix (of each word their surroundings)
+		\item Part of Speech tag
+	\end{itemize}	 
+	\vspace{\textheight}
+\end{frame}
+
+
+
+\begin{frame}{Experimental Protocol}
+	\begin{itemize}
+		\item \large \textbf{Preprocessing}
+			\begin{itemize}
+				\item Normalize numbers
+			\end{itemize}
+		\item \textbf{Test Corpora}
+			\begin{itemize}
+			\item CoNLL-2003 (CONLL) \cite{SangM03}: Train: 219,554 lines. Test: 50,350 
+			\item Wikiner (WNER) \cite{Nothman2009}: No Train/Test split. 3.5 million words. Evaluated in a 5-fold CV
+			\item Wikigold (WGLD) \cite{Balasuriya2009}: No Train/Test split. 41,011 words. Evaluated in a 5-fold CV
+			\end{itemize}
+		\item \textbf{Annotation Scheme}
+			\begin{itemize}
+				\item \textbf{B}eginning, \textbf{I}nside, \textbf{O}utside
+			\end{itemize}
+		\item \textbf{Learning Algorithm}
+			\begin{itemize}
+				\item Structured Perceptron \cite{Collins2002}
+			\end{itemize}
+
+		\item \textbf{Evaluation Metrics}
+			\begin{itemize}
+				\item Precision, Recall, F-measure
+			\end{itemize}
+	\end{itemize}	 
+	\vspace{\textheight}
+\end{frame}
+
+\begin{frame}{Evaluation}
+\textbf{F-measure on the three datasets using single features independently with the structured perceptron}
+\vspace{1cm}
+\begin{center}
+	\begin{tabular}{@{}lccc@{}}
+	\toprule
+	$A$                           & \multicolumn{3}{c}{\textbf{Single Features}} \\ \midrule
+	                & \textbf{CONLL}    & \textbf{WNER}     & \textbf{WGLD}    \\ \cmidrule{2-4}
+	$\mstd$                        & \textbf{77.41}    & \textbf{77.50}    & \textbf{59.66}   \\
+	$\mlex$                       & 69.40    & 69.17    & 52.34   \\
+	$\msyn$                        & 32.95    & 28.47    & 25.49   \\ \bottomrule
+	\end{tabular}
+\end{center}
+\vspace{\textheight}
+\end{frame}
+
+
+\begin{frame}[t]{Evaluation}
+\textbf{F-measure on the three datasets using First Degree (1F)  fusion operators}
+\vspace{1cm}
+\begin{columns}
+\column{0.5\textwidth}
+\begin{minipage}[c][0.5\textheight][c]{\linewidth}
+\includegraphics[width=1\linewidth]{image2/Chapitre4/1F_1.png}
+\end{minipage}
+\column{0.5\textwidth}
+\begin{minipage}[c][0.5\textheight][c]{\linewidth}
+\includegraphics[width=1\linewidth]{image2/Chapitre4/1f_2.png}
+\end{minipage}
+\end{columns}
+
+\vspace{\textheight}
+\end{frame}
+
+\begin{frame}[t]{Evaluation}
+\textbf{F-measure on the three datasets using Second Degree (2F)  fusion operators}
+\vspace{.3cm}
+\begin{columns}
+\column{0.5\textwidth}
+ \small In $X_FX_SF$, $\hat{a}$ corresponds to the best performing matrix in the set $\{ X_S(\sstd, \slex),X_S(\slex, \sstd), \allowbreak X_S(\sstd, \ssyn)\}$
+\begin{minipage}[c][0.5\textheight][c]{\linewidth}
+\includegraphics[width=1\linewidth]{image2/Chapitre4/2F_1.png}
+\end{minipage}
+\column{0.5\textwidth}
+In $EX_FF$, $b^*_{\scriptscriptstyle EX_FF}$  $\in$ $\{X_F(\ssyn, \mlex), \allowbreak X_F(\slex, \mlex), X_F(\slex, \mstd), \allowbreak X_F(\ssyn, \mlex), X_F(\ssyn, \mstd) \}$
+\begin{minipage}[c][0.5\textheight][c]{\linewidth}
+\includegraphics[width=1\linewidth]{image2/Chapitre4/2F_2.png}
+\end{minipage}
+\end{columns}
+
+\vspace{\textheight}
+\end{frame}
+
+
+\begin{frame}[t]{Evaluation}
+\textbf{F-measure on the three datasets using Higher Degree (HF)  fusion operators}
+
+ \small In $EEELX_FLX_F$, $\hat{b}_{\scriptscriptstyle EEELX_FLX_F} \in  E(E(\mstd, 	 L(\mlex, X_F(\ssyn, \mlex))), \allowbreak L(\mlex, X_F(\sstd, \mlex))), E(E(\mstd, 	 L(\mstd, X_F(\ssyn, \mstd)))\allowbreak, L(\mlex, X_F(\ssyn, \mlex)))$ for CONLL, WNER and WGLD.
+\begin{center}
+\includegraphics[width=0.6\linewidth]{image2/Chapitre4/hf}
+\end{center}
+
+
+\vspace{\textheight}
+\end{frame}
+
+\subsection{Fusion Analysis}
+\begin{frame}{Analyzing the Best Fusion Operator}
+Decompose best fusion in four models:
+\begin{equation*}
+\overbrace{\underbrace{\overbrace{E_{\alpha=0.95}(\underbrace{\mlex}_{\circled{1}},\mstd}^{\circled{2}},L(\mstd, X_F(\ssyn, \mstd))}_{\circled{3}}, L(\mlex, X_F(\ssyn, \mlex))}^{\circled{4}})
+\end{equation*}
+\begin{enumerate}
+\item[\circled{1}] $\mlex$ \label{eq:f1} used to train model $M_1$.
+\item[\circled{2}] $E(\alpha_1\mlex, \alpha_2\mstd)$ \label{eq:f2} used to train model $M_2$, with $\alpha_1=0.95,\alpha_2=0.05$
+\item[\circled{3}] $E_\alpha(\alpha_1\mlex, \alpha_2\mstd, \alpha_3L(\mstd, X_F(\ssyn, \mstd)))$ used to train model $M_3$, with $\alpha_1=0.95,\alpha_2=\alpha_3=0.05$
+\item[\circled{4}] $E_\alpha(\alpha_1\mlex, \alpha_2\mstd, \alpha_3L(\mstd, X_F(\ssyn, \mstd)), \alpha_4L(\mlex, X_F(\ssyn, \mlex)))$ used to train model $M_4$, with $\alpha_1=0.95,\alpha_2=\alpha_3=\alpha_4=0.05$
+\end{enumerate}
+\end{frame}
+
+
+\begin{frame}{Analyzing the Best Fusion Operator}
+\large \textbf{We focus on the word \textit{Kory}, and its performance from model $M_1$ to $M_2$}
+\begin{center}
+\includegraphics[width=0.6\linewidth]{image2/Chapitre4/fanal1.png}
+\end{center}
+\end{frame}
+
+
+\begin{frame}{Analyzing the Best Fusion Operator}
+\large \textbf{We focus on the word \textit{Green}, and its performance from model $M_3$ to $M_4$}
+\begin{center}
+\includegraphics[width=0.6\linewidth]{image2/Chapitre4/fanalm3_m4.png}
+\end{center}
+\end{frame}
+
+\subsection{Word Sense Disambiguation}
+\begin{frame}{Experiment Flow Diagram}
+\begin{center}
+\includegraphics[width=0.9\linewidth]{image2/Chapitre4/diag_metodoWSD.pdf}
+\end{center}
+\end{frame}
+
+\begin{frame}
+\large \textbf{Experimental Protocol}
+\end{frame}
+
+
+\begin{frame}
+\large \textbf{Supevised Evaluation}
+\end{frame}
+
+
+\begin{frame}
+\large \textbf{Unsupevised Evaluation}
+\end{frame}
+
+\begin{frame}
+\large \textbf{Proposed Evaluation}
+\end{frame}
+
+\subsection{Leveraging the Linguistic Network Structure}
+
+\begin{frame}{Introduction and State of the Art}
+
+	\large  \textbf{How to exploit a linguistic network to solve word sense induction and disambiguation?}
+	\vspace{.5cm}
+	\normalsize
+	\begin{itemize}
+		\item \textbf{Existing graph-based approaches}
+			\begin{itemize}
+				\item Hyperlex \cite{2004.Veronis}
+				\item University of York (UoY) \cite{2007.Klapaftis.UOY}
+			\end{itemize}
+		\item \textbf{Limitations of existing approaches}
+		\begin{itemize}
+			\item Single typed networks
+			\item Large number of parameters
+		\end{itemize}
+	
+	
+\end{itemize}
+\vspace{\textheight}	
+\end{frame}
+
+
+
+
+
+
+\begin{frame}{Proposed Method}
+\begin{itemize}
+
+	\item \textbf{Features}
+		\begin{itemize}
+				\item Automatically group words to induce senses and then assign them
+				\item Be able to exploit different types of linguistic information (lexical or syntactic co-occurrence)
+				\item Keep  the number of parameters low and allow for their automatic adjusting according to the network's nature
+				\item Use a robust and interpretable similarity measure
+		
+		\end{itemize}
+	
+	
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}{Proposed Method}
+  \centering
+  \includegraphics[width=1\linewidth]{img/wsd_wsi.png}
+
+\end{frame}
+
+
+
+\begin{frame}{Proposed Method: Step One}
+
+\begin{itemize}
+	\item \textbf{Creation of the linguistic network}
+	\begin{itemize}
+		\item After preprocessing, we build a HLM $G_{tw}$ that contains the co-occurrent (lexically and syntactically) words for a target word $tw$.
+	\end{itemize}
+
+\end{itemize}
+
+
+\end{frame}
+
+\begin{frame}{Proposed Method: Step Two}
+\begin{itemize}
+
+\item \textbf{Computing the similarity between nodes}
+	\begin{itemize}
+		\item $G_{tw}$ is represented as a bipartite graph $B_{tw}$. Left nodes $U$ represent words and right nodes $W$ correspond to the hyperedges. An edge from a node $u$ to a node $w$ depicts the incidence of node $u$ in hyperedge $w$.
+		
+		\item A similarity matrix $S_{tw}$ of dimension $|U|\times|U|$ is calculated using the Jaccard similarity: given $n_{i,j} \in U$, then $Jaccard(i,j)=\frac{|N(i)\cap N(j)|}{|N(i)\cup N(j)|}$.
+	
+		
+		\item Induce a new incidence matrix $F_{tw}$ from $S_{tw}$ containing only the closest neighbours to each word $n_i \in U$. Each of these hyperedges represent a set of words that are deemed similar between them according to their Jaccard index value, which must be equal or higher than an assigned threshold $th_1$.
+		
+	\end{itemize}
+
+
+\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}{Proposed Method: Step Three}
+\begin{itemize}
+	\item \textbf{Clustering words together}
+	\begin{itemize}
+		\item We select the top $c$-nodes in $F_{tw}$ according to their degree. These nodes are candidate hubs, which must surpass a second threshold $th_2$ to be considered as proper hubs. We use the average Jaccard measure defined for each node $n$ as: $$AvgJaccard(n)=\frac{1}{|hedges(n)|}\sum_{h\in hedges(n)}\frac{\sum_{\substack{i\in h\\j\in h;i\neq j}}Jaccard(i,j)}{|h + 1|}$$ 
+		where $hedeges(n)$ is the set of hyperedges $n$ is incident in and its cardinality is defined as $|hedges(n)|$. $|h|$ is the number of nodes in hyperedge $h$. 
+		\item Accepted hubs represent senses alongside with their co-occurrent words. The final set of senses is called $SoS_{tw}$.
+		
+		
+		
+	\end{itemize}
+
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}{Proposed Method: Step Four}
+
+\begin{itemize}
+	\item\textbf{ Word Sense Disambiguation}
+	\begin{itemize}
+		\item The assignation of a sense consists in looking at each $tw$ instance represented by a context $ct$ and simply determining which sense $s$ in $SoS_{tw}$ shares the highest amount of words with $ct$. The sense $s$ is thus assigned to that instance. 
+%		If two senses in $SoS_{tw}$ share the same amount of words with $ct$, one of them is randomly chosen.  This operation is repeated for each instance of each target word. 
+	\end{itemize}
+
+\end{itemize}
+\end{frame}
+
+
+
+
+%\begin{frame}{Experiments}
+%\begin{itemize}
+%	\item \textbf{Implementation Framework}
+%	
+%	\begin{itemize}
+%	
+%		\item S\textbf{ystems built and evaluated}: \textbf{DEP} and \textbf{LEX}.
+%		\begin{itemize}
+%			\item \textbf{DEP}: Syntactical dependencies
+%			\item \textbf{LEX}: Lexical co-occurrences 
+%			
+%		\end{itemize}
+%	
+%		\item \textbf{Two datasets}: Semeval-2007 Task 2  and Semeval-2010 Task 14 \note{For brevity, only the results for the first dataset are discussed in this presentation.}
+%		\item \textbf{Evaluation metrics}: Unsupervised evaluation (Paired F-Score) ans supervised evaluation (Recall).
+%
+%
+%	\end{itemize}
+%	
+%
+%\end{itemize}
+%\end{frame}
+
+
+
+
+\begin{frame}{Semeval Results}
+\begin{itemize}
+	\item[] \textbf{Unsupervised paired F-Score (FS) for Semeval-2007}
+			 	\centering	           
+	\adjustbox{max height=\dimexpr\textheight-6.5cm\relax,
+	           max width=1\textwidth}{
+
+	
+	          
+	          \begin{tabular}{@{}lrrrr@{}}
+	          \toprule
+	          \textbf{FS (\%)} & \textbf{all} & \textbf{nouns} & \textbf{verbs} & \textbf{\#cl} \\ \midrule
+	          1c1word          & 78.9         & 80.7           & 76.8           & 1.00             \\
+	          UBC-AS           & 78.7         & 80.8           & 76.3           & 1.32          \\
+	         \rowcolor{lime!63}  \textbf{DEP}     & 74.9         & 80.2           & 69.0           & 3.27          \\
+	          \rowcolor{teal!63}\textbf{LEX}     & 61.4         & 62.6           & 60.1           & 4.26         \\
+	          UoY(2007)        & 56.1         & 65.8           & 45.1           & 9.28          \\
+	          Random           & 37.9         & 38.1           & 37.7           & 19.7             \\
+	          1c1instance & 	9.5         & 6.6           & 12.7           & 48.51             \\ \bottomrule
+	          \end{tabular}
+%	          \caption{Unsupervised F-Score (FS) for the Semeval 2007 test set}
+	           
+	           }
+	
+
+\end{itemize}
+\end{frame}
+
+
+
+\begin{frame}{Semeval Results}
+\begin{itemize}
+	\item[] \textbf{Supervised Recall (SR) for Semeval-2007}
+			 	\centering	           
+	\adjustbox{max height=\dimexpr\textheight-6.5cm\relax,
+	           max width=\textwidth}{
+
+	
+	         \begin{tabular}{@{}lrrrr@{}}
+	         \toprule
+	         \textbf{SR (\%)} & \textbf{all} & \textbf{nouns} & \textbf{verbs} & \textbf{\#cl} \\ \midrule
+	         I2R & 81.6 & 86.8 & 75.7 & 3.08 \\
+	         \rowcolor{teal!63}  \textbf{LEX} & 79.4 & 82.5 & 75.9 & 4.26 \\
+	         \rowcolor{lime!63}  \textbf{DEP} & 79.1 & 81.5 & 76.4 & 3.27\\
+	         MFS & 78.7 & 80.9 & 76.2 & 1 \\
+	         UoY(2007) & 77.7 & 81.6 & 73.3 & 9.28 \\ \bottomrule
+	         \end{tabular}
+	           
+	           }
+\end{itemize}
+\end{frame}
+
+
+
+
+\begin{frame}{Semeval Results}
+
+
+
+\begin{itemize}
+\item\textbf{Discussion}
+\begin{itemize}
+\item Both  \textbf{DEP} and \textbf{LEX} beat the competition baselines
+\item They also beat the most similar approach UoY(2007)
+\item Best result for verbs concerning supervised Recall 
+\item Possibility for features' combination: both seem to complement each other
+
+\end{itemize}
+%
+%
+%
+%\item\textbf{ How can we improve the model?}
+%\begin{itemize}
+%\item Leverage large sources of text data to enrich current approach
+%\item Combine the information stored in the HLM
+%\item Improve the WSD stage
+%\item Select other more pertinent similarity measures
+%
+%\end{itemize}
+%
+
+\end{itemize}
+
+\end{frame}
+
+
+
+
+%
+%
+
+
+%\section{Ongoing Work}
+%
+%
+%
+%\begin{frame}{Combining linguistic features: Information Fusion}
+%%			\item By projecting robust information from the syntactic dependencies hypergraph incidence matrix towards the lexical co-occurrence incidence matrix, via the dot product, we can propagate the information contained in the first matrix into the second and thus find more relevant semantic relations between words.
+%%			
+%%			\begin{figure}
+%%			\centering
+%%			\includegraphics[width=0.4\linewidth]{img/cross}
+%%			\end{figure}
+%
+%
+%	\begin{columns}
+%	\column{.5\textwidth}
+%	\begin{minipage}[c][0.4\textheight][c]{\linewidth}
+%	  \centering
+%	  \begin{itemize}
+%		  \item \textbf{Inspired on the image/text fusion literature \cite{Snoek2005,ah2015unsupervised}:}
+%		  \begin{itemize}
+%			  \item Early fusion
+%			  \item Late fusion
+%			  \item \textbf{Cross fusion}
+%		  
+%		  \end{itemize}
+%	  
+%	  \end{itemize}
+%	\end{minipage}
+%	\column{.5\textwidth}
+%	\begin{minipage}[c][0.4\textheight][c]{\linewidth}
+%		\centering
+%		\includegraphics[width=1\linewidth]{img/cross}
+%	\end{minipage}
+%	\end{columns}
+%
+%			
+%\end{frame}
+%
+
+
+
+\section{Conclusions and Future Work}
+
+\begin{frame}{Conclusions}
+%\begin{itemize}
+%	\item \textbf{Hypergraph Linguistic Model}
+%		\begin{itemize}
+%			\item Takes into account different types of linguistic information
+%			\item Link multiple words together
+%		\end{itemize}
+%	\item \textbf{WSD and WSI method based on a HLM}	
+%		\begin{itemize}
+%			\item Use syntactical or lexical co-occurrences
+%			\item Take into account network nature and reduce number of parameters
+%		\end{itemize}
+%	\item \textbf{Building a syntactically parsed Wikipedia dump}	
+%			\begin{itemize}
+%				\item Contains constituents information missing from most Wikipedia parses
+%				\item Fits with our proposed HLM model
+%			\end{itemize}
+%			
+%		
+%\end{itemize}
+
+
+\end{frame}
+
+
+
+
+
+\begin{frame}{Future Work}
+%
+%\begin{itemize}
+%\item \textbf{WSD and WSI}
+%\begin{itemize}
+%	\item Further explore the combination of linguistic features 
+%	\item Look into applying a better WSD technique
+%	\item Interpret the results from a qualitative point of view 
+%\end{itemize}
+%
+%\item \textbf{Information Extraction}
+%\begin{itemize}
+%	\item Apply the semantic knowledge obtained until now to solve Named Entity Recognition
+%	\item Enrich our techniques with open access textual information
+%\end{itemize}
+%\end{itemize}
+%
+%\end{frame}
+%
+%\begin{frame}{The End}
+%\large Thank you for your attention
+
+\end{frame}
+	
+\begin{frame}[allowframebreaks]{References}
+
+\printbibliography
+%\bibliographystyle{alpha}
+
+\end{frame}	
+	
+	
+\section{Appendix}
+
+\subsection{WSI/D Method in Detail}
+
+\begin{frame}{Proposed Method: Step One}
+
+\begin{itemize}
+	\item \textbf{Creation of the linguistic network}
+	\begin{itemize}
+		\item After preprocessing, we build a HLM $G_{tw}$ that contains the co-occurrent (lexically and syntactically) words for a target word $tw$.
+	\end{itemize}
+
+\end{itemize}
+
+
+\end{frame}
+
+\begin{frame}{Proposed Method: Step Two}
+\begin{itemize}
+
+\item \textbf{Computing the similarity between nodes}
+	\begin{itemize}
+		\item $G_{tw}$ is represented as a bipartite graph $B_{tw}$. Left nodes $U$ represent words and right nodes $W$ correspond to the hyperedges. An edge from a node $u$ to a node $w$ depicts the incidence of node $u$ in hyperedge $w$.
+		
+		\item A similarity matrix $S_{tw}$ of dimension $|U|\times|U|$ is calculated using the Jaccard similarity: given $n_{i,j} \in U$, then $Jaccard(i,j)=\frac{|N(i)\cap N(j)|}{|N(i)\cup N(j)|}$.
+	
+		
+		\item Induce a new incidence matrix $F_{tw}$ from $S_{tw}$ containing only the closest neighbours to each word $n_i \in U$. Each of these hyperedges represent a set of words that are deemed similar between them according to their Jaccard index value, which must be equal or higher than an assigned threshold $th_1$.
+		
+	\end{itemize}
+
+
+\end{itemize}
+
+\end{frame}
+
+
+\begin{frame}{Proposed Method: Step Three}
+\begin{itemize}
+	\item \textbf{Clustering words together}
+	\begin{itemize}
+		\item We select the top $c$-nodes in $F_{tw}$ according to their degree. These nodes are candidate hubs, which must surpass a second threshold $th_2$ to be considered as proper hubs. We use the average Jaccard measure defined for each node $n$ as: $$AvgJaccard(n)=\frac{1}{|hedges(n)|}\sum_{h\in hedges(n)}\frac{\sum_{\substack{i\in h\\j\in h;i\neq j}}Jaccard(i,j)}{|h + 1|}$$ 
+		where $hedeges(n)$ is the set of hyperedges $n$ is incident in and its cardinality is defined as $|hedges(n)|$. $|h|$ is the number of nodes in hyperedge $h$. 
+		\item Accepted hubs represent senses alongside with their co-occurrent words. The final set of senses is called $SoS_{tw}$.
+		
+		
+		
+	\end{itemize}
+
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}{Proposed Method: Step Four}
+
+\begin{itemize}
+	\item\textbf{ Word Sense Disambiguation}
+	\begin{itemize}
+		\item The assignation of a sense consists in looking at each $tw$ instance represented by a context $ct$ and simply determining which sense $s$ in $SoS_{tw}$ shares the highest amount of words with $ct$. The sense $s$ is thus assigned to that instance. 
+%		If two senses in $SoS_{tw}$ share the same amount of words with $ct$, one of them is randomly chosen.  This operation is repeated for each instance of each target word. 
+	\end{itemize}
+
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}{Experiments}
+\begin{itemize}
+	\item \textbf{Implementation Framework}
+	
+	\begin{itemize}
+	
+		\item \textbf{Systems built and evaluated}: \textbf{DEP} and \textbf{LEX}.
+		\begin{itemize}
+			\item \textbf{DEP}: Syntactical dependencies
+			\item \textbf{LEX}: Lexical co-occurrences 
+			
+		\end{itemize}
+	
+		\item \textbf{Two datasets}: Semeval-2007 Task 2 (100 words: 35 nouns, 65 verbs) and Semeval-2010 Task 14 (100 words: 50 nouns, 50 verbs). For brevity, only the results for the first dataset are discussed in this presentation.
+		\item \textbf{Evaluation metrics}: Unsupervised evaluation (Paired F-Score, V-Measure). Supervised evaluation (Recall).
+
+
+	\end{itemize}
+	
+
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Results Semeval 2010}
+\begin{table}[]
+\centering
+
+\begin{tabular}{@{}lrrrr@{}}
+\toprule
+\textbf{VM (\%)} & \textbf{all} & \textbf{nouns} & \textbf{verbs} & \textbf{\#cl} \\ \midrule
+{Hermit} & 16.2 & 16.7 & 15.6 & 10.78 \\
+NMF$_{lib}$&11.8&13.5&9.4&4.80\\
+\textbf{LEX} & 11.6 & 8.8 & 11.9 & 10.5 \\
+Random & 4.4 & 4.2 & 4.6 & 4.00 \\
+\textbf{DEP} & 3.5 & 3.9 & 2.8 & 2.75 \\
+MFS & 0.0 & 0.0 & 0.0 & 1.00 \\ \bottomrule
+\end{tabular}
+\caption{Unsupervised V-Measure (VM) on the Semeval 2010 test set}
+\label{tab:sem2010_VM}
+\end{table}
+
+
+\end{frame}
+
+\begin{frame}{Results Semeval 2010}
+\begin{table}[]
+\centering
+
+\begin{tabular}{@{}lrrrr@{}}
+\toprule
+\textbf{FS (\%)} & \textbf{all} & \textbf{nouns} & \textbf{verbs} & \textbf{\#cl} \\ \midrule
+MFS & 63.5 & 57.0 & 72.4 & 1.00 \\
+Duluth-WSI-SVD-Gap & 63.3 & 57.0 & 72.4 & 1.02 \\
+\textbf{DEP} & 53.6 & 50.1 & 58.7 & 2.75 \\
+NMF$_{lib}$&45.3&42.2&49.8&5.42\\
+\textbf{LEX} & 38.4 & 46.7 & 28.5 & 10.5 \\
+Random & 31.9 & 30.4 & 34.1 & 4.00 \\ \bottomrule
+\end{tabular}
+\caption{Unsupervised Paired F-Score (FS) for the Semeval 2010 test set}
+\label{tab:sem2010_FS}
+\end{table}
+\end{frame}
+
+\begin{frame}{Results Semeval 2010}
+\begin{table}
+\centering
+
+\begin{tabular}{@{}lrrr@{}}
+\toprule
+\textbf{SR (\%)} & \textbf{all} & \textbf{nouns} & \textbf{verbs} \\ \midrule
+NMF$_{lib}$&62.6&57.3&70.2\\
+UoY(2010) & 62.4 & 59.4 & 66.8 \\
+
+\textbf{LEX} & 59.8 & 55.8 & 67.4 \\
+\textbf{DEP} & 59.3 & 53.9 & 67.2 \\
+MFS & 58.7 & 53.2 & 66.6 \\
+Random & 57.3 & 51.5 & 65.7 \\ \bottomrule
+
+\end{tabular}
+
+\caption{Supervised recall (SR) for Semeval 2010 test set (80\% mapping, 20\% evaluation)}
+\label{tab:sem2010_SR}
+\end{table}
+\end{frame}
+
+\subsection{SAEWD}
+\begin{frame}{SAEWD: Syntactically Annotated English Wikipedia Dump}
+
+\begin{itemize}
+	\item[] \textbf{Building SAEWD}
+\end{itemize}
+
+\begin{figure}
+\centering
+\includegraphics[width=0.5\linewidth]{img/saewd_flow_chart}
+\end{figure}
+
+\end{frame}
+
+\begin{frame}{SAEWD: Parsed sample}
+
+
+			 	\centering	           
+	\adjustbox{max height=\dimexpr\textheight-6.5cm\relax,
+	           max width=\textwidth}{
+\begin{tabular}{llllll}
+ \multicolumn{6}{l}{\textit{FILENAME wiki\_00.parsed}}                                           \\ \hline
+  \textbf{token}   & \textbf{lemma}   & \textbf{POS} & \textbf{constituency}                      & \textbf{head} & \textbf{dependency} \\ \hline
+ \multicolumn{6}{l}{\textit{\%\%\#PAGE Anarchism}}                                         \\ \hline
+  {$\vdots$}      &      {$\vdots$}   &  {$\vdots$}   &     {$\vdots$}                              &    {$\vdots$}  &     {$\vdots$}       \\  \hline
+ \multicolumn{6}{l}{\textit{\%\%\#SEN 25  9}}                                             \\ \hline
+						 A       & a       & DT  & NP\_22,S\_97                      & 3    & det        \\ %\cline{2-7} 
+                         great   & great   & JJ  & NP\_22,S\_97                      & 3    & amod       \\ %\cline{2-7} 
+                         brigand & brigand & NN  & NP\_22,S\_97                      & 4    & nsubj      \\ %\cline{2-7} 
+                         becomes & become  & VBZ & VP\_44,S\_97                      & 0    & root       \\ %\cline{2-7} 
+                         a       & a       & DT  & NP\_18,NP\_20,VP\_44,S\_97        & 6    & det        \\ %\cline{2-7} 
+                         ruler   & ruler   & NN  & NP\_18,NP\_20,VP\_44,S\_97        & 4    & xcomp      \\ %\cline{2-7} 
+                         of      & of      & IN  & PP\_57,NP\_20,VP\_44,S\_97        & 9    & case       \\ %\cline{2-7} 
+                         a       & a       & DT  & NP\_18,PP\_57,NP\_20,VP\_44,S\_97 & 9    & det        \\ %\cline{2-7} 
+                         Nation  & nation  & NN  & NP\_18,PP\_57,NP\_20,VP\_44,S\_97 & 6    & nmod       \\ %	\cline{2-7} 
+\hline 
+\end{tabular}}
+
+\end{frame}
+
+\subsection{Ongoing Results}
+
+
+\begin{frame}{Ongoing Work: Results}
+\begin{itemize}
+	\item \textbf{Combining the hyperedges: cross fusion}
+	
+		\item[] Unsupervised paired F-Score (FS) for the Semeval 2007 test set
+		\centering
+\begin{tabular}{@{}lrrrr@{}}
+\toprule
+\textbf{FS (\%)} & \textbf{all} & \textbf{nouns} & \textbf{verbs} & \textbf{\#cl} \\ \midrule
+1c1word          & 78.9         & 80.7           & 76.8           & 1.00             \\
+UBC-AS           & 78.7         & 80.8           & 76.3           & 1.32          \\
+\textbf{CROSS$_{k=75}$}     & 78.6         & 80.7           & 76.3           & 1.70          \\
+\textbf{DEP}     & 74.9         & 80.2           & 69.0           & 3.27          \\
+\textbf{CLUST$_{k=5,th=55	}$}    & 72.5          & 76.0           & 63.8  & 5.47          \\
+\textbf{LEX}     & 61.4         & 62.6           & 60.1           & 4.26         \\
+UoY(2007)        & 56.1         & 65.8           & 45.1           & 9.28          \\
+Random           & 37.9         & 38.1           & 37.7           & 19.7             \\
+1c1instance & 	9.5         & 6.6           & 12.7           & 48.51             \\ \bottomrule
+\end{tabular}
+
+			
+		
+\end{itemize}
+
+
+\end{frame}
+
+
+
+\end{document}

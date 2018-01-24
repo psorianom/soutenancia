@@ -1,0 +1,26 @@
+\documentclass[varwidth=true, border=10pt, convert={size=640x}]{standalone}
+\usepackage{forest,adjustbox}
+
+\begin{document}
+\Huge
+ \forestset{
+     sn edges/.style={for tree={parent anchor=south, child anchor=north}},
+     blue text/.style={for tree={text=blue!70}}}
+ 
+ \centering
+ \resizebox{.8\linewidth}{!}{%
+ \begin{forest} 
+ [S$_1$
+     [NP$_1$ [DT [The, blue text]] [NN [report, blue text]]]
+     [VP [VBZ [contains, blue text]]
+       [NP$_2$
+         [NP$_3$ [NNS [copies, blue text]] ]
+         [PP [IN [of, blue text]]
+           [NP$_4$ [DT [the, blue text]] [NNS [minutes, blue text]]]]
+           [PP [IN [of, blue text]]
+ 	          [NP$_5$ [DT [these, blue text]] [NNS [meetings, blue text]]
+           ]]]]]
+ %	\node [draw,fill = blue!20,text width=25em] at (1.5,-7.8) (sparse) {\textbf{nsubj}(contains, report), \textbf{dobj}(contains, copies)};
+ \end{forest}
+ }
+\end{document}
