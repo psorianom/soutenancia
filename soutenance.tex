@@ -1,17 +1,19 @@
 \documentclass[10pt,xcolor=table]{beamer}
 
 \usetheme{metropolis}
-\makeatletter
-\setbeamertemplate{headline}{%
-  \begin{beamercolorbox}[colsep=1.5pt]{upper separation line head}
-  \end{beamercolorbox}
-  \begin{beamercolorbox}{section in head/foot}
-    \vskip2pt\insertnavigation{\paperwidth}\vskip2pt
-  \end{beamercolorbox}%
-  \begin{beamercolorbox}[colsep=1.5pt]{lower separation line head}
-  \end{beamercolorbox}
-}
-\makeatother
+
+%HEADEEER
+%\makeatletter
+%\setbeamertemplate{headline}{%
+%  \begin{beamercolorbox}[colsep=1.5pt]{upper separation line head}
+%  \end{beamercolorbox}
+%  \begin{beamercolorbox}{section in head/foot}
+%    \vskip2pt\insertnavigation{\paperwidth}\vskip2pt
+%  \end{beamercolorbox}%
+%  \begin{beamercolorbox}[colsep=1.5pt]{lower separation line head}
+%  \end{beamercolorbox}
+%}
+%\makeatother
 
 \usepackage{appendixnumberbeamer}
 \usepackage{booktabs}
@@ -60,7 +62,7 @@
 \newcommand\ssyn{S^{\scriptscriptstyle S}}
 \newcommand\sstd{S^{\scriptscriptstyle T}}
 
-
+\newcommand{\stackwords}[2]{\begin{tabular}[t]{@{}l@{}}#1\\#2\end{tabular}}
 
 \title{\large Hypergraphs and Information Fusion for Term Representation Enrichment. Applications to Named Entity Recognition and Word Sense Disambiguation}
 \subtitle{\normalsize  Ph.D. Thesis Defense}
@@ -89,7 +91,7 @@
 
 \maketitle
 \begin{frame}{Introduction}
-\large  \textbf{Why it is useful to  we research written language understanding?} \hfill
+\large  \textbf{Why it is useful to us to automatically understand written language?} \hfill
 \vspace{1cm}
 \begin{columns}
 \column{0.5\textwidth}
@@ -124,7 +126,7 @@
 
 	
 \begin{frame}{Introduction}
-\large  \textbf{In this thesis, we focus on {Feature Representation} and {Knowledge Discovery}} \hfill
+\large  \textbf{In this thesis, we focus on \underline{Feature Representation} and \underline{Knowledge Discovery}} \hfill
 %\vspace{1cm}
 
 
@@ -148,38 +150,98 @@
 \end{columns}
 
 \vspace{\textheight}
+
+\end{frame}
+%\subsection{Challenges and Contributions}
+
+\begin{frame}{Introduction}
+%So for example, in this text, I can get features that describe its properties. They may be lexical (needing only the information of the words surrounding each word), syntactical (exaplin syntactic vs dependency tree)
+
+\begin{block}{Example Phrase}
+The report contains copies of the minutes of these meetings
+\end{block}
+\vspace{4pt}	
+
+\begin{overprint}
+  % on every slide (not sure if it is officially supported)
+  \onslide<2>
+	  \textbf{Lexical Information}
+
+	  \centering	  
+      \includegraphics[width=\linewidth]{img/tree/lexical_tree.pdf}
+  \onslide<4>
+	  \textbf{Dependency Information}  
+  	  
+  	  \centering
+      \includegraphics[width=\linewidth]{img/tree/dep_tree.pdf}
+  \onslide<3>
+	  \textbf{Constituency Information}  
+	  
+	  \centering
+      \includegraphics[width=\linewidth]{img/tree/tree.pdf}
+\end{overprint}
+
+%boilerplate
+%\begin{overprint}
+%  % on every slide (not sure if it is officially supported)
+%  \onslide<1>
+%  % on first slide
+%  \onslide<2>
+%  % on slide two
+%  \onslide<3>
+%  % on slide three
+%  % etc.
+%\end{overprint}
+
 \end{frame}
 
 \begin{frame}{Introduction}
-\large  \textbf{Research work carried out in this thesis} \hfill
-  \begin{itemize}%[<+- | alert@+>]
-    \item \textbf{Main Challenges and Contributions}
-    	    \begin{enumerate}%[<+- | alert@+>]
-    	    	 \item What type of model can we employ to represent a corpus using heterogeneous features?
-%    	    	 what type of model can we employ to represent a corpus through a set of heterogeneous features, extracted from itself, while keeping record of the relationships between textual units? How can we organize and store this model as simply and efficiently possible?
-	    	    	 \begin{itemize}
-	    	    	 \item \textit{Hypergraph linguistic model to hold different types of  linguistic information}
-	    	    	 \end{itemize}
-	    	    	 
-    	    	 \item How can we combine these features while dealing with feature sparsity?
-	    	    	 \begin{itemize}
-	    	    	 \item \textit{Multimedia fusion techniques to combine and densify representation spaces}	    	 
-	    	    	 \end{itemize}
-    	    	 \item How can we find and employ communities existing within the language networks?
-    	    	 \begin{itemize}
-    	    	 \item \textit{An alternative network-based algorithm to discover semantically related words within a text}
-    	     	 \end{itemize}
-    	    	 
-        	\end{enumerate}%[<+- | alert@+>]
-    
+	\begin{block}{Example Phrase}
+		\begin{tabbing}
+			The \= report \= contains \= copies \= of \= the \= minutes \= of \= these \= meetings \\
+			$w_1$ \> $w_2$ \> $w_3$ \> $w_4$  \> $w_5$ \> $w_6$ \> $w_7$ \> $w_8$ \> $w_9$ \> $w_{10}$
+		\end{tabbing}
+	\end{block}
+Different types of features, represented by sparse matrices
+
+	\begin{overprint}
+	  % on every slide (not sure if it is officially supported)
+	  \onslide<2>
+	  \centering
+	      \includegraphics[width=\linewidth]{image2/Chapitre1/feature_types.pdf}	
+%	  \onslide<3>
+%	  \centering
+%		  \includegraphics[width=\linewidth]{image2/Chapitre1/feature_types_communities.pdf}	  
+	  % on slide two
+	\end{overprint}
+
+\end{frame}
 
 
-  \end{itemize}
+\begin{frame}{Main Challenges and Contributions}
+	\begin{enumerate}[<+- | alert@+>]
+		\item What type of model can we employ to represent a corpus using heterogeneous features?
+		%    	    	 what type of model can we employ to represent a corpus through a set of heterogeneous features, extracted from itself, while keeping record of the relationships between textual units? How can we organize and store this model as simply and efficiently possible?
+		\begin{itemize}
+		\item \textit{Hypergraph linguistic model to hold different types of  linguistic information}
+		\end{itemize}
+		
+		\item How can we combine these features while dealing with feature sparsity?
+		\begin{itemize}
+		\item \textit{Multimedia fusion techniques to combine and densify representation spaces}	    	 
+		\end{itemize}
+		\item How can we find and employ communities existing within the language networks?
+		\begin{itemize}
+		\item \textit{An alternative network-based algorithm to discover semantically related words within a text}
+		\end{itemize}
+		
+	\end{enumerate}%[<+- | alert@+>]
  \vspace{\textheight}
 \end{frame}
 
+
 \begin{frame}{Introduction}
-\large  \textbf{Approach Overview} \hfill
+\large  \textbf{Work Overview} \hfill
 \begin{center}
 \includegraphics[width=1.04\linewidth]{image2/Chapitre1/main_diag_presi.pdf}
 \end{center}
@@ -190,85 +252,113 @@
 
 
 \section{First Contribution: Hypergraph Linguistic Model}
-\begin{frame}{Work Overview}
-%\large  \textbf{Approach Overview} \hfill
-\begin{center}
-\includegraphics[width=1.04\linewidth]{image2/Chapitre3/main_diag_contr1.pdf}
-\end{center}
-
- \vspace{\textheight}
-\end{frame} 
+%\begin{frame}{Work Overview}
+%%\large  \textbf{Approach Overview} \hfill
+%\begin{center}
+%\includegraphics[width=1.04\linewidth]{image2/Chapitre3/main_diag_contr1.pdf}
+%\end{center}
+%
+% \vspace{\textheight}
+%\end{frame} 
 
 
 \begin{frame}{Introduction}
-\large \textbf{What type of model can we employ to represent textual features? Which textual features?}
-%todo Add here the networks by choudhury et al venus stuff
+%\large \textbf{What type of model can we employ to represent textual features?}
+%Which textual features?
+%todo Add here the networks by choudhury et al, venus stuff
 \vspace{.5cm}
-\begin{itemize}
-	\item \textbf{Models used to represent textual information}
+Based on the distributional hypothesis, a word is defined by its surroundings, we can extract useful information from a text.
+\begin{itemize}[<+- | alert@+>]
+	\item \textbf{How do we represent textual data?}
 		\begin{itemize}
-		\item Vector Space Models \cite{manning1999foundations}
 		\item Network Models \cite{2004.Mihalcea.SemanticNetworkPageRank}
+		\item Vector Space Models \cite{manning1999foundations}
+
 		
 		\end{itemize}
 	\vspace{.5cm}
-	\item \textbf{Generally used types of features} 
+	\item \textbf{Generally used types of features to represent text} 
 		\begin{itemize}
-		\item Lexical: words as they appear in the text
-		\item Syntactic: the role a word plays in the text
-		\item Semantic: the meaning of the word given the text
+		\item Lexical
+		\item Syntactic
+		\item Task-specific
+%		\item Semantic: the meaning of the word given the text
 		\end{itemize}
 %	\cite{Choudhury2009,sole2010language,Mihalcea2011}
 \end{itemize}
 \vspace{\textheight}
 \end{frame}
 
-\subsection{Hypergraph Representation}
 
 
 
-\begin{frame}{State of the Art and Proposition}
+\begin{frame}{State of the Art}
+%What is the state of the art ? How is text is represented by means of networks?
+% Three main types
+
+
+
 %\begin{itemize}
-	\large \textbf{How to represent words in a network according to different language properties?}
+%	\large \textbf{How to represent words in a network according to different language properties?}
 %\vspace{.5cm}
 %	\normalsize
 %\end{itemize}
 
 %todo Add here the networks by choudhury et al venus stuff
 
-\begin{itemize}
-	\item \textbf{Existing representations} 
-%	\cite{Choudhury2009,sole2010language,Mihalcea2011}
-	\begin{itemize}
-		\item {Lexical Co-occurrence Networks} \cite{2011.DiMarco.Navigli.ClusteringWebSearch,2011.Jurgens.WSICommunityDetection,2014.Tao.Qian.LexicalChainHypergraphWSI}
-		\item {Syntactic Co-occurrence Networks} \cite{2013.Bronselaer.TextAnalysisWithGraphs}
-		\item Semantic Networks \cite{2010.Siberer.GraphCooccurrenceWSD,2014.Moro.Navigli.EntityLinking_WSD}
-		\item Heterogenous Networks	\cite{2013.Saluja.Graph-BasedUnsupervisedLearning}	
-	\end{itemize}
-\end{itemize}
-\begin{columns}
-\column{0.33\textwidth}
-\textbf{\normalsize Lexical Networks}
-\begin{minipage}[c][0.3\textheight][c]{\linewidth}
-\includegraphics[width=1\linewidth]{image2/Chapitre2/lex_net1.pdf}
-\end{minipage}
-\column{0.33\textwidth}
-\textbf{\normalsize Syntactic Networks} 
-\begin{minipage}[c][0.3\textheight][c]{\linewidth}
-\includegraphics[width=1\linewidth]{image2/Chapitre2/syn_net1.pdf}
-\end{minipage}
-\column{0.32\textwidth}
-\textbf{\normalsize Semantic Networks} 
-\begin{minipage}[c][0.3\textheight][c]{\linewidth}
-\includegraphics[width=1\linewidth]{image2/Chapitre2/sem_net.pdf}
-\end{minipage}
-\end{columns}
+%\begin{itemize}
+%	\item \textbf{Existing representations} 
+%%	\cite{Choudhury2009,sole2010language,Mihalcea2011}
+%	\begin{itemize}
+%		\item {Lexical Co-occurrence Networks} i%		\item {Syntactic Co-occurrence Networks} \cite{2013.Bronselaer.TextAnalysisWithGraphs}
+%		\item Semantic Networks \cite{2010.Siberer.GraphCooccurrenceWSD,2014.Moro.Navigli.EntityLinking_WSD}
+%		\item Heterogenous Networks	\cite{2013.Saluja.Graph-BasedUnsupervisedLearning}	
+%	\end{itemize}
 
+%\begin{overprint}
+%  % on every slide (not sure if it is officially supported)
+%  \onslide<1>
+%  % on first slide
+%  \onslide<2>
+%  % on slide two
+%  \onslide<3>
+%  % on slide three
+%  % etc.
+%\end{overprint}
+\begin{block}{Example Phrase}
+The report contains copies of the minutes of these meetings
+\end{block}
+(These networks are going to be networks built with my example phrase)
+\vspace{.5cm}
+
+	\begin{columns}
+
+
+		\column{0.33\textwidth}
+		\textbf{\normalsize Lexical Networks}
+		\begin{minipage}[c][0.3\textheight][c]{\linewidth}
+		\onslide<2->\includegraphics[width=1\linewidth]{image2/Chapitre2/lex_net1.pdf}
+		\end{minipage}
+
+		\column{0.33\textwidth}
+		\textbf{\normalsize Syntactic Networks} 
+		\begin{minipage}[c][0.3\textheight][c]{\linewidth}
+		\onslide<3->\includegraphics[width=1\linewidth]{image2/Chapitre2/syn_net1.pdf}
+		\end{minipage}
+	
+		\column{0.32\textwidth}
+		\textbf{\normalsize Semantic Networks} 
+		\begin{minipage}[c][0.3\textheight][c]{\linewidth}
+		\onslide<4->\includegraphics[width=1\linewidth]{image2/Chapitre2/sem_net.pdf}
+		An expert is usually involved.
+		\end{minipage}
+	\end{columns}
 
 \end{frame}
 
-\begin{frame}{State of the Art and Proposition}
-\begin{itemize}
+
+\begin{frame}{Limitations and Proposition}
+\begin{itemize}[<+- | alert@+>]
 \item \textbf{Limitations of existing representations}
 	\begin{itemize}
 	\item Language networks generally employ a single type of textual information
@@ -288,73 +378,73 @@
 \vspace{\textheight}
 \end{frame}
 
-\begin{frame}{Proposed Model: Definitions}
-\large \textbf{Hypergraph Linguistic Model}
-\begin{itemize}
-	
-	\item \textbf{Hypergraph:}
-	\begin{itemize}
-		\item A graph generalization, where edges may link more than 2 nodes at the same time. It can be seen as a set of sets
-	\end{itemize}
-
-\end{itemize}
-\centering
-\includegraphics[width=1\linewidth]{image2/Chapitre3/graph_vs_hgraph.pdf}
-\vspace{\textheight}
-\end{frame}
-
-
-\begin{frame}{Proposed Model: Definitions}
-\large \textbf{Hypergraph Linguistic Model}
-\begin{itemize}
-	
-	\item \textbf{Linguistic Features:}
-	\begin{enumerate}
-		\item \textbf{CONSTITUENT $\mathbf{(M^N)}$:} noun phrase constituents memberships
-		\item \textbf{DEPENDENCY $\mathbf{(M^S)}$} dependency relations. We consider all types of dependency functions between nouns and verbs,
-		\item \textbf{SENTENCE $\mathbf{(M^L)}$:} lexical context, in this case the window considered is the whole sentence
-	\end{enumerate}
-	\item **Show image with the three different levels**
-\end{itemize}
-\centering
-\vspace{\textheight}
-\end{frame}
+%\begin{frame}{Proposed Model: Definitions}
+%\large \textbf{Hypergraph Linguistic Model}
+%\begin{itemize}
+%	
+%	\item \textbf{Hypergraph:}
+%	\begin{itemize}
+%		\item A graph generalization, where edges may link more than 2 nodes at the same time. It can be seen as a set of sets
+%	\end{itemize}
+%
+%\end{itemize}
+%\centering
+%\includegraphics[width=1\linewidth]{image2/Chapitre3/graph_vs_hgraph.pdf}
+%\vspace{\textheight}
+%\end{frame}
 
 
-
-\begin{frame}{Proposed Model: Working Example}
-\begin{itemize}
-	\item \large \textbf{Input:} Set of linguistic features from an entry corpus
-	\item \textbf{Output:} A network relating words according to the input features. Computationally, a key-value structure holding words and their descriptors for fast retrieval
-	\item   \textbf{Example sentence \textbf{S$_1$}:}
-		\begin{itemize}
-			\item[]  \textit{The report contains \textbf{copies} of the minutes of these meetings}. \note{After tokenization,  lemmatization and parsing, we obtain both constituency and dependency trees.}
-		\end{itemize}
-	
-	 
-\end{itemize}
-
-\begin{columns}
-	\column{0.7\textwidth}
-	\begin{minipage}[c][0.4\textheight][c]{\linewidth}
-	\centering
-	\includegraphics[width=.8\linewidth]{img/tree.pdf}
-	\end{minipage}
-	\column{0.35\textwidth}
-	\begin{minipage}[c][0.4\textheight][c]{\linewidth}
-	%  \centering
-	%\large
-	\color{black!40}root(root,~contains) \\
-	\color{black!40}det(report,~The) \\
-	\color{blue!70}{\textbf{dobj(contains,~copies)}}
-	\color{black!40}case(minutes,~of)
-	\end{minipage}
-\end{columns}
-
-\end{frame}
+%\begin{frame}{Proposed Model: Definitions}
+%\large \textbf{Hypergraph Linguistic Model}
+%\begin{itemize}
+%	
+%	\item \textbf{Linguistic Features:}
+%	\begin{enumerate}
+%		\item \textbf{CONSTITUENT $\mathbf{(M^N)}$:} noun phrase constituents memberships
+%		\item \textbf{DEPENDENCY $\mathbf{(M^S)}$} dependency relations. We consider all types of dependency functions between nouns and verbs,
+%		\item \textbf{SENTENCE $\mathbf{(M^L)}$:} lexical context, in this case the window considered is the whole sentence
+%	\end{enumerate}
+%	\item **Show image with the three different levels**
+%\end{itemize}
+%\centering
+%\vspace{\textheight}
+%\end{frame}
 
 
-\begin{frame}{Proposed Model: Working example}
+
+%\begin{frame}{Proposed Model: Working Example}
+%\begin{itemize}
+%	\item \large \textbf{Input:} Set of linguistic features from an entry corpus
+%	\item \textbf{Output:} A network relating words according to the input features. Computationally, a key-value structure holding words and their descriptors for fast retrieval
+%	\item   \textbf{Example sentence \textbf{S$_1$}:}
+%		\begin{itemize}
+%			\item[]  \textit{The report contains \textbf{copies} of the minutes of these meetings}. \note{After tokenization,  lemmatization and parsing, we obtain both constituency and dependency trees.}
+%		\end{itemize}
+%	
+%	 
+%\end{itemize}
+%
+%\begin{columns}
+%	\column{0.7\textwidth}
+%	\begin{minipage}[c][0.4\textheight][c]{\linewidth}
+%	\centering
+%	\includegraphics[width=.8\linewidth]{img/tree.pdf}
+%	\end{minipage}
+%	\column{0.35\textwidth}
+%	\begin{minipage}[c][0.4\textheight][c]{\linewidth}
+%	%  \centering
+%	%\large
+%	\color{black!40}root(root,~contains) \\
+%	\color{black!40}det(report,~The) \\
+%	\color{blue!70}{\textbf{dobj(contains,~copies)}}
+%	\color{black!40}case(minutes,~of)
+%	\end{minipage}
+%\end{columns}
+%
+%\end{frame}
+
+
+\begin{frame}{Proposed Model: Hypergraph Linguistic Network}
 
 	\begin{columns}
 	\column{1\textwidth}
@@ -369,52 +459,19 @@
 	\end{columns}
 \end{frame}
 
-\begin{frame}
-\large \textbf{Challenges of textual representations}
-\vspace{1cm}
-
-\begin{columns}
-	\column{0.5\textwidth}
-	\center
-	\large \textbf{Sparsity}
-	\begin{minipage}[c][0.5\textheight][c]{\linewidth}
-	\centering
-	\includegraphics[width=.9\linewidth]{image2/Chapitre2/square_syn.png}
-	\end{minipage}
-	\column{0.5\textwidth}
-	\center
-	\textbf{Heterogeneity}
-	\begin{minipage}[c][0.5\textheight][c]{\linewidth}
-		\centering
-	  	\includegraphics[width=.9\linewidth]{image2/Chapitre2/heterogenous_netw.jpg}
-	\end{minipage}
-\end{columns}
-\vspace{\textheight}
-\end{frame}
-
-
-%\begin{frame}
-%\begin{itemize}
-%	\item \textbf{What to do with our HLM?}
-%	\begin{itemize}
-%		\item We chose to solve Word Sense Induction and Disambiguation (WSI/WSD)
-%		\item Elemental NLP tasks that are naturally solved using the distributional hypothesis
-%	\end{itemize}
-%\end{itemize}
-%\end{frame}
 
 
 \section{Second \bfseries{Contribution}: Combining Features and Dealing with Sparsity}
 
-\begin{frame}{Work Overview}
-%\large  \textbf{Approach Overview} \hfill
-\begin{center}
-\includegraphics[width=1.04\linewidth]{image2/Chapitre3/main_diag_presi_contri2.pdf}
-\end{center}
+%\begin{frame}{Work Overview}
+%%\large  \textbf{Approach Overview} \hfill
+%\begin{center}
+%\includegraphics[width=1.04\linewidth]{image2/Chapitre3/main_diag_presi_contri2.pdf}
+%\end{center}
+%
+% \vspace{\textheight}
+%\end{frame} 
 
- \vspace{\textheight}
-\end{frame} 
-\subsection{Term Representation Enrichment}
 
 \begin{frame}{Introduction}
 \large \textbf{Multimedia Fusion Techniques \cite{AtreyHEK10,ahn2010link}}:
@@ -441,31 +498,28 @@
 
 
 
-\begin{frame}{Early Fusion}
-%\large \textbf{Early Fusion}
+\begin{frame}{Early and Late Fusion}
 \begin{center}
-\includegraphics[width=.7\linewidth]{image2/Chapitre3/ef_diag}
 \end{center}
-\end{frame}
-
-
-\begin{frame}{Late Fusion}
 \begin{columns}
 	\column{0.5\textwidth}
-	\center
-	\begin{minipage}[c][0.5\textheight][c]{\linewidth}
-	\centering
-	\includegraphics[width=.9\linewidth]{image2/Chapitre3/lf1_diag.pdf}
-	\end{minipage}
-	\column{0.5\textwidth}
-	\center
 	\begin{minipage}[c][0.5\textheight][c]{\linewidth}
 		\centering
-	  	\includegraphics[width=.9\linewidth]{image2/Chapitre3/lf2_diag.pdf}
+		\includegraphics[width=1\linewidth]{image2/Chapitre3/ef_diag}
+		\end{minipage}
+		\column{0.5\textwidth}
+	\begin{minipage}[c][0.5\textheight][c]{\linewidth}
+		\centering
+	  	\includegraphics[width=1\linewidth]{image2/Chapitre3/lf2_diag.pdf}
 	\end{minipage}
 \end{columns}
 
+
+
+
 \end{frame}
+
+
 
 \begin{frame}{Cross Fusion}
 \begin{center}
@@ -518,15 +572,6 @@
 \end{itemize}
 \end{frame}
 
-
-\begin{frame}{Work Overview}
-%\large  \textbf{Approach Overview} \hfill
-\begin{center}
-\includegraphics[width=1.04\linewidth]{image2/Chapitre3/main_diag_presi_contri2_1.pdf}
-\end{center}
-
- \vspace{\textheight}
-\end{frame} 
 
 
 \begin{frame}{SAEWD: A Wikipedia Enriched Hypergraph}
