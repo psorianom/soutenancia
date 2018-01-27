@@ -1,0 +1,33 @@
+%\documentclass[ border=10pt]{standalone}
+\documentclass{standalone}
+\usepackage{adjustbox}
+\usepackage[sfdefault]{FiraSans}
+\usepackage{xytree}
+\usepackage{xcolor}
+% In the preamble:
+\usepackage{tikz-dependency}
+\begin{document}
+% In the document:
+\begin{dependency}[theme = simple]
+   \begin{deptext}[column sep=1em]
+	  %The report contains copies of the minutes of these meetings
+   
+      The \& report \& contains \& copies \& of \& the \& minutes \& of \& these \& meetings \\
+   \end{deptext}
+   \depedge{3}{1}{\normalsize \color{blue!70} word-2}
+   \depedge{3}{2}{\normalsize\color{blue!70}word-1}
+%   \depedge{3}{ROOT}
+   \depedge{3}{4}{\normalsize\color{blue!70}word+1}
+   \depedge{3}{5}{\normalsize\color{blue!70}word+2}
+   \depedge{3}{6}{\normalsize\color{blue!70}word+3}
+   \depedge[edge below]{3}{7}{\normalsize\color{blue!70}word+4}
+   \depedge[edge below]{3}{8}{\normalsize\color{blue!70}word+5}
+%   \depedge{9}{8}{compound}
+%   \depedge[arc angle=50]{3}{9}{nmod}
+%   \depedge{14}{10}{case}
+%   \depedge{12}{1}{det}
+%  \depedge{14}{12}{nmod:poss}
+%  \depedge{12}{13}{case}
+\end{dependency}
+
+\end{document}

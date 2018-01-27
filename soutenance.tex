@@ -339,51 +339,74 @@ Based on the distributional hypothesis, a word is defined by its surroundings, w
 
 
 
-\begin{frame}{Existing Language Networks}
+\begin{frame}{Classic Language Networks}
 %What is the state of the art ? How is text is represented by means of networks?
 % Three main types
 %todo Add here the networks by choudhury et al venus stuff
 
-\begin{block}{}
-The report contains copies of the minutes of these meetings
-\end{block}
-%(These networks are going to be networks built with my example phrase)
+\begin{itemize}
+\item[] \textit{The report contains copies of the minutes of these meetings} 
+\end{itemize}
 
-	\begin{columns}
+\begin{overprint}
+  % on every slide (not sure if it is officially supported)
+  \onslide<2>
+	  \centering
+	  
+	  \includegraphics[width=.7\linewidth]{image2/Chapitre2/lexi_network_ex.pdf}
+	  \\ \cite{2008.Klapaftis.WSIUsingCollocations}
+  \onslide<3>
+	  \centering
+	  \includegraphics[width=.7\linewidth]{image2/Chapitre2/deps_network_ex.pdf} 
+  \onslide<4>
+	  \centering
+	  \includegraphics[width=.7\linewidth]{image2/Chapitre2/consti_network_ex.pdf}   
+  \onslide<5>
+	  \centering
+	  \includegraphics[width=.7\linewidth]{image2/Chapitre2/sem_network_ex.pdf}   
+
+  % on slide three
+  % etc.
+\end{overprint}
 
 
-		\column{0.33\textwidth}
-		\textbf{\normalsize Lexical Networks}
-		\begin{minipage}[c][0.3\textheight][c]{\linewidth}
-		\onslide<2->\includegraphics[width=1\linewidth]{image2/Chapitre2/lex_net1.pdf}
-		\end{minipage}
 
-		\column{0.33\textwidth}
-		\textbf{\normalsize Syntactic Networks} 
-		\begin{minipage}[c][0.3\textheight][c]{\linewidth}
-		\onslide<3->\includegraphics[width=1\linewidth]{image2/Chapitre2/syn_net1.pdf}
-		\end{minipage}
-	
-		\column{0.32\textwidth}
-		\textbf{\normalsize Semantic Networks} 
-		\begin{minipage}[c][0.3\textheight][c]{\linewidth}
-		\onslide<4->\includegraphics[width=1\linewidth]{image2/Chapitre2/sem_net.pdf}
-		An expert is usually involved.
-		\end{minipage}
-	\end{columns}
+%\begin{columns}
+%	\column{0.33\textwidth}
+%	\centering
+%	\onslide<3->\textbf{Lexical Networks}
+%	\begin{minipage}[c][0.6\textheight][c]{\linewidth}
+%	\onslide<4->\includegraphics[width=1\linewidth]{image2/Chapitre2/lexi_network_ex.pdf}
+%	\end{minipage}
+%	\column{0.33\textwidth}
+%	\centering
+%	\onslide<5->\textbf{\normalsize Syntactic Network} 
+%	\begin{minipage}[c][0.6\textheight][c]{\linewidth}
+%	\onslide<6->\includegraphics[width=1\linewidth]{image2/Chapitre2/deps_network_ex.pdf} \\
+%	\onslide<7->\includegraphics[width=1\linewidth]{image2/Chapitre2/consti_network_ex.pdf}
+%	\end{minipage}
+%	
+%	\column{0.32\textwidth}
+%	\onslide<8->\textbf{\normalsize Semantic Network} 
+%	\begin{minipage}[c][0.6\textheight][c]{\linewidth}
+%	\onslide<9->\includegraphics[width=1\linewidth]{image2/Chapitre2/sem_net.pdf}
+%	An expert is usually involved.
+%	\end{minipage}
+%
+%\end{columns}
 
 \end{frame}
 
 
 \begin{frame}{Limitations and Proposition}
 \begin{itemize}[<+- | alert@+>]
-\item \textbf{Limitations of existing representations}
+\item \large \textbf{Limitations of existing representations}
 	\begin{itemize}
 	\item Language networks generally employ a single type of textual information
 	\item The edges of the network may relate maximum two words at each time
 %	\item There is no 
 	\end{itemize}
-\item \textbf{Proposition}
+\item \large \textbf{Proposition}
 	\begin{itemize}
 	\item Represent together linguistic co-occurrences through a hypergraph model
 	\begin{itemize}
@@ -463,21 +486,21 @@ The report contains copies of the minutes of these meetings
 
 
 \begin{frame}{Proposed Model}
-\begin{itemize}
-\item Explain (grpahically/with the working exampleh) we use lexical and syntactic info and the build a fusion of them with a hypergraph.
-\end{itemize}
+	\begin{itemize}
+		\item Explain (grpahically/with the working exampleh) we use lexical and syntactic info and the build a fusion of them with a hypergraph.
+	\end{itemize}
 
-%	\begin{columns}
-%	\column{1\textwidth}
-%	\begin{minipage}[c][0.4\textheight][c]{\linewidth}
-%	  \centering
-%	  \includegraphics[width=.6\linewidth]{img/hypergraph_copies.pdf} <===== THIS!
-%	\end{minipage}
-%	\begin{minipage}[c][0.5\textheight][c]{\linewidth}
-%		\centering
-%		\includegraphics[width=.9\linewidth]{img/incidence_aug.pdf}
-%	\end{minipage}
-%	\end{columns}
+	\begin{columns}
+		\column{1\textwidth}
+		\begin{minipage}[c][0.4\textheight][c]{\linewidth}
+			 \centering
+			 \includegraphics[width=.6\linewidth]{img/hypergraph_copies.pdf} <===== THIS!
+		\end{minipage}
+		\begin{minipage}[c][0.5\textheight][c]{\linewidth}
+			\centering
+			\includegraphics[width=.9\linewidth]{img/incidence_aug.pdf}
+		\end{minipage}
+	\end{columns}
 \end{frame}
 
 

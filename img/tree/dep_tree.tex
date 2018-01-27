@@ -1,0 +1,49 @@
+%\documentclass[ border=10pt]{standalone}
+\documentclass[
+  convert={
+    density=300 -alpha deactivate,
+    size=1080x800,
+    outext=.png
+  },
+]{standalone}
+\usepackage{adjustbox}
+\usepackage[sfdefault]{FiraSans}
+\usepackage{xytree}
+\usepackage{xcolor}
+
+\begin{document}
+
+
+\centering
+% \resizebox{.8\linewidth}{!}{%
+\xytext{
+  \xybarnode{The} &&
+  \xybarnode{report}
+    \xybarconnect(UL,U){-2}"_{\color{blue!70}\small det}"
+%    \xybarconnect(UR,U){2}"^{\small nsubj}"
+    &&
+  \xybarnode{contains} 
+    \xybarconnect(UL,U){-2}"_{\color{blue!70}\small nsubj}"
+    \xybarconnect(UR,U){2}"^{\color{blue!70}\small dobj}"
+    &&
+  \xybarnode{copies}
+    \xybarconnect(UR,U){6}"^{\color{blue!70}\small nmod:of}"
+%    \xybarconnect[13](UR,U){6}"^{\small punct}"
+%    \xybarconnect[8](UR,U){4}"^{\small obj}"
+    &&
+  \xybarnode{of} &&
+  \xybarnode{the} &&
+  \xybarnode{minutes} 
+    \xybarconnect[13](DL,D){-4}"_{\color{blue!70}\small case}"
+    \xybarconnect[18](D,D){-2}"^{\color{blue!70}\small det}"
+    \xybarconnect(UR,U){6}"^{\color{blue!70}\small nmod:of}"
+    &&
+  \xybarnode{of} &&
+  \xybarnode{these} &&
+  \xybarnode{meetings} 
+    \xybarconnect(DL,D){-2}"_{\color{blue!70}\small det}"
+    \xybarconnect[8](D,D){-4}"_{\color{blue!70}\small case}"
+  \xybarnode{.}
+}
+%}
+\end{document}
