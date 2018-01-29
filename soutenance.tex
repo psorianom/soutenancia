@@ -73,11 +73,12 @@
 \usepackage{FiraSans}
  
 
-\usepackage[ruled]{algorithm2e}
 
-\SetKwRepeat{Do}{do}{while}%
-\SetKwInput{KwInput}{Input}
-\SetKwInput{KwOutput}{Output}
+%\usepackage{bibentry}
+%\usepackage[ruled]{algorithm2e}
+%\SetKwRepeat{Do}{do}{while}%
+%\SetKwInput{KwInput}{Input}
+%\SetKwInput{KwOutput}{Output}
 
 \hbadness=10000
 
@@ -486,46 +487,62 @@ Based on the distributional hypothesis, a word is defined by its surroundings, w
 
 
 \begin{frame}{Proposed Model}
-	\begin{itemize}
-		\item Explain (grpahically/with the working exampleh) we use lexical and syntactic info and the build a fusion of them with a hypergraph.
-	\end{itemize}
-
+%	\begin{itemize}
+%		\item Explain (grpahically/with the working exampleh) we use lexical and syntactic info and the build a fusion of them with a hypergraph.
+%	\end{itemize}
 	\begin{columns}
-		\column{1\textwidth}
+		\column{.33\textwidth}
 		\begin{minipage}[c][0.4\textheight][c]{\linewidth}
 			 \centering
-			 \includegraphics[width=.6\linewidth]{img/hypergraph_copies.pdf} <===== THIS!
+			 \includegraphics[width=1\linewidth]{image2/Chapitre2/lexi_network_ex.pdf}
 		\end{minipage}
-		\begin{minipage}[c][0.5\textheight][c]{\linewidth}
-			\centering
-			\includegraphics[width=.9\linewidth]{img/incidence_aug.pdf}
+		\column{.33\textwidth}
+		\begin{minipage}[c][0.4\textheight][c]{\linewidth}
+			 \centering
+			 \includegraphics[width=1\linewidth]{image2/Chapitre2/consti_network_ex.pdf}
+		\end{minipage}		
+		\column{.33\textwidth}
+		\begin{minipage}[c][0.4\textheight][c]{\linewidth}
+			 \centering
+				 \includegraphics[width=1\linewidth]{image2/Chapitre2/deps_network_ex.pdf}
 		\end{minipage}
 	\end{columns}
+	
+
+	
+	\begin{overprint}
+	\onslide<2>\includegraphics[width=1\linewidth]{image2/Chapitre2/hyper_network_ex_1.pdf}%lexical
+	\onslide<3>\includegraphics[width=1\linewidth]{image2/Chapitre2/hyper_network_ex_2.pdf}%constit
+	\onslide<4>\includegraphics[width=1\linewidth]{image2/Chapitre2/hyper_network_ex_3.pdf}%constit
+	\onslide<5>\includegraphics[width=1\linewidth]{image2/Chapitre2/hyper_network_ex_4.pdf}%dep
+	\onslide<6>\includegraphics[width=1\linewidth]{image2/Chapitre2/hyper_network_ex_5.pdf}%dep
+	\end{overprint}
+	\vspace{7cm}
 \end{frame}
 
-
+%\includegraphics[width=.6\linewidth]{img/hypergraph_copies.pdf} <===== THIS!
 
 \setbeamertemplate{section page}[mytheme]
 \section[Contributions in Detail]{Combining Features and Dealing with Sparsity}                  
 
       
-\begin{frame}{Introduction}
-\large \textbf{Multimedia Fusion Techniques \cite{AtreyHEK10,ahn2010link}}:
+\begin{frame}{Multimedia Fusion Techniques}
+
 %\vspace{.5cm}
-\begin{itemize}
+\begin{itemize}[<+- | alert@+>]
 \item \large \textbf{Definition}
 	\begin{itemize}
-	\item Set of techniques used in multimedia analysis tasks to integrate multiple media 
+	\item Set of techniques used in multimedia analysis tasks to integrate multiple media \cite{AtreyHEK10,ahn2010link}
 	\item The goal is to obtain rich insights about the data being treated
 	\item We adapt these techniques to our use case: textual information
 	\end{itemize}
-\item \textbf{Main fusion operators:}
+\item \large\textbf{Main fusion operators:}
 	\begin{itemize}
 	\item Early Fusion $E_\alpha(\cdot)$, 
 	\item Late Fusion $L_\beta(\cdot)$, 
 	\item Cross Fusion $X_\gamma(\cdot), X_F(\cdot)$
-	\item $\alpha$ and $\beta$: Assign an importance weight to each of their operators 
-	\item $\gamma$: number of top similar items to take from the similarity space
+%	\item $\alpha$ and $\beta$: Assign an importance weight to each of their operators 
+%	\item $\gamma$: number of top similar items to take from the similarity space
 	\end{itemize}
 
 \end{itemize}
@@ -541,12 +558,12 @@ Based on the distributional hypothesis, a word is defined by its surroundings, w
 	\column{0.5\textwidth}
 	\begin{minipage}[c][0.5\textheight][c]{\linewidth}
 		\centering
-		\includegraphics[width=1\linewidth]{image2/Chapitre3/ef_diag}
+		\onslide<1->\includegraphics[width=1\linewidth]{image2/Chapitre3/ef_diag}
 		\end{minipage}
 		\column{0.5\textwidth}
 	\begin{minipage}[c][0.5\textheight][c]{\linewidth}
 		\centering
-	  	\includegraphics[width=1\linewidth]{image2/Chapitre3/lf2_diag.pdf}
+		\onslide<2->\includegraphics[width=1\linewidth]{image2/Chapitre3/lf2_diag.pdf}
 	\end{minipage}
 \end{columns}
 
@@ -564,44 +581,94 @@ Based on the distributional hypothesis, a word is defined by its surroundings, w
 \end{frame}
 
 
-\begin{frame}{Hybrid Fusion 1}
+\begin{frame}{Hybrid Fusion}
 \begin{itemize}
-\item [] \large Put here some very visual way of representing hybrid fusion.
-\item [] In fact, early and late fusion should be presented with the working example also.
+%\item \large Combining fusion operators
+%	\begin{itemize}
+%	\item Chaining together fusion functions to leverage the complementarity of the different features
+%	\end{itemize}
+\item \large We distinguish three levels of fusion operators
+	\begin{itemize}
+	\item \textbf{First Degree}
+		\begin{itemize}
+		\item $E(\mlex,\msyn)$, $L(\ssyn,\mlex)$ 
+		\item Cross Feature Fusion: $X_F(S^S, M^L)$
+		\item Cross Similarity Fusion: $X_S(S^S, S^L)$
+		\end{itemize}
+	\item \textbf{Second Degree}
+		\begin{itemize}
+		\item Cross Feature Early Fusion: $X_F(S^T , E(M^L , M^S ))$
+		\item Late Cross Feature Fusion: $L(M^T, X_F (S^T , M^T ))$
+		
+		
+		\end{itemize}
+	\item \textbf{Higher Degree}
+		\begin{itemize}
+		\item Triple Early Double Late Cross Feature Fusion: $E(M_L , E(E(M_T , L(M^T , X_F (S^T , M^T ))) , L(M^L , X_F (S^S , M^L))))$
+		\end{itemize}
+	\end{itemize}
+
+	
+
 \end{itemize}
 
 \end{frame}
 
-\begin{frame}{Hybrid Fusion 2}
-\begin{itemize}
-\item [] \large Put here some very visual way of representing hybrid fusion.
-\item [] In fact, early and late fusion should be presented with the working example also.
-\end{itemize}
-
+\begin{frame}{Hybrid Fusion}
+\begin{overprint}
+	\onslide<1>\includegraphics[width=1\linewidth]{image2/Chapitre2/hybrid_fusion0.pdf}%lexical
+	\onslide<2>\includegraphics[width=1\linewidth]{image2/Chapitre2/hybrid_fusiona.pdf}%lexical
+	\onslide<3>\includegraphics[width=1\linewidth]{image2/Chapitre2/hybrid_fusion1.pdf}%lexical
+	\onslide<4>\includegraphics[width=1\linewidth]{image2/Chapitre2/hybrid_fusion2.pdf}%constit
+	\onslide<5>\includegraphics[width=1\linewidth]{image2/Chapitre2/hybrid_fusion3.pdf}%constit
+	\onslide<6>\includegraphics[width=1\linewidth]{image2/Chapitre2/hybrid_fusion4.pdf}%dep
+\end{overprint}
 \end{frame}
 
 
 
 
-\begin{frame}{Leveraging the network communities}
-\begin{enumerate}
-\item  Show a large (with more text than that of my example) image of  the hypergraph model
 
-
-\end{enumerate}
-\end{frame}
 
 \section[Contributions in Detail]{Finding Communities in the Network}
 
-\begin{frame}{Leveraging the network communities 1}
-\begin{enumerate}
-\item Link some words together with a color overlay to represent possible communities (clusters/groups) of same sense words. 
-\item Argue that thanks to the heterogeneous info contained in the structure, we can relate words according to different linguistic properties 
 
-\end{enumerate}
+\begin{frame}{Finding Senses in the Network}
+
+	\begin{itemize}[<+- | alert@+>]
+		\item \large \textbf{Language networks tend to be scale-free}	
+			\begin{itemize}
+				\item There are certain nodes (hubs) that are very well connected forming communities within the network
+			\end{itemize}
+
+		\item \large \textbf{Seminal approaches}
+			\begin{itemize}
+				\item Hyperlex \cite{2004.Veronis}
+				\item University of York (UoY) \cite{2007.Klapaftis.UOY}
+			\end{itemize}
+		\item \textbf{Limitations of existing approaches}
+		\begin{itemize}
+			\item Single typed networks
+			\item Large number of parameters
+		\end{itemize}
+		\item \textbf{Proposition}
+		\begin{itemize}
+				\item Be able to exploit different types of linguistic information (lexical or syntactic co-occurrence)
+				\item Keep  the number of parameters low and allow for their automatic adjusting according to the network's nature
+%				\item Use a robust and interpretable similarity measure
+		
+		\end{itemize}
+\end{itemize}
+\vspace{\textheight}	
+\end{frame}
+\begin{frame}{Proposed Method}
+  \centering
+  \includegraphics[width=1\linewidth]{img/wsd_wsi.png}
+
 \end{frame}
 
-\begin{frame}{Leveraging the network communities 2} 
+
+\begin{frame}<presentation:0>[noframenumbering]{Leveraging the network communities} 
 \begin{enumerate}
 \item Link some words together with a color overlay to represent possible communities (clusters/groups) of same sense words. 
 \item Argue that thanks to the heterogeneous info contained in the structure, we can relate words according to different linguistic properties 
@@ -613,21 +680,21 @@ Based on the distributional hypothesis, a word is defined by its surroundings, w
 
 
 
-\begin{frame}{Introduction}
+\begin{frame}<presentation:0>[noframenumbering]{Introduction}
 \large \textbf{Applications}
 \vspace{.5cm}
 \begin{itemize}
-\item We instantiate our proposed linguistic resource 
+\item \large \textbf{We instantiate our proposed linguistic resource}
 \begin{itemize}
 \item Based on the English Wikipedia corpus
 \end{itemize}
-\item Use the proposed model  to solve two NLP tasks:
+\item \large \textbf{Use the proposed model  to solve two NLP tasks}
 	\begin{itemize}
 	\item Named Entity Recognition 
 	\item Word Sense Induction and Disambiguation
 	\end{itemize}
 \vspace{.3cm}
-\item These experiments have two main objectives:
+\item \large \textbf{These experiments have two main objectives}
 	\begin{itemize}
 	\item Test the effectiveness of fusion enriched representations (heterogeneity + less sparse spaces)
 	\item Leverage the structure of the network built following our proposed model
@@ -637,25 +704,68 @@ Based on the distributional hypothesis, a word is defined by its surroundings, w
 \vspace{\textheight}
 \end{frame}
 
-\subsection{Hypergrpah Model Instantiation}
+\subsection{Introduction}
 \begin{frame}{Hypergraph Model Instantiation}
+\begin{itemize}[<+- | alert@+>]
+\item \large \textbf{Apply our proposed linguistic model to a real world corpus}
+	\begin{itemize}
+	\item Use the English Wikipedia as input and generate a textual structure following the proposed network model
+	\end{itemize}
+\item \large \textbf{We provide two resources}
 \begin{itemize}
-\item Introduction to SAEWD
-\item Motivation
-\item Characteristics
-\item Show small diagram of the process
+	\item A syntactically annotated English Wikipedia corpus (SAEWD)
+	\item An Wikipedia-based enriched hypergraph linguistic model 
 \end{itemize}
+\item \large \textbf{Steps performed}	
+\begin{itemize}
+	\item[] \begin{center}
+		\includegraphics[width=0.7\linewidth]{image2/Chapitre7/saewd}
+		\end{center}
+
+\end{itemize}
+
+\end{itemize}
+
 \end{frame} 
 
-\begin{frame}{Hypergraph Model Instantiation}
-%\large  \textbf{Approach Overview} \hfill
-\begin{itemize}
-\item Image with how the hypergraph corpus is stored in files and how we can access the information via key-value pairs to select nouns or verbs or types of noun phrases etc
-\end{itemize}
- \vspace{\textheight}
+
+\begin{frame}{SAEWD: Parsed sample}
+
+
+			 	\centering	           
+	\adjustbox{max height=\dimexpr\textheight-6.5cm\relax,
+	           max width=\textwidth}{
+\begin{tabular}{llllll}
+ \multicolumn{6}{l}{\textit{FILENAME wiki\_00.parsed}}                                           \\ \hline
+  \textbf{token}   & \textbf{lemma}   & \textbf{POS} & \textbf{constituency}                      & \textbf{head} & \textbf{dependency} \\ \hline
+ \multicolumn{6}{l}{\textit{\%\%\#PAGE Anarchism}}                                         \\ \hline
+  {$\vdots$}      &      {$\vdots$}   &  {$\vdots$}   &     {$\vdots$}                              &    {$\vdots$}  &     {$\vdots$}       \\  \hline
+ \multicolumn{6}{l}{\textit{\%\%\#SEN 25  9}}                                             \\ \hline
+						 A       & a       & DT  & NP\_22,S\_97                      & 3    & det        \\ %\cline{2-7} 
+                         great   & great   & JJ  & NP\_22,S\_97                      & 3    & amod       \\ %\cline{2-7} 
+                         brigand & brigand & NN  & NP\_22,S\_97                      & 4    & nsubj      \\ %\cline{2-7} 
+                         becomes & become  & VBZ & VP\_44,S\_97                      & 0    & root       \\ %\cline{2-7} 
+                         a       & a       & DT  & NP\_18,NP\_20,VP\_44,S\_97        & 6    & det        \\ %\cline{2-7} 
+                         ruler   & ruler   & NN  & NP\_18,NP\_20,VP\_44,S\_97        & 4    & xcomp      \\ %\cline{2-7} 
+                         of      & of      & IN  & PP\_57,NP\_20,VP\_44,S\_97        & 9    & case       \\ %\cline{2-7} 
+                         a       & a       & DT  & NP\_18,PP\_57,NP\_20,VP\_44,S\_97 & 9    & det        \\ %\cline{2-7} 
+                         Nation  & nation  & NN  & NP\_18,PP\_57,NP\_20,VP\_44,S\_97 & 6    & nmod       \\ %	\cline{2-7} 
+\hline 
+\end{tabular}}
+
+\end{frame}
+
+
+\begin{frame}{Hypergraph Incidence Matrix}
+\begin{center}
+\includegraphics[width=1\linewidth]{img/incidence_aug.pdf}
+\end{center}
+
 \end{frame} 
 
-\begin{frame}{Wikipedia Feature Enriched Spaces}
+
+
+\begin{frame}{Wikipedia Feature Enriched Space}
 %\textbf{Target word \textit{priest} and its top 5 most similar words using different representation matrices.}
 
 \begin{tabular}{@{}llllll@{}}
@@ -694,10 +804,13 @@ Based on the distributional hypothesis, a word is defined by its surroundings, w
 
 
 \begin{frame}{Introduction}
-\textbf{Definition and Objectives}
+\begin{itemize}[<+- | alert@+>]
+\item \large \textbf{NER Objective}
 \begin{itemize}
 \item  The goal is to automatically discover  mentions that belong to a well-defined semantic category. 
-\item The classic task of NER involves detecting among four types of entities and a non-entity class:
+
+\end{itemize}
+\item \large \textbf{Classic entities types}
 	\begin{itemize}
 	\item Location (LOC)
 	\item Organization (ORG)
@@ -705,8 +818,11 @@ Based on the distributional hypothesis, a word is defined by its surroundings, w
 	\item Miscellaneous (MISC)
 	\item None (O)
 	\end{itemize}
+\item \large \textbf{Our goal}
+\begin{itemize}
 \item We assess the effectiveness of the classic fusion methods and propose new hybrid combinations 
-\item ** Show here graphical presentation of entities**
+\end{itemize}
+
 \end{itemize}
 \end{frame}
 
@@ -777,7 +893,7 @@ Based on the distributional hypothesis, a word is defined by its surroundings, w
 
 
 \begin{frame}{Experimental Protocol}
-	\begin{itemize}
+	\begin{itemize}[<+- | alert@+>]
 		\item \large \textbf{Preprocessing}
 			\begin{itemize}
 				\item Normalize numbers
@@ -858,37 +974,71 @@ Based on the distributional hypothesis, a word is defined by its surroundings, w
 %\vspace{\textheight}
 %\end{frame}
 
+\begin{frame}[t]{Evaluation}
+\begin{columns}
+	\column{0.5\textwidth}
+	\begin{minipage}[c][.8\textheight][c]{\linewidth}
+	\onslide<1->\includegraphics[width=1\linewidth]{image2/Chapitre4/1F_1.png}
+	\end{minipage}
+	\column{0.5\textwidth}
+	\begin{minipage}[c][0.8\textheight][c]{\linewidth}
+	\onslide<2->\includegraphics[width=1\linewidth]{image2/Chapitre4/1f_2.png}
+	\\
+	$b^*_{X_FF} \in \{\mlex, \mstd\}$
+	\\
+	$b^*_{X_SF} \in \{\slex, \ssyn\}$
+	\end{minipage}
+	\end{columns}
+\end{frame}
 
 \begin{frame}[t]{Evaluation}
 
-\begin{itemize}
-\item Best Fusion operators on the F-measure over the three datasets.  
-\item Achieved using a higher Degree fusion operator
-\item Notice the comparison with the Early Fusion baseline
-\item Visually show the best fusion operator, not with the formula.
-\end{itemize}
-\textbf{}
+%\begin{itemize}
+%\item Best Fusion operators on the F-measure over the three datasets.  
+%\item Achieved using a higher Degree fusion operator
+%\item Notice the comparison with the Early Fusion baseline
+%\item Visually show the best fusion operator, not with the formula.
+%\end{itemize}
 
-% \small In $EEELX_FLX_F$, $\hat{b}_{\scriptscriptstyle EEELX_FLX_F} \in  E(E(\mstd, 	 L(\mlex, X_F(\ssyn, \mlex))), \allowbreak L(\mlex, X_F(\sstd, \mlex))), E(E(\mstd, 	 L(\mstd, X_F(\ssyn, \mstd)))\allowbreak, L(\mlex, X_F(\ssyn, \mlex)))$ for CONLL, WNER and WGLD.
+
+
 \begin{center}
-\includegraphics[width=0.6\linewidth]{image2/Chapitre4/hf_trim.png}
+\begin{itemize}
+\onslide<1->\item[] \includegraphics[width=1\linewidth]{image2/Chapitre2/hybrid_fusiona_trim.pdf}%lexical
+\onslide<2->\item[] \includegraphics[width=1\linewidth]{image2/Chapitre4/hf_trim.png}
+\end{itemize}
+
+
+
+
 \end{center}
+
 
 
 \vspace{\textheight}
 \end{frame}
 
 \begin{frame}{Analyzing the Best Fusion Operator}
-Decompose best fusion in four models:
-\begin{equation*}
+\begin{itemize}[<+- | alert@+>]
+\item \large \textbf{Understand how the evolution towards and enriched space helps the model take the correct decision}
+\begin{itemize}
+\item Decompose the large fusion operator into 4 separate representations
+\item Train a model with each individual operator (4 models: $M_1$, $M_2$, $M_3$, $M_4$)
+\item Investigate how the features added at each step help the model predict the correct class
+\end{itemize}
+\item[] \begin{equation*}
 \overbrace{\underbrace{\overbrace{E_{\alpha=0.95}(\underbrace{\mlex}_{\circled{1}},\mstd}^{\circled{2}},L(\mstd, X_F(\ssyn, \mstd))}_{\circled{3}}, L(\mlex, X_F(\ssyn, \mlex))}^{\circled{4}})
 \end{equation*}
-\begin{enumerate}
-\item[\circled{1}] $\mlex$ \label{eq:f1} used to train model $M_1$.
-\item[\circled{2}] $E(\alpha_1\mlex, \alpha_2\mstd)$ \label{eq:f2} used to train model $M_2$, with $\alpha_1=0.95,\alpha_2=0.05$
-\item[\circled{3}] $E_\alpha(\alpha_1\mlex, \alpha_2\mstd, \alpha_3L(\mstd, X_F(\ssyn, \mstd)))$ used to train model $M_3$, with $\alpha_1=0.95,\alpha_2=\alpha_3=0.05$
-\item[\circled{4}] $E_\alpha(\alpha_1\mlex, \alpha_2\mstd, \alpha_3L(\mstd, X_F(\ssyn, \mstd)), \alpha_4L(\mlex, X_F(\ssyn, \mlex)))$ used to train model $M_4$, with $\alpha_1=0.95,\alpha_2=\alpha_3=\alpha_4=0.05$
-\end{enumerate}
+
+\end{itemize}
+
+
+%\begin{enumerate}
+%\item[\circled{1}] $\mlex$ \label{eq:f1} used to train model $M_1$.
+%\item[\circled{2}] $E(\alpha_1\mlex, \alpha_2\mstd)$ \label{eq:f2} used to train model $M_2$, with $\alpha_1=0.95,\alpha_2=0.05$
+%\item[\circled{3}] $E_\alpha(\alpha_1\mlex, \alpha_2\mstd, \alpha_3L(\mstd, X_F(\ssyn, \mstd)))$ used to train model $M_3$, with $\alpha_1=0.95,\alpha_2=\alpha_3=0.05$
+%\item[\circled{4}] $E_\alpha(\alpha_1\mlex, \alpha_2\mstd, \alpha_3L(\mstd, X_F(\ssyn, \mstd)), \alpha_4L(\mlex, X_F(\ssyn, \mlex)))$ used to train model $M_4$, with $\alpha_1=0.95,\alpha_2=\alpha_3=\alpha_4=0.05$
+%\end{enumerate}
 \end{frame}
 
 
@@ -909,14 +1059,19 @@ Decompose best fusion in four models:
 
 \section[Applications to NLP]{Solving Word Sense Induction and Disambiguation}
 
-\subsection{Word Sense Induction and Disambiguation}
 \begin{frame}{Introduction}
-\begin{center}
+\begin{itemize}[<+- | alert@+>]
+\item \large \textbf{WSI/WSD Objective}
 \begin{itemize}
-\item Introduction to WSI/WSD
+\item  The goal is to determine a set of possible senses to a given word according to its possible contexts (WSI). Then, assigning a correct sense to a particular instance of said word
+
 \end{itemize}
-%\includegraphics[width=0.9\linewidth]{image2/Chapitre4/diag_metodoWSD.pdf}
-\end{center}
+\item \large \textbf{Our goal}
+\begin{itemize}
+\item Again, to assess the effectiveness of the fusion enriched spaces and to evaluate the pertinence of our community discovering algorithm
+\end{itemize}
+
+\end{itemize}
 \end{frame}
 
 
@@ -924,7 +1079,7 @@ Decompose best fusion in four models:
 	\begin{itemize}
 		\item \large \textbf{Preprocessing}
 			\begin{itemize}
-				\item Normalize numbers
+				\item Remove very frequent and very infrequent words
 			\end{itemize}
 		\item \textbf{Test Corpora}
 			\begin{itemize}
@@ -932,85 +1087,100 @@ Decompose best fusion in four models:
 			\end{itemize}
 		\item \textbf{Clustering Algorithm}
 			\begin{itemize}
-				\item Spectral Clustering
+				\item Spectral Clustering \cite{Shi2000}
+				\item Proposed Community Algorithm
 			\end{itemize}
 
 		\item \textbf{Evaluation Metrics}
 			\begin{itemize}
-				\item Supervised: F-score
-				\item Unsupervised: Recall
-				\item Proposed: H-score
+				\item Supervised Recall
+				\item Unsupervised  F-measure
+				\item Proposed: H-measure
+				\begin{itemize}
+				\item[] \includegraphics[width=0.6\linewidth]{image2/Chapitre4/h-measure}
+				\item[] \small $\delta$ is the average true number of senses of the words in a test corpus
+
+				\end{itemize}
+				\begin{itemize}
+					\item[] 
+				\end{itemize}
 			\end{itemize}
 	\end{itemize}	 
 	\vspace{\textheight}
 \end{frame}
 
-\begin{frame}{WSI/WSD: Evaluation}
-\begin{itemize}
-\item Results for WSI/WSD with spectral clustering
-\end{itemize}
+\begin{frame}{Spectral Clustering Evaluation}
+\begin{columns}
+	\column{0.5\textwidth}
+	\begin{minipage}[c][0.5\textheight][c]{\linewidth}
+	\onslide<1->
+	\begin{figure}
+		\centering
+		\includegraphics[width=1\linewidth]{image2/Chapitre4/wsd_SC_SR}
+		\caption{Supervised Recall}
+	\end{figure}
+
+	\end{minipage}
+	\column{0.5\textwidth}
+	\begin{minipage}[c][0.5\textheight][c]{\linewidth}
+	\onslide<2->
+	\begin{figure}
+		\centering
+		\includegraphics[width=1\linewidth]{image2/Chapitre4/wsd_SC_UF.png}
+		\caption{Unsupervised F-measure}
+	\end{figure}
+	\end{minipage}
+	\end{columns}
 \end{frame}
 
 
 
-\begin{frame}{Finding Senses in the Network}
-
-	\large  \textbf{How to exploit a linguistic network to solve word sense induction and disambiguation?}
-	\vspace{.5cm}
-	\normalsize
-	\begin{itemize}
-		\item \textbf{Similar approaches}
-			\begin{itemize}
-				\item Hyperlex \cite{2004.Veronis}
-				\item University of York (UoY) \cite{2007.Klapaftis.UOY}
-			\end{itemize}
-		\item \textbf{Limitations of existing approaches}
-		\begin{itemize}
-			\item Single typed networks
-			\item Large number of parameters
-		\end{itemize}
-		\item \textbf{Features}
-		\begin{itemize}
-				\item Be able to exploit different types of linguistic information (lexical or syntactic co-occurrence)
-				\item Keep  the number of parameters low and allow for their automatic adjusting according to the network's nature
-%				\item Use a robust and interpretable similarity measure
-		
-		\end{itemize}
-\end{itemize}
-\vspace{\textheight}	
-\end{frame}
-\begin{frame}{Proposed Method}
-  \centering
-  \includegraphics[width=1\linewidth]{img/wsd_wsi.png}
-
+\begin{frame}{Spectral Clustering Evaluation}
+\begin{figure}
+	\centering
+	\includegraphics[width=.6\linewidth]{image2/Chapitre4/wsd_SC_Hm.png}
+	\caption{Proposed H-measure}
+\end{figure}
 \end{frame}
 
 
+\begin{frame}{Proposed Algorithm Evaluation}
+\begin{columns}
+	\column{0.5\textwidth}
+	\begin{minipage}[c][0.5\textheight][c]{\linewidth}
+	\onslide<1->
+	\begin{figure}
+		\centering
+		\includegraphics[width=1\linewidth]{image2/Chapitre4/wsd_PA_SR}
+		\caption{Supervised Recall}
+	\end{figure}
+
+	\end{minipage}
+	\column{0.5\textwidth}
+	\begin{minipage}[c][0.5\textheight][c]{\linewidth}
+	\onslide<2->
+	\begin{figure}
+		\centering
+		\includegraphics[width=1\linewidth]{image2/Chapitre4/wsd_PA_UF.png}
+		\caption{Unsupervised F-measure}
+	\end{figure}
+	\end{minipage}
+	\end{columns}
+\end{frame}
 
 
-
-
-
-
-
-\begin{frame}{Semeval Results}
-\begin{itemize}
-\item Semeval 2007 results table
-\end{itemize}
+\begin{frame}{Proposed Algorithm Evaluation}
+\begin{figure}
+	\centering
+	\includegraphics[width=.5\linewidth]{image2/Chapitre4/wsd_PA_Hm.png}
+	\caption{Proposed H-measure}
+\end{figure}
 \end{frame}
 
 
 
 
 
-
-\begin{frame}{WSI/WSD: Evaluation}
-\begin{itemize}
-\item Verbs and nouns behaviors
-\item Insight into senses found by the algorithm
-\end{itemize}
-\end{frame}
-%
 %
 %
 %\item\textbf{ How can we improve the model?}
@@ -1071,61 +1241,100 @@ Decompose best fusion in four models:
 %
 
 
-
+\metroset{sectionpage=none}
+\metroset{sectionpage=progressbar}
 \section{Conclusions}
 
 \begin{frame}{Insights From our Contributions}
-%\begin{itemize}
-%	\item \textbf{Hypergraph Linguistic Model}
-%		\begin{itemize}
-%			\item Takes into account different types of linguistic information
-%			\item Link multiple words together
-%		\end{itemize}
-%	\item \textbf{WSD and WSI method based on a HLM}	
-%		\begin{itemize}
-%			\item Use syntactical or lexical co-occurrences
-%			\item Take into account network nature and reduce number of parameters
-%		\end{itemize}
-%	\item \textbf{Building a syntactically parsed Wikipedia dump}	
-%			\begin{itemize}
-%				\item Contains constituents information missing from most Wikipedia parses
-%				\item Fits with our proposed HLM model
-%			\end{itemize}
-%			
-%		
-%\end{itemize}
+\begin{itemize}[<+- | alert@+>]
+\item \textbf{Hypergraph Linguistic Model}
+	\begin{itemize}
+	\item Considering heterogeneous features to link words together at once using a hypergraph structure
+		\begin{itemize}	
+		\item Yields a multi-layered representation of text
+%		\item Allow the distributional hypothesis and a passage between the vector space model and network-based models
+		\end{itemize}
+	\end{itemize}
+\item \textbf{Combining Features and Dealing with Sparsity}
+	\begin{itemize}
+	\item Using fusion operators
+		\begin{itemize}	
+			\item Intuitive way to leverage the different points of view of each heterogeneous feature while increasing the density of the representation
+		\end{itemize}
+
+	\end{itemize}
+\item \textbf{Applications to NLP}
+	\begin{itemize}
+	\item Solving NER and WSI/WSD with fusion enriched representations and our community-driven algorithm
+		\begin{itemize}	
+		\item Enriched features are indeed useful compared to using single independent features
+		\item A high degree combination of fusion operators are the ones that yield the improvements
+		\item The community finding algorithm improves over similar algorithms while being simpler and allows for heterogeneous features
+		\item The Wikipedia-based instantiation serves as a NLP system starting point
+
+		\end{itemize}
+	
+	\end{itemize}
+\end{itemize}
 
 
 \end{frame}
-
-
-
-
 
 \begin{frame}{Future Work}
-%
-%\begin{itemize}
-%\item \textbf{WSD and WSI}
-%\begin{itemize}
-%	\item Further explore the combination of linguistic features 
-%	\item Look into applying a better WSD technique
-%	\item Interpret the results from a qualitative point of view 
-%\end{itemize}
-%
-%\item \textbf{Information Extraction}
-%\begin{itemize}
-%	\item Apply the semantic knowledge obtained until now to solve Named Entity Recognition
-%	\item Enrich our techniques with open access textual information
-%\end{itemize}
-%\end{itemize}
-%
-%\end{frame}
-%
-%\begin{frame}{The End}
-%\large Thank you for your attention
+\begin{itemize}[<+- | alert@+>]
+\item \textbf{Hypergraph Linguistic Model}
+	\begin{itemize}
+	\item Implementing a dataframe-like structure allowing for queries and exploration of large corpora using the proposed model
+	\end{itemize}
+\item \textbf{Combining Features and Dealing with Sparsity}
+	\begin{itemize}
+	\item Finding a more principled way to determine what type of
+		context with what type of fusion operation according to the task at hand
+	\item Exploring with other modal features
+	\end{itemize}
+\item \textbf{Applications to NLP}
+	\begin{itemize}
+	\item Using the large Wikipedia-based network as a background corpus to further enrich domain-specific corpora
+	\item Test more feature weighting schemes, validate findings on more datasets
+	\end{itemize}
+\end{itemize}
+
 
 \end{frame}
-	
+
+
+
+
+\begin{frame}{Publications Produced by Our Research}
+\begin{itemize}
+	\item \small Edmundo-Pavel Soriano-Morales, Julien Ah-Pine, Sabine Loudcher: \textbf{Fusion Techniques for Named Entity Recognition and Word Sense Induction and Disambiguation}. DS 2017
+	\item \small Edmundo-Pavel Soriano-Morales, Julien Ah-Pine, Sabine Loudcher:
+	\textbf{Using a Heterogeneous Linguistic Network for Word Sense Induction and Disambiguation.} CICLING 2016
+	\item \small Edmundo-Pavel Soriano-Morales, Julien Ah-Pine, Sabine Loudcher:
+		\textbf{Hypergraph Modelization of a Syntactically Annotated English Wikipedia Dump}. LREC 2016
+	\item \small Adrien Guille, Edmundo-Pavel Soriano-Morales, Ciprian-Octavian Truica:
+\textbf{Topic modeling and hypergraph mining to analyze the EGC conference history}. EGC 2016
+\item \small Adrien Guille, Edmundo-Pavel Soriano-Morales:
+\textbf{TOM: A library for topic modeling and browsing.} EGC 2016:
+
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Publications Produced by Our Research}
+\begin{itemize}
+	\item \small Julien Ah-Pine, Edmundo-Pavel Soriano-Morales: \textbf{A Study of Synthetic Oversampling for Twitter Imbalanced Sentiment Analysis}. DMNLP@PKDD/ECML 2016
+	\item \small Sabine Loudcher, Wararat Jakawat, Edmundo-Pavel Soriano-Morales, Cécile Favre:
+	\textbf{Combining OLAP and information networks for bibliographic data analysis: a survey}. Scientometrics 103(2)
+
+\end{itemize}
+\end{frame}	
+
+%
+\begin{frame}{The End}
+\centering
+\LARGE Thank you for your attention
+\end{frame}
+
 \begin{frame}[allowframebreaks]{References}
 
 \printbibliography
