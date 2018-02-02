@@ -189,8 +189,8 @@
 \begin{frame}{Representing Text}
 %So for example, in this text, I can get features that describe its properties. They may be lexical (needing only the information of the words surrounding each word), syntactical (exaplin syntactic vs dependency tree)
 
-\begin{itemize}[<+- | alert@+>]
-	\item \textbf{Three common ways to represent text}
+\begin{itemize}
+	\item \textbf{Common ways to represent text}
 	\begin{itemize}
 		\item Lexical
 		\item Syntactic
@@ -199,7 +199,7 @@
 				\item Dependency Tree
 		\end{itemize}
 	\end{itemize}
-	\item \textbf{Working Example}
+	\onslide<2-> \item \textbf{Example Phrase}
 	\begin{itemize}
 		\item[] \textit{The report contains copies of the minutes of these meetings}
 	\end{itemize}
@@ -207,43 +207,30 @@
 
 \begin{overprint}
   				
-  \onslide<8>
-%	  \textbf{Lexical Information}
-
+  \onslide<3>
+	  \vfill
 	  \centering	  
       \includegraphics[width=.8\linewidth]{img/tree/lexical_tree.pdf}
-  \onslide<10>
-%	  \textbf{Dependency Information}  
-  	  
+	  \vfill
+  \onslide<4>
+	  \vfill
   	  \centering
       \includegraphics[width=.8\linewidth]{img/tree/dep_tree.pdf}
-  \onslide<9>
-%	  \textbf{Constituency Information}  
-	  
+      \vfill
+  \onslide<5>
+	  \vfill
 	  \centering
       \includegraphics[width=.8\linewidth]{img/tree/tree.pdf}
+      \vfill
 \end{overprint}
-
-%boilerplate
-%\begin{overprint}
-%  % on every slide (not sure if it is officially supported)
-%  \onslide<1>
-%  % on first slide
-%  \onslide<2>
-%  % on slide two
-%  \onslide<3>
-%  % on slide three
-%  % etc.
-%\end{overprint}
-
 \end{frame}
 
-\begin{frame}{Representing Text}
+\begin{frame}{Represention Models}
 \begin{itemize}
-\item \textbf{Text Representation Models}
+\item \textbf{Two classic models}
 	\begin{itemize}
-		\item Words and features can be represented by means of graph-based models  matrices
-		\item Or directly with (sparse) matrices
+		\item Graph-based 
+		\item Matric
 	\end{itemize}
 \item \textbf{Leveraging the Network Structure}
 	\begin{itemize}
@@ -265,23 +252,23 @@
 
 
 \begin{frame}{Main Challenges and Contributions}
-	\begin{enumerate}[<+- | alert@+>]
-		\item What type of model can we employ to represent a corpus using heterogeneous features?
+	\begin{enumerate}
+		\item<1-> What type of model can we employ to represent a corpus using heterogeneous features?
 		%    	    	 what type of model can we employ to represent a corpus through a set of heterogeneous features, extracted from itself, while keeping record of the relationships between textual units? How can we organize and store this model as simply and efficiently possible?
 		\begin{itemize}
-		\item \textit{Hypergraph linguistic model to hold different types of  linguistic information}
+		\item<1-> \textit{Hypergraph linguistic model to hold different types of  linguistic information}
 		\end{itemize}
 		
-		\item How can we combine these features while dealing with feature sparsity?
+		\item<2-> How can we combine these features while dealing with feature sparsity?
 		\begin{itemize}
-		\item \textit{Multimedia fusion techniques to combine and densify representation spaces}	    	 
+		\item<2-> \textit{Multimedia fusion techniques to combine and densify representation spaces}	    	 
 		\end{itemize}
-		\item How can we find and employ communities existing within the language networks?
+		\item<3-> How can we find and employ communities existing within the language networks?
 		\begin{itemize}
-		\item \textit{An alternative network-based algorithm to discover semantically related words within a text}
+		\item<3-> \textit{An alternative network-based algorithm to discover semantically related words within a text}
 		\end{itemize}
 		
-	\end{enumerate}%[<+- | alert@+>]
+	\end{enumerate}
  \vspace{\textheight}
 \end{frame}
 
@@ -314,21 +301,18 @@
 %\large \textbf{What type of model can we employ to represent textual features?}
 %Which textual features?
 %todo Add here the networks by choudhury et al, venus stuff
-\vspace{.5cm}
-Based on the distributional hypothesis, a word is defined by its surroundings, we can extract useful information from a text.
-\begin{itemize}[<+- | alert@+>]
-	\item \textbf{How do we represent textual data?}
-		\begin{itemize}
-		\item Network Models \cite{2004.Mihalcea.SemanticNetworkPageRank}
-		\item Vector Space Models \cite{manning1999foundations}
-
-		
-		\end{itemize}
+We extract useful information from a text based on the distributional hypothesis (a word is defined by its surroundings) 
+\begin{itemize}
+%	\item \textbf{How do we represent textual data?}
+%		\begin{itemize}
+%		\item Network Models \cite{2004.Mihalcea.SemanticNetworkPageRank}
+%		\item Vector Space Models \cite{manning1999foundations}
+%		\end{itemize}
 	\vspace{.5cm}
 	\item \textbf{We choose network models} 
 		\begin{itemize}
-		\item Used in a large quantity of NLP tasks \cite{Mihalcea2011}
-		\item Graphs structures can give us a clearer view into the relations of words within a text 	\cite{Choudhury2009}
+		\item Used in a large quantity of NLP tasks 
+		\item Graphs structures can give us a clearer view into the relations of words within a text 	
 		\item Ultimately graphs are transformed to a vectorial representation through the adjacency/incidence matrices
 		
 		\end{itemize}
@@ -346,6 +330,7 @@ Based on the distributional hypothesis, a word is defined by its surroundings, w
 %todo Add here the networks by choudhury et al venus stuff
 
 \begin{itemize}
+\item[] \large \textbf{Example phrase}
 \item[] \textit{The report contains copies of the minutes of these meetings} 
 \end{itemize}
 
@@ -362,59 +347,31 @@ Based on the distributional hypothesis, a word is defined by its surroundings, w
   \onslide<4>
 	  \centering
 	  \includegraphics[width=.7\linewidth]{image2/Chapitre2/consti_network_ex.pdf}   
-  \onslide<5>
-	  \centering
-	  \includegraphics[width=.7\linewidth]{image2/Chapitre2/sem_network_ex.pdf}   
+%  \onslide<5>
+%	  \centering
+%	  \includegraphics[width=.7\linewidth]{image2/Chapitre2/sem_network_ex.pdf}   
 
   % on slide three
   % etc.
 \end{overprint}
 
 
-
-%\begin{columns}
-%	\column{0.33\textwidth}
-%	\centering
-%	\onslide<3->\textbf{Lexical Networks}
-%	\begin{minipage}[c][0.6\textheight][c]{\linewidth}
-%	\onslide<4->\includegraphics[width=1\linewidth]{image2/Chapitre2/lexi_network_ex.pdf}
-%	\end{minipage}
-%	\column{0.33\textwidth}
-%	\centering
-%	\onslide<5->\textbf{\normalsize Syntactic Network} 
-%	\begin{minipage}[c][0.6\textheight][c]{\linewidth}
-%	\onslide<6->\includegraphics[width=1\linewidth]{image2/Chapitre2/deps_network_ex.pdf} \\
-%	\onslide<7->\includegraphics[width=1\linewidth]{image2/Chapitre2/consti_network_ex.pdf}
-%	\end{minipage}
-%	
-%	\column{0.32\textwidth}
-%	\onslide<8->\textbf{\normalsize Semantic Network} 
-%	\begin{minipage}[c][0.6\textheight][c]{\linewidth}
-%	\onslide<9->\includegraphics[width=1\linewidth]{image2/Chapitre2/sem_net.pdf}
-%	An expert is usually involved.
-%	\end{minipage}
-%
-%\end{columns}
-
 \end{frame}
 
 
 \begin{frame}{Limitations and Proposition}
-\begin{itemize}[<+- | alert@+>]
-\item \large \textbf{Limitations of existing representations}
+\begin{itemize}
+\item<1-> \large \textbf{Limitations of existing representations}
 	\begin{itemize}
-	\item Language networks generally employ a single type of textual information
-	\item The edges of the network may relate maximum two words at each time
+	\item<1-> Language networks generally employ a single type of textual information
+	\item<1-> The edges of the network may relate maximum two words at each time
 %	\item There is no 
 	\end{itemize}
-\item \large \textbf{Proposition}
+\item<2-> \large \textbf{Proposition}
 	\begin{itemize}
-	\item Represent together linguistic co-occurrences through a hypergraph model
-	\begin{itemize}
-	\item Link together three different types of networks, using lexical and syntactic data
-	\item Get a semantic overview at three different levels: short range (with dependency functions), medium range (phrase constituency membership), and long range (lexical  co-occurrence) 
-	\end{itemize}
-	
+	\item<2-> Use a hypergraph model
+	\item<2-> Link together the different types of networks
+	\item<2-> Get a semantic overview at three different levels: short range, medium range, and long range 
 	\end{itemize}
 \end{itemize}
 \vspace{\textheight}
@@ -529,18 +486,18 @@ Based on the distributional hypothesis, a word is defined by its surroundings, w
 \begin{frame}{Multimedia Fusion Techniques}
 
 %\vspace{.5cm}
-\begin{itemize}[<+- | alert@+>]
-\item \large \textbf{Definition}
+\begin{itemize}
+\item<1-> \large \textbf{Definition}
 	\begin{itemize}
-	\item Set of techniques used in multimedia analysis tasks to integrate multiple media \cite{AtreyHEK10,ahn2010link}
-	\item The goal is to obtain rich insights about the data being treated
-	\item We adapt these techniques to our use case: textual information
+	\item<1-> Set of techniques used in multimedia analysis tasks to integrate multiple media 
+	\item<1-> The goal is to obtain rich insights about the data being treated
+	\item<1-> We adapt these techniques to our use case: textual information
 	\end{itemize}
-\item \large\textbf{Main fusion operators:}
+\item<2-> \large\textbf{Main fusion operators:}
 	\begin{itemize}
-	\item Early Fusion $E_\alpha(\cdot)$, 
-	\item Late Fusion $L_\beta(\cdot)$, 
-	\item Cross Fusion $X_\gamma(\cdot), X_F(\cdot)$
+	\item<2-> Early Fusion $E_\alpha(\cdot)$, 
+	\item<2-> Late Fusion $L_\beta(\cdot)$, 
+	\item<2-> Cross Fusion $X_\gamma(\cdot), X_F(\cdot)$
 %	\item $\alpha$ and $\beta$: Assign an importance weight to each of their operators 
 %	\item $\gamma$: number of top similar items to take from the similarity space
 	\end{itemize}
@@ -587,24 +544,31 @@ Based on the distributional hypothesis, a word is defined by its surroundings, w
 %	\begin{itemize}
 %	\item Chaining together fusion functions to leverage the complementarity of the different features
 %	\end{itemize}
-\item \large We distinguish three levels of fusion operators
+\item<1-> \textbf{Combining fusion operators}
+
+\begin{itemize}
+\item<1-> Application of one function to the result of another to produce a new function
+\end{itemize}
+
+\item<2-> \textbf{We distinguish three levels of fusion operators}
+
 	\begin{itemize}
-	\item \textbf{First Degree}
+	\item<3-> \textbf{First Degree (3 operators):} 
 		\begin{itemize}
-		\item $E(\mlex,\msyn)$, $L(\ssyn,\mlex)$ 
-		\item Cross Feature Fusion: $X_F(S^S, M^L)$
-		\item Cross Similarity Fusion: $X_S(S^S, S^L)$
+		\item<3-> $E(\mlex,\msyn)$, $L(\ssyn,\mlex)$ 
+		\item<3-> Cross Feature Fusion: $X_F(S^S, M^L)$
+		\item<3-> Cross Similarity Fusion: $X_S(S^S, S^L)$
 		\end{itemize}
-	\item \textbf{Second Degree}
+	\item<4-> \textbf{Second Degree (4 operators, 2 shown):} 
 		\begin{itemize}
-		\item Cross Feature Early Fusion: $X_F(S^T , E(M^L , M^S ))$
-		\item Late Cross Feature Fusion: $L(M^T, X_F (S^T , M^T ))$
+		\item<4-> Cross Feature Early Fusion: $X_F(S^T , E(M^L , M^S ))$
+		\item<4-> Late Cross Feature Fusion: $L(M^T, X_F (S^T , M^T ))$
 		
 		
 		\end{itemize}
-	\item \textbf{Higher Degree}
+	\item<5-> \textbf{Higher Degree (2 operators, 1 shown)}
 		\begin{itemize}
-		\item Triple Early Double Late Cross Feature Fusion: $E(M_L , E(E(M_T , L(M^T , X_F (S^T , M^T ))) , L(M^L , X_F (S^S , M^L))))$
+		\item<5-> Triple Early Double Late Cross Feature Fusion: $E(M_L , E(E(M_T , L(M^T , X_F (S^T , M^T ))) , L(M^L , X_F (S^S , M^L))))$
 		\end{itemize}
 	\end{itemize}
 
@@ -614,7 +578,10 @@ Based on the distributional hypothesis, a word is defined by its surroundings, w
 
 \end{frame}
 
-\begin{frame}{Hybrid Fusion}
+\begin{frame}{High Degree Fusion}
+\begin{itemize}
+\item[] \large \textbf{Higher Degree Operator }
+\end{itemize}
 \begin{overprint}
 	\onslide<1>\includegraphics[width=1\linewidth]{image2/Chapitre2/hybrid_fusion0.pdf}%lexical
 	\onslide<2>\includegraphics[width=1\linewidth]{image2/Chapitre2/hybrid_fusiona.pdf}%lexical
@@ -633,28 +600,28 @@ Based on the distributional hypothesis, a word is defined by its surroundings, w
 \section[Contributions in Detail]{Finding Communities in the Network}
 
 
-\begin{frame}{Finding Senses in the Network}
+\begin{frame}{Introduction}
 
-	\begin{itemize}[<+- | alert@+>]
-		\item \large \textbf{Language networks tend to be scale-free}	
+	\begin{itemize}
+		\item<1-> \large \textbf{Language networks tend to be scale-free}	
 			\begin{itemize}
-				\item There are certain nodes (hubs) that are very well connected forming communities within the network
+				\item<1-> There are certain nodes (hubs) that are very well connected forming communities within the network
 			\end{itemize}
-
-		\item \large \textbf{Seminal approaches}
-			\begin{itemize}
-				\item Hyperlex \cite{2004.Veronis}
-				\item University of York (UoY) \cite{2007.Klapaftis.UOY}
-			\end{itemize}
-		\item \textbf{Limitations of existing approaches}
+%
+%		\item \large \textbf{Seminal approaches}
+%			\begin{itemize}
+%				\item Hyperlex \cite{2004.Veronis}
+%				\item University of York (UoY) \cite{2007.Klapaftis.UOY}
+%			\end{itemize}
+		\item<2-> \textbf{Limitations of existing approaches}
 		\begin{itemize}
-			\item Single typed networks
-			\item Large number of parameters
+			\item<2-> Single typed networks
+			\item<2-> Large number of parameters
 		\end{itemize}
-		\item \textbf{Proposition}
+		\item<3-> \textbf{Proposition}
 		\begin{itemize}
-				\item Be able to exploit different types of linguistic information (lexical or syntactic co-occurrence)
-				\item Keep  the number of parameters low and allow for their automatic adjusting according to the network's nature
+				\item<3-> Be able to exploit different types of linguistic information (lexical or syntactic co-occurrence)
+				\item<3-> Keep  the number of parameters low and allow for their automatic adjusting according to the network's nature
 %				\item Use a robust and interpretable similarity measure
 		
 		\end{itemize}
@@ -706,19 +673,19 @@ Based on the distributional hypothesis, a word is defined by its surroundings, w
 
 \subsection{Introduction}
 \begin{frame}{Hypergraph Model Instantiation}
-\begin{itemize}[<+- | alert@+>]
-\item \large \textbf{Apply our proposed linguistic model to a real world corpus}
+\begin{itemize}
+\item<1-> \large \textbf{Apply our proposed linguistic model to a real world corpus}
 	\begin{itemize}
-	\item Use the English Wikipedia as input and generate a textual structure following the proposed network model
+	\item<1-> Use the English Wikipedia as input and generate a textual structure following the proposed network model
 	\end{itemize}
-\item \large \textbf{We provide two resources}
+%\item<2-> \large \textbf{We provide two resources}
+%\begin{itemize}
+%	\item<2-> A syntactically annotated English Wikipedia corpus (SAEWD)
+%	\item<2-> A Wikipedia-based enriched hypergraph linguistic model 
+%\end{itemize}
+\item<2-> \large \textbf{Steps performed}	
 \begin{itemize}
-	\item A syntactically annotated English Wikipedia corpus (SAEWD)
-	\item An Wikipedia-based enriched hypergraph linguistic model 
-\end{itemize}
-\item \large \textbf{Steps performed}	
-\begin{itemize}
-	\item[] \begin{center}
+	\item<2->[] \begin{center}
 		\includegraphics[width=0.7\linewidth]{image2/Chapitre7/saewd}
 		\end{center}
 
@@ -753,7 +720,7 @@ Based on the distributional hypothesis, a word is defined by its surroundings, w
 \hline 
 \end{tabular}}
 
-\end{frame}
+h\end{frame}
 
 
 \begin{frame}{Hypergraph Incidence Matrix}
@@ -804,23 +771,23 @@ Based on the distributional hypothesis, a word is defined by its surroundings, w
 
 
 \begin{frame}{Introduction}
-\begin{itemize}[<+- | alert@+>]
-\item \large \textbf{NER Objective}
 \begin{itemize}
-\item  The goal is to automatically discover  mentions that belong to a well-defined semantic category. 
+\item<1-> \large \textbf{NER Objective}
+\begin{itemize}
+\item<1->  The goal is to automatically discover  mentions that belong to a well-defined semantic category. 
 
 \end{itemize}
-\item \large \textbf{Classic entities types}
+\item<2-> \large \textbf{Classic entities types}
 	\begin{itemize}
-	\item Location (LOC)
-	\item Organization (ORG)
-	\item Person (PER)
-	\item Miscellaneous (MISC)
-	\item None (O)
+	\item<2-> Location (LOC)
+	\item<2-> Organization (ORG)
+	\item<2-> Person (PER)
+	\item<2-> Miscellaneous (MISC)
+	\item<2-> None (O)
 	\end{itemize}
-\item \large \textbf{Our goal}
+\item<3-> \large \textbf{Our goal}
 \begin{itemize}
-\item We assess the effectiveness of the classic fusion methods and propose new hybrid combinations 
+\item<3-> We assess the effectiveness of the classic fusion methods and propose new hybrid combinations 
 \end{itemize}
 
 \end{itemize}
@@ -893,29 +860,26 @@ Based on the distributional hypothesis, a word is defined by its surroundings, w
 
 
 \begin{frame}{Experimental Protocol}
-	\begin{itemize}[<+- | alert@+>]
-		\item \large \textbf{Preprocessing}
+	\begin{itemize}
+		\item<1-> \large \textbf{Preprocessing}
 			\begin{itemize}
-				\item Normalize numbers
+				\item<1-> Normalize numbers
 			\end{itemize}
-		\item \textbf{Test Corpora}
+		\item<2-> \textbf{Test Corpora}
 			\begin{itemize}
-			\item CoNLL-2003 (CONLL) \cite{SangM03}: Train: 219,554 lines. Test: 50,350 
-			\item Wikiner (WNER) \cite{Nothman2009}: No Train/Test split. 3.5 million words. Evaluated in a 5-fold CV
-			\item Wikigold (WGLD) \cite{Balasuriya2009}: No Train/Test split. 41,011 words. Evaluated in a 5-fold CV
+			\item<2-> CoNLL-2003 (CONLL) \cite{SangM03}: Train: 219,554 lines. Test: 50,350 
+			\item<2-> Wikiner (WNER) \cite{Nothman2009}: 3.5 million words. 
+			\item<2-> Wikigold (WGLD) \cite{Balasuriya2009}: 41,011 words. 
 			\end{itemize}
-		\item \textbf{Annotation Scheme}
+		\item<3-> \textbf{Learning Algorithm}
 			\begin{itemize}
-				\item \textbf{B}eginning, \textbf{I}nside, \textbf{O}utside
-			\end{itemize}
-		\item \textbf{Learning Algorithm}
-			\begin{itemize}
-				\item Structured Perceptron \cite{Collins2002}
+				\item<3-> Structured Perceptron \cite{Collins2002}
 			\end{itemize}
 
-		\item \textbf{Evaluation Metrics}
+		\item<4-> \textbf{Evaluation Metric}
 			\begin{itemize}
-				\item Precision, Recall, F-measure
+				\item<4-> F-measure
+				\item<4-> Evaluated in a 5-fold CV (WNER and WGLD)
 			\end{itemize}
 	\end{itemize}	 
 	\vspace{\textheight}
@@ -978,7 +942,9 @@ Based on the distributional hypothesis, a word is defined by its surroundings, w
 \begin{columns}
 	\column{0.5\textwidth}
 	\begin{minipage}[c][.8\textheight][c]{\linewidth}
+	
 	\onslide<1->\includegraphics[width=1\linewidth]{image2/Chapitre4/1F_1.png}
+	
 	\end{minipage}
 	\column{0.5\textwidth}
 	\begin{minipage}[c][0.8\textheight][c]{\linewidth}
@@ -1060,15 +1026,15 @@ Based on the distributional hypothesis, a word is defined by its surroundings, w
 \section[Applications to NLP]{Solving Word Sense Induction and Disambiguation}
 
 \begin{frame}{Introduction}
-\begin{itemize}[<+- | alert@+>]
-\item \large \textbf{WSI/WSD Objective}
 \begin{itemize}
-\item  The goal is to determine a set of possible senses to a given word according to its possible contexts (WSI). Then, assigning a correct sense to a particular instance of said word
+\item<1-> \large \textbf{WSI/WSD Objective}
+\begin{itemize}
+\item<1->  The goal is to determine a set of possible senses to a given word according to its possible contexts (WSI). Then, assigning a correct sense to a particular instance of said word
 
 \end{itemize}
-\item \large \textbf{Our goal}
+\item<2-> \large \textbf{Our goal}
 \begin{itemize}
-\item Again, to assess the effectiveness of the fusion enriched spaces and to evaluate the pertinence of our community discovering algorithm
+\item<2-> Again, to assess the effectiveness of the fusion enriched spaces and to evaluate the pertinence of our community discovering algorithm
 \end{itemize}
 
 \end{itemize}
@@ -1077,32 +1043,29 @@ Based on the distributional hypothesis, a word is defined by its surroundings, w
 
 \begin{frame}{Experimental Protocol}
 	\begin{itemize}
-		\item \large \textbf{Preprocessing}
+		\item<1-> \large \textbf{Preprocessing}
 			\begin{itemize}
-				\item Remove very frequent and very infrequent words
+				\item<1-> Remove very frequent and very infrequent words
 			\end{itemize}
-		\item \textbf{Test Corpora}
+		\item<2-> \textbf{Test Corpora}
 			\begin{itemize}
-			\item Semeval 2007 \cite{SangM03}: Train: 219,554 lines. Test: 50,350 
+			\item<2-> Semeval 2007 \cite{SangM03}: Train: 219,554 lines. Test: 50,350 
 			\end{itemize}
-		\item \textbf{Clustering Algorithm}
+		\item<3-> \textbf{Clustering Algorithm}
 			\begin{itemize}
-				\item Spectral Clustering \cite{Shi2000}
-				\item Proposed Community Algorithm
+				\item<3-> Spectral Clustering \cite{Shi2000}
+				\item<3-> Proposed Community Algorithm
 			\end{itemize}
 
-		\item \textbf{Evaluation Metrics}
+		\item<4-> \textbf{Evaluation Metrics}
 			\begin{itemize}
-				\item Supervised Recall
-				\item Unsupervised  F-measure
-				\item Proposed: H-measure
+				\item<4-> Supervised Recall
+				\item<4-> Unsupervised  F-measure
+				\item<5-> Proposed: H-measure
 				\begin{itemize}
-				\item[] \includegraphics[width=0.6\linewidth]{image2/Chapitre4/h-measure}
-				\item[] \small $\delta$ is the average true number of senses of the words in a test corpus
+				\item<5->[] \includegraphics[width=0.6\linewidth]{image2/Chapitre4/h-measure}
+				\item<5->[] \small $\delta$ is the average true number of senses of the words in a test corpus
 
-				\end{itemize}
-				\begin{itemize}
-					\item[] 
 				\end{itemize}
 			\end{itemize}
 	\end{itemize}	 
@@ -1246,31 +1209,31 @@ Based on the distributional hypothesis, a word is defined by its surroundings, w
 \section{Conclusions}
 
 \begin{frame}{Insights From our Contributions}
-\begin{itemize}[<+- | alert@+>]
-\item \textbf{Hypergraph Linguistic Model}
+\begin{itemize}
+\item<1-> \textbf{Hypergraph Linguistic Model}
 	\begin{itemize}
-	\item Considering heterogeneous features to link words together at once using a hypergraph structure
+	\item<1-> Considering heterogeneous features to link words together at once using a hypergraph structure
 		\begin{itemize}	
-		\item Yields a multi-layered representation of text
+		\item<1-> Yields a multi-layered representation of text
 %		\item Allow the distributional hypothesis and a passage between the vector space model and network-based models
 		\end{itemize}
 	\end{itemize}
-\item \textbf{Combining Features and Dealing with Sparsity}
+\item<2-> \textbf{Combining Features and Dealing with Sparsity}
 	\begin{itemize}
-	\item Using fusion operators
+	\item<2-> Using fusion operators
 		\begin{itemize}	
-			\item Intuitive way to leverage the different points of view of each heterogeneous feature while increasing the density of the representation
+			\item<2-> Intuitive way to leverage the different points of view of each heterogeneous feature while increasing the density of the representation
 		\end{itemize}
 
 	\end{itemize}
-\item \textbf{Applications to NLP}
+\item<3-> \textbf{Applications to NLP}
 	\begin{itemize}
-	\item Solving NER and WSI/WSD with fusion enriched representations and our community-driven algorithm
+	\item<3-> Solving NER and WSI/WSD with fusion enriched representations and our community-driven algorithm
 		\begin{itemize}	
 %		\item Enriched features are indeed useful compared to using single independent features
-		\item A high degree combination of fusion operators are the ones that yield the improvements
-		\item The community finding algorithm improves over similar algorithms while being simpler and allows for heterogeneous features
-		\item The Wikipedia-based instantiation serves as a NLP system starting point
+		\item<3-> A high degree combination of fusion operators are the ones that yield the improvements
+		\item<3-> The community finding algorithm improves over similar algorithms while being simpler and allows for heterogeneous features
+		\item<3->The Wikipedia-based instantiation serves as a NLP system starting point
 
 		\end{itemize}
 	
@@ -1281,21 +1244,21 @@ Based on the distributional hypothesis, a word is defined by its surroundings, w
 \end{frame}
 
 \begin{frame}{Future Work}
-\begin{itemize}[<+- | alert@+>]
-\item \textbf{Hypergraph Linguistic Model}
+\begin{itemize}
+\item<1-> \textbf{Hypergraph Linguistic Model}
 	\begin{itemize}
-	\item Implementing a dataframe-like structure allowing for queries and exploration of large corpora using the proposed model
+	\item<1-> Implementing a dataframe-like structure allowing for queries and exploration of large corpora using the proposed model
 	\end{itemize}
-\item \textbf{Combining Features and Dealing with Sparsity}
+\item<2-> \textbf{Combining Features and Dealing with Sparsity}
 	\begin{itemize}
-	\item Finding a more principled way to determine what type of
+	\item<2-> Finding a more principled way to determine what type of
 		context with what type of fusion operation according to the task at hand
-	\item Exploring with other modal features
+	\item<2-> Exploring with other modal features
 	\end{itemize}
-\item \textbf{Applications to NLP}
+\item<3-> \textbf{Applications to NLP}
 	\begin{itemize}
-	\item Using the large Wikipedia-based network as a background corpus to further enrich domain-specific corpora
-	\item Test more feature weighting schemes, validate findings on more datasets
+	\item<3-> Using the large Wikipedia-based network as a background corpus to further enrich domain-specific corpora
+	\item<3-> Test more feature weighting schemes, validate findings on more datasets
 	\end{itemize}
 \end{itemize}
 
@@ -1305,41 +1268,34 @@ Based on the distributional hypothesis, a word is defined by its surroundings, w
 
 
 
-\begin{frame}{Publications Produced by Our Research}
+\begin{frame}{Publications Produced by our Research}
 \begin{itemize}
-	\item \small Edmundo-Pavel Soriano-Morales, Julien Ah-Pine, Sabine Loudcher: \textbf{Fusion Techniques for Named Entity Recognition and Word Sense Induction and Disambiguation}. DS 2017
-	\item \small Edmundo-Pavel Soriano-Morales, Julien Ah-Pine, Sabine Loudcher:
+	\item \footnotesize Edmundo-Pavel Soriano-Morales, Julien Ah-Pine, Sabine Loudcher: \textbf{Fusion Techniques for Named Entity Recognition and Word Sense Induction and Disambiguation}. DS 2017
+	\item \footnotesize Edmundo-Pavel Soriano-Morales, Julien Ah-Pine, Sabine Loudcher:
 	\textbf{Using a Heterogeneous Linguistic Network for Word Sense Induction and Disambiguation.} CICLING 2016
-	\item \small Edmundo-Pavel Soriano-Morales, Julien Ah-Pine, Sabine Loudcher:
+	\item \footnotesize Edmundo-Pavel Soriano-Morales, Julien Ah-Pine, Sabine Loudcher:
 		\textbf{Hypergraph Modelization of a Syntactically Annotated English Wikipedia Dump}. LREC 2016
-	\item \small Adrien Guille, Edmundo-Pavel Soriano-Morales, Ciprian-Octavian Truica:
+	\item \footnotesize Adrien Guille, Edmundo-Pavel Soriano-Morales, Ciprian-Octavian Truica:
 \textbf{Topic modeling and hypergraph mining to analyze the EGC conference history}. EGC 2016
-\item \small Adrien Guille, Edmundo-Pavel Soriano-Morales:
-\textbf{TOM: A library for topic modeling and browsing.} EGC 2016:
+\item \footnotesize Adrien Guille, Edmundo-Pavel Soriano-Morales:
+\textbf{TOM: A library for topic modeling and browsing.} EGC 2016
+\item \footnotesize Julien Ah-Pine, Edmundo-Pavel Soriano-Morales: \textbf{A Study of Synthetic Oversampling for Twitter Imbalanced Sentiment Analysis}. DMNLP@PKDD/ECML 2016
 
+\item \footnotesize Sabine Loudcher, Wararat Jakawat, Edmundo-Pavel Soriano-Morales, C\'{e}cile Favre:	\textbf{Combining OLAP and information networks for bibliographic data analysis: a survey}. Scientometrics 103(2)
 \end{itemize}
 \end{frame}
-
-\begin{frame}{Publications Produced by Our Research}
-\begin{itemize}
-	\item \small Julien Ah-Pine, Edmundo-Pavel Soriano-Morales: \textbf{A Study of Synthetic Oversampling for Twitter Imbalanced Sentiment Analysis}. DMNLP@PKDD/ECML 2016
-	\item \small Sabine Loudcher, Wararat Jakawat, Edmundo-Pavel Soriano-Morales, Cécile Favre:
-	\textbf{Combining OLAP and information networks for bibliographic data analysis: a survey}. Scientometrics 103(2)
-
-\end{itemize}
-\end{frame}	
 
 %
-\begin{frame}{The End}
+\begin{frame}{}
 \centering
 \LARGE Thank you for your attention
 \end{frame}
 
-\begin{frame}[allowframebreaks]{References}
+%\begin{frame}[allowframebreaks]{References}
 
-\printbibliography
+%\printbibliography
 %\bibliographystyle{alpha}
 
-\end{frame}	
+%\end{frame}	
 	
 \end{document}

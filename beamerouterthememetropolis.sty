@@ -68,13 +68,13 @@
 }
 \defbeamertemplate{headline}{plain}{}
 \defbeamertemplate{footline}{plain}{%
-  \begin{beamercolorbox}[wd=\paperwidth, sep=2ex]{footline}%
+  \begin{beamercolorbox}[wd=\paperwidth, sep=.5ex]{footline}%
     \usebeamerfont{page number in head/foot}%
     \usebeamertemplate*{frame footer}
     %changed by rado
     \insertshortauthor
     \hfill
-    \insertshortdate{}
+%    \insertshortdate{}
     \hfill%
     \usebeamertemplate*{frame numbering}
   \end{beamercolorbox}%
@@ -100,8 +100,8 @@
       rightskip=\metropolis@frametitle@padding,%
     ]{frametitle}%
   \metropolis@frametitlestrut@start%
-  \small\insertsection \\%
-  \large\insertframetitle%
+  \footnotesize\insertsection \\%
+  \normalsize\insertframetitle%
   \nolinebreak%
   \metropolis@frametitlestrut@end%
   \end{beamercolorbox}%
