@@ -1,0 +1,133 @@
+INTRO
+Good afternon everybody. Thank you all for being here. In the followoinf minutes I will present
+the work I have done in my Phd research. 
+
+SLIDE 1
+My research has to do with text analysis. Nowadays, within the computer science domain, an important are of research is  to try and understand textual information. Textual information is part of our everyday tasks so its desirable to make systems automatically analyse what we and others write. These systems then can help us with simple tasks, from answering our questions directly (like google when we ask it a question), automatically organizing large collections of text while discovering new relations latent in them.
+
+SLIDE 2
+The field that deals with the nuances of language, and particularly written text is called Natural Language Processing or NLP. This field iltimately aims to ,make computers comprehend language so that we can do useful things with it.
+A typical  NLP pipeline looks like this: 
+1. We have an input, a collection of documents or corpus
+2. We apply a set of filters and transformations to render the text more computer-friendly
+3. A set of descriptors or features are extracted from the text in order to be treated by, most of the times nowadays,  machine learning techniques.
+4. A supervised, unsupervsed learing algorithm or other is appplied over the recolected data
+5. Finally, the output of the algorithm is  an interesting insight about the analyzed text
+
+In this work we focus on the two last steps Feature Representation and Knowledge Discovery
+SLIDE 3
+In feature representation we transform the unstructured textual data into a matrix or a graph while dealing with data sparsity, so prevalent in textual data, as well as making use of the possible features that we have to represent a text.
+On the other hand, in Knowledge Discovery we are interested in the methods that we use to find sense or semantic relatedness between words.
+
+SLIDE 4
+About text representation, we focus on two main types of representations: Lexical and Syntactic. Syntactic is further subdivided in two, constituency trees and dependency trees.
+I will explain these features with an example phrase: The report contains copies of the minutes of these meetings.
+
+In a lexical representation we consider the neighboring words of each word in a given window. Here for example, the neighboring words of the word contains are the and report, appearing before contains, and copis, of, the and so on as words occuring afterwards.
+
+The constituency tree breaks a text into sub-phrases. Non-terminals in the tree are types of phrases, the terminals are the words in the sentence, and the edges are unlabeled. "Contains" here belongs to the verbal phrase subprhase, which in turn is composed of one noun phrase which is also decomposed in sub-phrases.
+
+Meanwhile, a dependency parse connects words according to  their grammatical relationships. Each vertex in the tree represents a word, child nodes are words that are dependent on the parent, and edges are labeled by the type of relationship. 
+(the accuracy of these parses depend on the system that produces them)
+
+
+SLIDE 5
+We just saw features we extract from text, but how do we organize them such that we and computesrs can relate both words and features at the same time?
+
+We use two classic models to link words to its features: graph based and matrix based models.
+In graph based, in this thesis, we represent words as nodes which are linked to other words according to a shared linguistic feature.
+In the same sense, using a matrix, we represent a word per line and the coliumns indicate the complete set of features that the word may contain.
+In any case, these two representation are interlinked, as we can move from a graph to a matrix easily by means of its incidence and adjacency matrices.
+
+Evenmore, we can actually discover communities within said structures. Groups of words that are found to be similar because they may share features and  they can be exploited in semantic NLP tasks.
+
+SLIDE 6
+
+So, related to these features I am presenting and this methods to discover semantic relatedness within a text, I address in this work three challenges and thus propose three contributions to alleviate them.
+
+Number one. What are the characteristics of a model that is able to hold multiple types of linguistic information at once? We propose a hypergraph based model that will contain and relate words according to heterogenoeus features.
+
+Number two, among the features stored in the previous proposed model, how can we combine them together to generate a single enriched representation while alleviating data sparsity in order to better characterise words.
+
+Finally, number three,  within our enriched representation there are groups of words that share similar characteristics. We propose a method to find them and use them to determine different senses for a word.
+
+SLIDE 7
+
+This is the pipeline of our contributions. As you can see, it follows the general NLP pipeline presented before. We have an input of text data, we extract different kinds of features, in this case standard task-specific features, syntactic features and lexical features. We then build a hypergraph linguistic resource, we then combine the features inside and instantiate our model via a Wikipedia based corpus.
+
+Finally, to test our propositions, we set to solve two semantic NLP tasks. Namely, Named Entity Recognition and Word Sense Induction and Disambiguation. We use well-known machine learning algorithms as well as our proposed com,unity finding method.
+
+SECTION HYPERGRAPH
+
+I will go now into detail of our contributions. I will begin by describing our porposed hypergraph linguistic model.
+
+SLIDE 8
+
+As is common in nlp, in our model we leverage the distributional hypothesis to infer the meaning of words. This hypothesis briefly states that words senses are defined by the words that surround them.
+
+From the two types of features representations I described, graphs and matrices, we chose graphs as our representation starting point. They have been used in NLP for some time now as they can naturally represent the relations between textual units, coupled with this, graph theory is a robust discipline that brings a lot of techniques that can and are applied to solve nlp tasks. 
+
+Classic linguistic networks include three types which are directly related to the previous three types of information we can extract from a text: lexical and syntactic information. this las subdivided by dependency and constituency trees. In all these networks words are represented by nodes and linked with edges according to their features. 
+
+SLIDE 9
+
+Retaking our previous example phrase, in a lexical network, words are related according to their coccurrence in the same sentence or not (in this case)  with other words
+
+
+
+A constituency based network links words together according to their participation in certain sub-phrases or chunks. These chunks may be verbal phrases, noun phrases, prespositional phrases and so on. Here, meetings and copies beloing to the same phrase so they are connected to each other. The same for nounphrase 2.
+
+A dependency tree based network links word together according to their role on the grammatical function, either they are the head or the parent, such as contains in this example, or they are the dependent or children such as copies or minutes. The edges directed and labeled with the name of the function. For example, in this phrase copies is the direct object of contains.
+
+SLIDE 10
+
+The main two limitations of these networks are for one, these networks are almost exclusively used separetely, that is, it is rare to see an heterogenoeus linguistic network. Evenmore, the actual use of the heterofeneous features at the same time is also not very common. Secondly, being a graph, these structures can at most link two words togethers, reducing the representations of the natural interaction between larger groups of words.
+
+To address this, we propose a hypergraph model to unify different language networks, which coupled with the fact that hypergraphs can link more than two words together, through their so called hyperedges, allows  for a larger overview on the text behavior. 
+
+Based on the lexical and syntactic information, as well as on the cooccurrence words distance,  the model allows for three layers of semantic relatedness.
+
+SLIDE 11
+
+I will exemplify the hypergraph model with our running example. On the top we have the three networks I just showed you. A hypergraph is very similar to a regular graph the main difference being that the edges of the hypergraphs are able to link more than two edges at the same time. These edges are called hyperedges. In other words, a hypergraph is a set of sets.
+
+The lexical hyperedege, in violet, links all the words of the sentence together, at the same time.
+The first constituency hyperedge, in green links all the words participating in the chunk NP2. Similarly, in red, the verb phrase hyperedge links  words appearing in it. 
+Then, in clear blue we have the hyperedge holding  the direct object dependency relationship members. Again in a similar way, in light orange, the depedency function noun modifier members are held together by their corresponding hyperedge.
+
+This is of course the model using just a few words. By having as input a true corpus, these hyperedges would fill up, already giving insights into the behavior of said corpus. Still, we need a way to combine these multiple features in order to get some knowledge out of it. At the same time, we have to address the issue of spasity, as this network will be quite sparse as we will see.
+
+SECTION
+Sparse Stuff
+
+Our second contribution deals with both combining features in the proposed model while alleviating data sparsity.
+
+
+SLIDE 12
+In order to do so we employ multimedia fusion techniques. These techniques are used on the multimedia analysis field to fuse information coming from different modalities, image, video, text, and with it find semantically related items.
+
+In our case, we substitute those different modalities with different types of linguistic data, lexical and syntactic, and generate a single representation matrix that will be used as input to knowledge discovery algorithms.
+
+To get this combined representation, we use what we call fusion operators. The three main fusion operators are early fusion, late fusion and cross fusion. I will explain each one of them in the following slide.
+
+SLIDE 13
+
+In these examples I will use four matrices. Two for lexical features and two for syntactic features. M^L represent a data matrix with words as rows and lexical features as columns. S^L is the similarity matrix, a square matrix, of M^L .  It is the same for M^S, a syntactic features matrix, and S^S its corresponding syntactic matrix.
+
+So, Early Fusion, here on the bottom left, is a trivial fusion because it consists on simply concatenating lexical and syntactic features column wise. 
+
+On the other hand, late fusion consists on summing up the lexical and syntactic similarity matrices.
+
+These two operators have weighting paramters alfa and beta that affect the importance of each matrix respectively.
+
+The last basic operator, cross fusion, takes also as in put a similarity matrux, here S^L  and applies to it a K fucntion that returns the same similarity matrix but keeping only the vlaues of the top k highest neighbors of each word (that is for each row). 
+This matrix is then multiplied to either a similarity matrix or a feature matrix. The goal of this operator is to transfer the highest quality information from the left side similarity matrix to the right side representation space.
+
+In order to fully profit from the enriched spaces produced by fusion techniques, we have to go deeper and chain these thre basic operators into new composed ones.
+
+SLIDE 14
+
+To produce these operators we apply one function to the result of another function and produce a new fusion operator. We do this as our experiments show that there seem to be certain complementarity between different enriched representations. So intuitively, mixing them could benefit semantic tasks.
+
+In order to 
+

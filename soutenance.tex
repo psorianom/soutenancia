@@ -5,20 +5,9 @@
 %HEADEEER
 \makeatletter
 
-%HEADER
-%\setbeamertemplate{headline}{%
-%  \begin{beamercolorbox}[colsep=1.5pt]{upper separation line head}
-%  \end{beamercolorbox}
-%  \begin{beamercolorbox}{section in head/foot}
-%    \vskip2pt\insertnavigation{\paperwidth}\vskip0pt
-%  \end{beamercolorbox}%
-%  \begin{beamercolorbox}[colsep=1.5pt]{lower separation line head}
-%  \end{beamercolorbox}
-%}
-%\def\beamer@writeslidentry{\clearpage\beamer@notesactions}
 
 %SECTION PAGES (HEAD then COMPLETE title)
-\defbeamertemplate*{section page}{mytheme}{
+\defbeamertemplate*{section page}{mytheme}[1][]{
   \centering
   \begin{minipage}{22em}
     \raggedright
@@ -27,7 +16,7 @@
     \insertsectionhead\\[-1ex]
     \vspace{1cm}
     \usebeamerfont{subsection title}
-    \insertsection\textit{}\\[-1ex]
+    \insertsection\\[-1ex]
     \usebeamertemplate*{progress bar in section page}
     \par
     \ifx\insertsubsectionhead\@empty\else%
@@ -35,8 +24,12 @@
       \usebeamerfont{subsection title}%
       \insertsubsectionhead
     \fi
-    \vskip0.5cm
-   
+    \vskip0.8cm
+    \ifstrempty{#1}{}{%
+		    \includegraphics[width=\textwidth]{#1}%		
+	}
+           
+
   \end{minipage}
   \par
   \vspace{\baselineskip}
@@ -149,7 +142,7 @@
 %\vspace{1cm}
 
 \begin{itemize}
-\item[] {{We use \textbf{Natural Language Processing} (NLP), a field of computer science interested in making computers extract useful information from text}}
+\item[] {{We use \textbf{Natural Language Processing} (NLP), a field of computer science interested in making computers comprehend text and obtain useful information from it}}
 \end{itemize}
 \begin{figure}
 \centering
@@ -226,12 +219,12 @@
   \onslide<4>
 	  \vfill
   	  \centering
-      \includegraphics[width=.8\linewidth]{img/tree/dep_tree.pdf}
+      \includegraphics[width=.8\linewidth]{img/tree/tree.pdf}
       \vfill
   \onslide<5>
 	  \vfill
 	  \centering
-      \includegraphics[width=.8\linewidth]{img/tree/tree.pdf}
+      \includegraphics[width=.8\linewidth]{img/tree/dep_tree.pdf}
       \vfill
 \end{overprint}
 \end{frame}
@@ -293,7 +286,7 @@
 % \vspace{\textheight}
 \end{frame}
 
-\setbeamertemplate{section page}[mytheme]
+\setbeamertemplate{section page}[mytheme][image2/Chapitre1/main_diag_presi.pdf]
 
 \section[Contributions in Detail]{Hypergraph Linguistic Model}
 \metroset{sectionpage=none}
@@ -310,17 +303,9 @@
 
 
 \begin{frame}{Introduction}
-%\large \textbf{What type of model can we employ to represent textual features?}
-%Which textual features?
-%todo Add here the networks by choudhury et al, venus stuff
+
 We extract useful information from a text based on the \textcolor{orangeEric}{distributional hypothesis} (a word is defined by its surroundings) 
 \begin{itemize}
-%	\item \textbf{How do we represent textual data?}
-%		\begin{itemize}
-%		\item Network Models \cite{2004.Mihalcea.SemanticNetworkPageRank}
-%		\item Vector Space Models \cite{manning1999foundations}
-%		\end{itemize}
-	\vspace{.5cm}
 	\item \textbf{We choose network models} 
 		\begin{itemize}
 		\item Used in a large quantity of NLP tasks 
@@ -351,14 +336,14 @@ We extract useful information from a text based on the \textcolor{orangeEric}{di
   \onslide<2>
 	  \centering
 	  
-	  \includegraphics[width=.7\linewidth]{image2/Chapitre2/lexi_network_ex.pdf}
+	  \includegraphics[width=.6\linewidth]{image2/Chapitre2/lexi_network_ex.pdf}
 %	  \\ \cite{2008.Klapaftis.WSIUsingCollocations}
   \onslide<3>
 	  \centering
-	  \includegraphics[width=.7\linewidth]{image2/Chapitre2/deps_network_ex.pdf} 
+  	  \includegraphics[width=.6\linewidth]{image2/Chapitre2/consti_network_ex.pdf}   
   \onslide<4>
 	  \centering
-	  \includegraphics[width=.7\linewidth]{image2/Chapitre2/consti_network_ex.pdf}   
+	  \includegraphics[width=.6\linewidth]{image2/Chapitre2/deps_network_ex.pdf} 
 %  \onslide<5>
 %	  \centering
 %	  \includegraphics[width=.7\linewidth]{image2/Chapitre2/sem_network_ex.pdf}   
@@ -376,84 +361,17 @@ We extract useful information from a text based on the \textcolor{orangeEric}{di
 \item<1-> \large \textbf{Limitations of existing representations}
 	\begin{itemize}
 	\item<1-> Language networks generally employ a single type of textual information
-	\item<1-> The edges of the network may relate maximum two words at each time
-%	\item There is no 
+	\item<1-> The edges of the network relate maximum two words at each time
 	\end{itemize}
 \item<2-> \large \textbf{Proposition}
 	\begin{itemize}
-	\item<2-> Use a hypergraph model
-	\item<2-> Link together the different types of networks
-	\item<2-> Get a semantic overview at three different levels: short range, medium range, and long range 
+	\item<2-> Use a hypergraph model to link together the different types of networks
+	\item<2-> This allows for a semantic overview at three different layers: short range, medium range, and long range at once
+	\item<2-> Relating more than two words at the same time
 	\end{itemize}
 \end{itemize}
 \vspace{\textheight}
 \end{frame}
-
-%\begin{frame}{Proposed Model: Definitions}
-%\large \textbf{Hypergraph Linguistic Model}
-%\begin{itemize}
-%	
-%	\item \textbf{Hypergraph:}
-%	\begin{itemize}
-%		\item A graph generalization, where edges may link more than 2 nodes at the same time. It can be seen as a set of sets
-%	\end{itemize}
-%
-%\end{itemize}
-%\centering
-%\includegraphics[width=1\linewidth]{image2/Chapitre3/graph_vs_hgraph.pdf}
-%\vspace{\textheight}
-%\end{frame}
-
-
-%\begin{frame}{Proposed Model: Definitions}
-%\large \textbf{Hypergraph Linguistic Model}
-%\begin{itemize}
-%	
-%	\item \textbf{Linguistic Features:}
-%	\begin{enumerate}
-%		\item \textbf{CONSTITUENT $\mathbf{(M^N)}$:} noun phrase constituents memberships
-%		\item \textbf{DEPENDENCY $\mathbf{(M^S)}$} dependency relations. We consider all types of dependency functions between nouns and verbs,
-%		\item \textbf{SENTENCE $\mathbf{(M^L)}$:} lexical context, in this case the window considered is the whole sentence
-%	\end{enumerate}
-%	\item **Show image with the three different levels**
-%\end{itemize}
-%\centering
-%\vspace{\textheight}
-%\end{frame}
-
-
-
-%\begin{frame}{Proposed Model: Working Example}
-%\begin{itemize}
-%	\item \large \textbf{Input:} Set of linguistic features from an entry corpus
-%	\item \textbf{Output:} A network relating words according to the input features. Computationally, a key-value structure holding words and their descriptors for fast retrieval
-%	\item   \textbf{Example sentence \textbf{S$_1$}:}
-%		\begin{itemize}
-%			\item[]  \textit{The report contains \textbf{copies} of the minutes of these meetings}. \note{After tokenization,  lemmatization and parsing, we obtain both constituency and dependency trees.}
-%		\end{itemize}
-%	
-%	 
-%\end{itemize}
-%
-%\begin{columns}
-%	\column{0.7\textwidth}
-%	\begin{minipage}[c][0.4\textheight][c]{\linewidth}
-%	\centering
-%	\includegraphics[width=.8\linewidth]{img/tree.pdf}
-%	\end{minipage}
-%	\column{0.35\textwidth}
-%	\begin{minipage}[c][0.4\textheight][c]{\linewidth}
-%	%  \centering
-%	%\large
-%	\color{black!40}root(root,~contains) \\
-%	\color{black!40}det(report,~The) \\
-%	\color{blue!70}{\textbf{dobj(contains,~copies)}}
-%	\color{black!40}case(minutes,~of)
-%	\end{minipage}
-%\end{columns}
-%
-%\end{frame}
-
 
 \begin{frame}{Proposed Model}
 %	\begin{itemize}
@@ -496,15 +414,18 @@ We extract useful information from a text based on the \textcolor{orangeEric}{di
 
       
 \begin{frame}{Multimedia Fusion Techniques}
-\hfill
+\vfill
 %\vspace{.5cm}
 \begin{itemize}
 \item<1-> \large \textbf{Definition}
 	\begin{itemize}
-	\item<1-> Set of techniques used in multimedia analysis tasks to integrate multiple media 
+	\item<1-> Used in multimedia analysis tasks to integrate multiple media 
+	\item<1-> We adapt them to combine textual information
+
 	\item<1-> The goal is to obtain rich insights about the data being treated
-	\item<1-> We adapt these techniques to our use case: textual information
-	\end{itemize}
+	\item<1-> By creating a single representation from heterogeneous information
+	\end{itemize}									
+\vfill	
 \item<2-> \large\textbf{Main fusion operators:}
 	\begin{itemize}
 	\item<2-> Early Fusion $E_\alpha(\cdot)$, 
@@ -1323,7 +1244,7 @@ We extract useful information from a text based on the \textcolor{orangeEric}{di
     \end{beamercolorbox}
 }
 
-\begin{frame}{Thank you for your attention}
+\begin{frame}{\textcolor{greenEric}{Thank you for your attention}}
 \begin{itemize}
 	\item \footnotesize Edmundo-Pavel Soriano-Morales, Julien Ah-Pine, Sabine Loudcher: \textbf{Fusion Techniques for Named Entity Recognition and Word Sense Induction and Disambiguation}. DS 2017
 	\item \footnotesize Edmundo-Pavel Soriano-Morales, Julien Ah-Pine, Sabine Loudcher:
