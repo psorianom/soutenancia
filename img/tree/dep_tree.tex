@@ -10,7 +10,7 @@
 \usepackage[sfdefault]{FiraSans}
 \usepackage{xytree}
 \usepackage{xcolor}
-
+\definecolor{greenEric}{HTML}{297373}
 \begin{document}
 
 
@@ -19,30 +19,30 @@
 \xytext{
   \xybarnode{The} &&
   \xybarnode{report}
-    \xybarconnect(UL,U){-2}"_{\color{blue!70}\small det}"
+    \xybarconnect(UL,U){-2}"_{\color{greenEric}\small det}"
 %    \xybarconnect(UR,U){2}"^{\small nsubj}"
     &&
   \xybarnode{contains} 
-    \xybarconnect(UL,U){-2}"_{\color{blue!70}\small nsubj}"
-    \xybarconnect(UR,U){2}"^{\color{blue!70}\small dobj}"
+    \xybarconnect(UL,U){-2}"_{\color{greenEric}\small nsubj}"
+    \xybarconnect(UR,U){2}"^{\color{greenEric}\small dobj}"
     &&
   \xybarnode{copies}
-    \xybarconnect(UR,U){6}"^{\color{blue!70}\small nmod:of}"
+    \xybarconnect(UR,U){6}"^{\color{greenEric}\small nmod:of}"
 %    \xybarconnect[13](UR,U){6}"^{\small punct}"
 %    \xybarconnect[8](UR,U){4}"^{\small obj}"
     &&
   \xybarnode{of} &&
   \xybarnode{the} &&
   \xybarnode{minutes} 
-    \xybarconnect[13](DL,D){-4}"_{\color{blue!70}\small case}"
-    \xybarconnect[18](D,D){-2}"^{\color{blue!70}\small det}"
-    \xybarconnect[18](UR,U){6}"^{\color{blue!70}\small nmod:of}"
+    \xybarconnect[13](DL,D){-4}"_{\color{greenEric}\small case}"
+    \xybarconnect[18](D,D){-2}"^{\color{greenEric}\small det}"
+    \xybarconnect[18](UR,U){6}"^{\color{greenEric}\small nmod:of}"
     &&
   \xybarnode{of} &&
   \xybarnode{these} &&
   \xybarnode{meetings} 
-    \xybarconnect(DL,D){-2}"_{\color{blue!70}\small det}"
-    \xybarconnect[8](D,D){-4}"_{\color{blue!70}\small case}"
+    \xybarconnect(DL,D){-2}"_{\color{greenEric}\small det}"
+    \xybarconnect[8](D,D){-4}"_{\color{greenEric}\small case}"
   \xybarnode{.}
 }
 %}

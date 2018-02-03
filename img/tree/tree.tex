@@ -2,12 +2,14 @@
 \usepackage{forest}
 \usepackage{adjustbox}
 \usepackage[sfdefault]{FiraSans}
+\usepackage{xcolor}
+\definecolor{greenEric}{HTML}{297373}
 \begin{document}
 
 \Huge
  \forestset{
      sn edges/.style={for tree={parent anchor=south, child anchor=north}},
-     blue text/.style={for tree={text=blue!70}}}
+     blue text/.style={for tree={text=greenEric}}}
  
  \centering
  \resizebox{.8\linewidth}{!}{%

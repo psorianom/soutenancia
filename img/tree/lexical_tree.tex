@@ -4,6 +4,7 @@
 \usepackage[sfdefault]{FiraSans}
 \usepackage{xytree}
 \usepackage{xcolor}
+\definecolor{greenEric}{HTML}{297373}
 % In the preamble:
 \usepackage{tikz-dependency}
 \begin{document}
@@ -14,14 +15,14 @@
    
       The \& report \& contains \& copies \& of \& the \& minutes \& of \& these \& meetings \\
    \end{deptext}
-   \depedge{3}{1}{\normalsize \color{blue!70} word-2}
-   \depedge{3}{2}{\normalsize\color{blue!70}word-1}
+   \depedge{3}{1}{\normalsize \color{greenEric} word-2}
+   \depedge{3}{2}{\normalsize\color{greenEric}word-1}
 %   \depedge{3}{ROOT}
-   \depedge{3}{4}{\normalsize\color{blue!70}word+1}
-   \depedge{3}{5}{\normalsize\color{blue!70}word+2}
-   \depedge{3}{6}{\normalsize\color{blue!70}word+3}
-   \depedge[edge below]{3}{7}{\normalsize\color{blue!70}word+4}
-   \depedge[edge below]{3}{8}{\normalsize\color{blue!70}word+5}
+   \depedge{3}{4}{\normalsize\color{greenEric}word+1}
+   \depedge{3}{5}{\normalsize\color{greenEric}word+2}
+   \depedge{3}{6}{\normalsize\color{greenEric}word+3}
+   \depedge[edge below]{3}{7}{\normalsize\color{greenEric}word+4}
+   \depedge[edge below]{3}{8}{\normalsize\color{greenEric}word+5}
 %   \depedge{9}{8}{compound}
 %   \depedge[arc angle=50]{3}{9}{nmod}
 %   \depedge{14}{10}{case}

@@ -1,4 +1,4 @@
-\documentclass[10pt,xcolor=table]{beamer}
+\documentclass[10pt,=table]{beamer}
 
 \usetheme[subsectionpage=none]{metropolis}
 %\useoutertheme{infolines}
@@ -53,6 +53,8 @@
 \usepackage{adjustbox}
 \usepackage{mathtools}
 \usepackage{tikz}
+\usepackage{xcolor}
+\definecolor{greenEric}{HTML}{297373}
 \newcommand*\circled[1]{\tikz[baseline=(char.base)]{
             \node[shape=circle,draw,inner sep=1pt] (char) {#1};}}
 
@@ -151,7 +153,7 @@
 \end{itemize}
 \begin{figure}
 \centering
-\includegraphics[width=1\linewidth]{image2/Chapitre1/nlp_flow2}
+\includegraphics[width=1\linewidth]{image2/Chapitre1/nlp_flow}
 \end{figure}
 \vspace{\textheight}
 \end{frame}
@@ -163,22 +165,31 @@
 
 
 \begin{columns}
-\column{0.5\textwidth}
-\begin{itemize}
-\item[] How do we represent text for the machine to understand? 
-\end{itemize}
-\begin{minipage}[c][0.5\textheight][c]{\linewidth}
-\centering
-\includegraphics[width=.7\linewidth]{image2/Chapitre1/matrix.png}
-\end{minipage}
-\column{0.5\textwidth}
-\begin{itemize}
-\item[] What techniques do we use to discover meaning from text?
-\end{itemize}
-\begin{minipage}[c][0.5\textheight][c]{\linewidth}
-\centering
-\includegraphics[width=.8\linewidth]{image2/Chapitre1/kdisc.png}
-\end{minipage}
+	\column{0.5\textwidth}
+	\begin{itemize}
+		\item[] How do we represent text for the machine to understand? 
+	\end{itemize}
+	\begin{minipage}[c][0.5\textheight][c]{\linewidth}
+		\centering
+		\includegraphics[width=.7\linewidth]{image2/Chapitre1/matrix.png}
+	\end{minipage}
+	\begin{itemize}
+		\item[] Dealing with \textcolor{orangeEric}{data sparsity}
+		\item[] Leveraging \textcolor{orangeEric}{heterogeneity}
+	\end{itemize}	
+	\column{0.5\textwidth}
+	\begin{itemize}
+		\item[] What techniques do we use to discover meaning from text?
+	\end{itemize}
+	
+	\begin{minipage}[c][0.5\textheight][c]{\linewidth}
+		\centering
+		\includegraphics[width=.8\linewidth]{image2/Chapitre1/kdisc.png}
+
+	\begin{itemize}
+		\item[] Finding \textcolor{orangeEric}{semantic communities}
+	\end{itemize}	
+	\end{minipage}	
 \end{columns}
 
 \vspace{\textheight}
@@ -230,9 +241,9 @@
 \item \textbf{Two classic models}
 	\begin{itemize}
 		\item Graph-based 
-		\item Matric
+		\item Matrix-based
 	\end{itemize}
-\item \textbf{Leveraging the Network Structure}
+\item \textbf{Leveraging the network structure}
 	\begin{itemize}
 		\item We can find communities of similiar words according to their meaning
 	\end{itemize}
@@ -252,20 +263,20 @@
 
 
 \begin{frame}{Main Challenges and Contributions}
+\vspace{1cm}
 	\begin{enumerate}
-		\item<1-> What type of model can we employ to represent a corpus using heterogeneous features?
-		%    	    	 what type of model can we employ to represent a corpus through a set of heterogeneous features, extracted from itself, while keeping record of the relationships between textual units? How can we organize and store this model as simply and efficiently possible?
+		\item<1-> What type of model can we employ to represent a corpus  \textcolor{orangeEric}{using heterogeneous features}?
 		\begin{itemize}
-		\item<1-> \textit{Hypergraph linguistic model to hold different types of  linguistic information}
+		\item<1-> \textit{Hypergraph model to  \textcolor{greenEric}{hold different types of  linguistic information}}
 		\end{itemize}
 		
-		\item<2-> How can we combine these features while dealing with feature sparsity?
+		\item<2-> How can we combine these features while  \textcolor{orangeEric}{dealing with feature sparsity}?
 		\begin{itemize}
-		\item<2-> \textit{Multimedia fusion techniques to combine and densify representation spaces}	    	 
+		\item<2-> \textit{Multimedia fusion techniques to \textcolor{greenEric}{combine and densify} representation spaces}	    	 
 		\end{itemize}
-		\item<3-> How can we find and employ communities existing within the language networks?
+		\item<3-> How can we \textcolor{orangeEric}{find communities} existing within the language networks?
 		\begin{itemize}
-		\item<3-> \textit{An alternative network-based algorithm to discover semantically related words within a text}
+		\item<3-> \textit{An alternative network-based algorithm to \textcolor{greenEric}{discover semantically related words} within a text}
 		\end{itemize}
 		
 	\end{enumerate}
@@ -275,10 +286,11 @@
 
 \begin{frame}{Work Overview}
 \begin{center}
+\vfill
 \includegraphics[width=1.04\linewidth]{image2/Chapitre1/main_diag_presi.pdf}
 \end{center}
-
- \vspace{\textheight}
+\vfill
+% \vspace{\textheight}
 \end{frame}
 
 \setbeamertemplate{section page}[mytheme]
@@ -301,7 +313,7 @@
 %\large \textbf{What type of model can we employ to represent textual features?}
 %Which textual features?
 %todo Add here the networks by choudhury et al, venus stuff
-We extract useful information from a text based on the distributional hypothesis (a word is defined by its surroundings) 
+We extract useful information from a text based on the \textcolor{orangeEric}{distributional hypothesis} (a word is defined by its surroundings) 
 \begin{itemize}
 %	\item \textbf{How do we represent textual data?}
 %		\begin{itemize}
@@ -340,7 +352,7 @@ We extract useful information from a text based on the distributional hypothesis
 	  \centering
 	  
 	  \includegraphics[width=.7\linewidth]{image2/Chapitre2/lexi_network_ex.pdf}
-	  \\ \cite{2008.Klapaftis.WSIUsingCollocations}
+%	  \\ \cite{2008.Klapaftis.WSIUsingCollocations}
   \onslide<3>
 	  \centering
 	  \includegraphics[width=.7\linewidth]{image2/Chapitre2/deps_network_ex.pdf} 
@@ -484,7 +496,7 @@ We extract useful information from a text based on the distributional hypothesis
 
       
 \begin{frame}{Multimedia Fusion Techniques}
-
+\hfill
 %\vspace{.5cm}
 \begin{itemize}
 \item<1-> \large \textbf{Definition}
@@ -497,20 +509,22 @@ We extract useful information from a text based on the distributional hypothesis
 	\begin{itemize}
 	\item<2-> Early Fusion $E_\alpha(\cdot)$, 
 	\item<2-> Late Fusion $L_\beta(\cdot)$, 
-	\item<2-> Cross Fusion $X_\gamma(\cdot), X_F(\cdot)$
+	\item<2-> Cross Fusion $X_\gamma(\cdot)$
 %	\item $\alpha$ and $\beta$: Assign an importance weight to each of their operators 
 %	\item $\gamma$: number of top similar items to take from the similarity space
 	\end{itemize}
 
 \end{itemize}
+\hfill
 \end{frame}
 
 
 
 
 \begin{frame}{Early and Late Fusion}
-\begin{center}
-\end{center}
+\centering
+\onslide<1->\includegraphics[width=.8\linewidth]{image2/Chapitre3/definition_S_L.pdf}
+\vfill
 \begin{columns}
 	\column{0.5\textwidth}
 	\begin{minipage}[c][0.5\textheight][c]{\linewidth}
@@ -547,35 +561,44 @@ We extract useful information from a text based on the distributional hypothesis
 \item<1-> \textbf{Combining fusion operators}
 
 \begin{itemize}
-\item<1-> Application of one function to the result of another to produce a new function
+\item<1-> Applying one function to the result of another to produce a new fusion function
 \end{itemize}
-
-\item<2-> \textbf{We distinguish three levels of fusion operators}
-
-	\begin{itemize}
-	\item<3-> \textbf{First Degree (3 operators):} 
+\begin{overprint}
+	\onslide<2>
 		\begin{itemize}
-		\item<3-> $E(\mlex,\msyn)$, $L(\ssyn,\mlex)$ 
-		\item<3-> Cross Feature Fusion: $X_F(S^S, M^L)$
-		\item<3-> Cross Similarity Fusion: $X_S(S^S, S^L)$
+		\item \textbf{First Degree} 
+			\begin{itemize}
+			\item $E(\mlex,\msyn)$, $L(\ssyn,\mlex)$ 
+			\item \textbf{Cross Feature Fusion}: $X_F(S^S, M^L)$
+			\item \textbf{Cross Similarity Fusion}: $X_S(S^S, S^L)$
+			\end{itemize}
 		\end{itemize}
-	\item<4-> \textbf{Second Degree (4 operators, 2 shown):} 
+		\centering
+		\includegraphics[width=1\linewidth]{image2/Chapitre2/xFFusion.pdf}
+	\onslide<3>
 		\begin{itemize}
-		\item<4-> Cross Feature Early Fusion: $X_F(S^T , E(M^L , M^S ))$
-		\item<4-> Late Cross Feature Fusion: $L(M^T, X_F (S^T , M^T ))$
+		\item \textbf{Second Degree} 
+			\begin{itemize}
+			\item \textbf{Cross Feature Early Fusion}: $X_F(S^T , E(M^L , M^S ))$
+			\item \textbf{Late Cross Feature Fusion}: $L(M^T, X_F (S^T , M^T ))$
+			\end{itemize}
+		\end{itemize}
+		\centering
+		\includegraphics[width=1\linewidth]{image2/Chapitre2/XFEF.pdf}
+
+	\onslide<4>
+		\begin{itemize}
+		\item \textbf{Higher Degree}
+			\begin{itemize}
+			\item Triple Early Double Late Cross Feature Fusion: $E(M_L , E(E(M_T , L(M^T , X_F (S^T , M^T ))) , L(M^L , X_F (S^S , M^L))))$
+			\end{itemize}
+		\end{itemize}
 		
-		
-		\end{itemize}
-	\item<5-> \textbf{Higher Degree (2 operators, 1 shown)}
-		\begin{itemize}
-		\item<5-> Triple Early Double Late Cross Feature Fusion: $E(M_L , E(E(M_T , L(M^T , X_F (S^T , M^T ))) , L(M^L , X_F (S^S , M^L))))$
-		\end{itemize}
-	\end{itemize}
-
+\end{overprint}
 	
 
 \end{itemize}
-
+\vfill
 \end{frame}
 
 \begin{frame}{High Degree Fusion}
@@ -588,7 +611,8 @@ We extract useful information from a text based on the distributional hypothesis
 	\onslide<3>\includegraphics[width=1\linewidth]{image2/Chapitre2/hybrid_fusion1.pdf}%lexical
 	\onslide<4>\includegraphics[width=1\linewidth]{image2/Chapitre2/hybrid_fusion2.pdf}%constit
 	\onslide<5>\includegraphics[width=1\linewidth]{image2/Chapitre2/hybrid_fusion3.pdf}%constit
-	\onslide<6>\includegraphics[width=1\linewidth]{image2/Chapitre2/hybrid_fusion4.pdf}%dep
+	\onslide<6>\includegraphics[width=1\linewidth]{image2/Chapitre2/hybrid_fusion4_a.pdf}%dep
+	\onslide<7>\includegraphics[width=1\linewidth]{image2/Chapitre2/hybrid_fusion4.pdf}%dep
 \end{overprint}
 \end{frame}
 
@@ -720,7 +744,7 @@ We extract useful information from a text based on the distributional hypothesis
 \hline 
 \end{tabular}}
 
-h\end{frame}
+\end{frame}
 
 
 \begin{frame}{Hypergraph Incidence Matrix}
@@ -734,13 +758,19 @@ h\end{frame}
 
 \begin{frame}{Wikipedia Feature Enriched Space}
 %\textbf{Target word \textit{priest} and its top 5 most similar words using different representation matrices.}
-
+\begin{itemize}
+	\item \textbf{Characteristics of the enriched space}
+	\begin{itemize}
+	\item Sparsity is reduced
+	\item Semantic relatedness differs according to the representation space
+	\end{itemize}
+\end{itemize}
 \begin{tabular}{@{}llllll@{}}
 \toprule
-                           & \textbf{\begin{tabular}[c]{@{}l@{}}Lexical\\ Features\\(5.49\%)\\$\mlex$\end{tabular}}              
+                           & \textbf{\begin{tabular}[c]{@{}l@{}}Lexical\\ Features\\ \textcolor{orangeEric}{(5.49\%)}\\$\mlex$\end{tabular}}              
                            & \textbf{\begin{tabular}[c]{@{}l@{}}Syntactic\\ Features\\(4.97\%)\\$\msyn$\end{tabular}}        
                            & \textbf{\begin{tabular}[c]{@{}l@{}}Early\\ Fusion\\(5.23\%)\\$E(\mlex, \msyn)$\end{tabular}}                
-                           & \textbf{\begin{tabular}[c]{@{}l@{}}$X_F$\\Fusion\\(16.75\%)\\$X_F(\ssyn, \mlex)$\end{tabular}}   &
+                           & \textbf{\begin{tabular}[c]{@{}l@{}}$X_F$\\Fusion\\\textcolor{red}{(16.75\%)}\\$X_F(\ssyn, \mlex)$\end{tabular}}   &
                            \textbf{\begin{tabular}[c]{@{}l@{}}$X_F$\\Fusion\\ (13.45\%) \\$X_F(\slex, \msyn)$\end{tabular}}                 \\ \midrule
 \multicolumn{1}{c}{\textbf{priest}} & \begin{tabular}[c]{@{}l@{}}priests\\ nun\\ canton\\ sailor\\ burial\end{tabular} & \begin{tabular}[c]{@{}l@{}}monk\\ regent\\ aedile\\ seer\\ meek\end{tabular} & \begin{tabular}[c]{@{}l@{}}sailor\\ regent\\ nuclei\\ nun\\ relic\end{tabular} & \begin{tabular}[c]{@{}l@{}}vassal\\ regent\\ nun\\ sailor\\ monk\end{tabular} & \begin{tabular}[c]{@{}l@{}}sailor\\ fluent\\ dean\\ nuclei\\ chorus\end{tabular} \\
 
@@ -801,61 +831,68 @@ h\end{frame}
 
 
 \begin{frame}{Representation Spaces}
-\large \textbf{Lexical Space (L)}
-\vspace{1cm}
+\hfill
+\begin{itemize}
+	\item[] \large \textbf{Example Phrase}
+	\begin{itemize}
+	\item[] \large \textit{Australian scientist discovers star with telescope}
+	\end{itemize} 
+\end{itemize}
+\hfill
+\begin{itemize}
+\item[] \large \textbf{Three different types of features}
+\end{itemize}
+
 \small
 
-\begin{tabular}{ll}
-	
+\begin{tabular}{llr}
+
 	\hline 
-	 \textbf{Word} & \textbf{Features} \\ 
+	 \textbf{Word} & \textbf{Features} & \textbf{Feature Type}\\ 
 	\hline 
-	Australian & word:Australian, word+1:scientist, word+2:discovers\\ 
-	scientist  &  word-1:Australian, word:scientist, word+1:discovers, word+2:star\\ 
-	discovers & word-2:Australian, word-1:scientist, $\dots$, word+2:telescope \\ 
-	star & word-2:scientist, word-1:discovers, word:star, $\dots$, word+2:telescope \\ 
-	with & word-2:discovers, word-1:star, word:with, word+1:telescope \\ 
-	telescope  &  word-2:star, word-1:with, word:telescope \\ 
-	\hline \
+	Australian & word:Australian, word+1:scientist, ...& \textbf{Lexical (L)}\\ 
+	scientist  &  Australian/JJ/amod, discovers/VBZ/nsubj\_inv & \textbf{Syntactic (S)}\\ 
+	discover &discover, no-capital-letter, prf:dis, suf:ver, VBZ & \textbf{Standard (T)}\\ 
+	\hline 
 \end{tabular} 
 \vspace{\textheight}
 \end{frame}
 
 
-\begin{frame}{Representation Spaces}
-	\large \textbf{Syntactic Space (S)}
-	\vspace{1cm}
-	\small
-	
-	
-	\begin{tabular}{ll}
-	\hline 
-	 Word & Contexts \\ 
-	\hline 
-	Australian & scientist/NN/amod\_inv \\ 
-	scientist  &  Australian/JJ/amod, discovers/VBZ/nsubj\_inv\\ 
-	discovers & scientist/NN/nsubj, star/NN/dobj, telescope/NN/nmod:with \\ 
-	star & discovers/VBZ/dobj\_inv \\ 
-	telescope  &  discovers/VBZ/nmod:with\_inv \\ 
-	\hline \
-	\end{tabular} 
-	 
-	\vspace{\textheight}
-\end{frame}
+%\begin{frame}{Representation Spaces}
+%	\large \textbf{Syntactic Space (S)}
+%	\vspace{1cm}
+%	\small
+%	
+%	
+%	\begin{tabular}{ll}
+%	\hline 
+%	 Word & Contexts \\ 
+%	\hline 
+%	Australian & scientist/NN/amod\_inv \\ 
+%	scientist  &  Australian/JJ/amod, discovers/VBZ/nsubj\_inv\\ 
+%	discovers & scientist/NN/nsubj, star/NN/dobj, telescope/NN/nmod:with \\ 
+%	star & discovers/VBZ/dobj\_inv \\ 
+%	telescope  &  discovers/VBZ/nmod:with\_inv \\ 
+%	\hline \
+%	\end{tabular} 
+%	 
+%	\vspace{\textheight}
+%\end{frame}
+%
 
 
-
-\begin{frame}{Representation Spaces}
-	\large \textbf{Standard Features Space (T)}
-	\vspace{1cm}
-	\begin{itemize}
-		\item Each word
-		\item Whether it is capitalized
-		\item Prefix and suffix (of each word their surroundings)
-		\item Part of Speech tag
-	\end{itemize}	 
-	\vspace{\textheight}
-\end{frame}
+%\begin{frame}{Representation Spaces}
+%	\large \textbf{Standard Features Space (T)}
+%	\vspace{1cm}
+%	\begin{itemize}
+%		\item Each word
+%		\item Whether it is capitalized
+%		\item Prefix and suffix (of each word their surroundings)
+%		\item Part of Speech tag
+%	\end{itemize}	 
+%	\vspace{\textheight}
+%\end{frame}
 
 
 
@@ -867,19 +904,19 @@ h\end{frame}
 			\end{itemize}
 		\item<2-> \textbf{Test Corpora}
 			\begin{itemize}
-			\item<2-> CoNLL-2003 (CONLL) \cite{SangM03}: Train: 219,554 lines. Test: 50,350 
-			\item<2-> Wikiner (WNER) \cite{Nothman2009}: 3.5 million words. 
-			\item<2-> Wikigold (WGLD) \cite{Balasuriya2009}: 41,011 words. 
+			\item<2-> CoNLL-2003 (CONLL): Train: 219,554 lines. Test: 50,350 lines
+			\item<2-> Wikiner (WNER): 3.5 million words. 
+			\item<2-> Wikigold (WGLD): 41,011 words. 
 			\end{itemize}
 		\item<3-> \textbf{Learning Algorithm}
 			\begin{itemize}
-				\item<3-> Structured Perceptron \cite{Collins2002}
+				\item<3-> Structured Perceptron 
 			\end{itemize}
 
 		\item<4-> \textbf{Evaluation Metric}
 			\begin{itemize}
 				\item<4-> F-measure
-				\item<4-> Evaluated in a 5-fold CV (WNER and WGLD)
+				\item<4-> Evaluated with a 5-fold CV (WNER and WGLD)
 			\end{itemize}
 	\end{itemize}	 
 	\vspace{\textheight}
@@ -986,7 +1023,7 @@ h\end{frame}
 
 \begin{frame}{Analyzing the Best Fusion Operator}
 \begin{itemize}[<+- | alert@+>]
-\item \large \textbf{Understand how the evolution towards and enriched space helps the model take the correct decision}
+\item  \textbf{Understand how the evolution towards and enriched space helps the model take the correct decision}
 \begin{itemize}
 \item Decompose the large fusion operator into 4 separate representations
 \item Train a model with each individual operator (4 models: $M_1$, $M_2$, $M_3$, $M_4$)
@@ -1032,9 +1069,10 @@ h\end{frame}
 \item<1->  The goal is to determine a set of possible senses to a given word according to its possible contexts (WSI). Then, assigning a correct sense to a particular instance of said word
 
 \end{itemize}
-\item<2-> \large \textbf{Our goal}
+\item<2-> \large \textbf{Our goals}
 \begin{itemize}
-\item<2-> Again, to assess the effectiveness of the fusion enriched spaces and to evaluate the pertinence of our community discovering algorithm
+\item<2-> Assess the effectiveness of the fusion enriched spaces
+\item<2-> Evaluate the pertinence of our community discovering algorithm
 \end{itemize}
 
 \end{itemize}
@@ -1210,34 +1248,22 @@ h\end{frame}
 
 \begin{frame}{Insights From our Contributions}
 \begin{itemize}
-\item<1-> \textbf{Hypergraph Linguistic Model}
+\item<1-> \textbf{Hypergraph linguistic model to hold heterogeneous information}
 	\begin{itemize}
-	\item<1-> Considering heterogeneous features to link words together at once using a hypergraph structure
-		\begin{itemize}	
-		\item<1-> Yields a multi-layered representation of text
-%		\item Allow the distributional hypothesis and a passage between the vector space model and network-based models
-		\end{itemize}
+		\item<1-> Hypergraphs allow a  multi-layered representation of text within a single resource. 
+		\item<1-> The Wikipedia-based instantiation serves as a NLP system starting point
+		
 	\end{itemize}
-\item<2-> \textbf{Combining Features and Dealing with Sparsity}
+\item<2-> \textbf{Multimedia fusion techniques to combine and densify representations}
 	\begin{itemize}
-	\item<2-> Using fusion operators
-		\begin{itemize}	
-			\item<2-> Intuitive way to leverage the different points of view of each heterogeneous feature while increasing the density of the representation
-		\end{itemize}
+	\item<2-> High-degree combinations of linguistic representations reduce sparsity 
+	\item<2-> These fusion spaces achieve improvements on NER and WSI/WSD compared to single features and trivial fusion
 
 	\end{itemize}
-\item<3-> \textbf{Applications to NLP}
-	\begin{itemize}
-	\item<3-> Solving NER and WSI/WSD with fusion enriched representations and our community-driven algorithm
+\item<3-> \textbf{Finding semantically-related communities on linguistic networks}
 		\begin{itemize}	
-%		\item Enriched features are indeed useful compared to using single independent features
-		\item<3-> A high degree combination of fusion operators are the ones that yield the improvements
-		\item<3-> The community finding algorithm improves over similar algorithms while being simpler and allows for heterogeneous features
-		\item<3->The Wikipedia-based instantiation serves as a NLP system starting point
-
+		\item<3-> The proposed community finding method improves over similar algorithms while being simpler and allowing for heterogeneous features
 		\end{itemize}
-	
-	\end{itemize}
 \end{itemize}
 
 
@@ -1247,16 +1273,18 @@ h\end{frame}
 \begin{itemize}
 \item<1-> \textbf{Hypergraph Linguistic Model}
 	\begin{itemize}
-	\item<1-> Implementing a dataframe-like structure allowing for queries and exploration of large corpora using the proposed model
+	\item<1-> A  dataframe-like structure specialized on linguistic information based on the proposed model
+	\item<1-> Defining inter-features similarities measures within the network
 	\end{itemize}
 \item<2-> \textbf{Combining Features and Dealing with Sparsity}
 	\begin{itemize}
 	\item<2-> Finding a more principled way to determine what type of
 		context with what type of fusion operation according to the task at hand
-	\item<2-> Exploring with other modal features
+	\item<2-> Exploring fusion with other types of features (other modalities)  
 	\end{itemize}
 \item<3-> \textbf{Applications to NLP}
 	\begin{itemize}
+	\item<3-> Comparison with other distributional representations (word embeddings)
 	\item<3-> Using the large Wikipedia-based network as a background corpus to further enrich domain-specific corpora
 	\item<3-> Test more feature weighting schemes, validate findings on more datasets
 	\end{itemize}
@@ -1281,15 +1309,38 @@ h\end{frame}
 \textbf{TOM: A library for topic modeling and browsing.} EGC 2016
 \item \footnotesize Julien Ah-Pine, Edmundo-Pavel Soriano-Morales: \textbf{A Study of Synthetic Oversampling for Twitter Imbalanced Sentiment Analysis}. DMNLP@PKDD/ECML 2016
 
-\item \footnotesize Sabine Loudcher, Wararat Jakawat, Edmundo-Pavel Soriano-Morales, C\'{e}cile Favre:	\textbf{Combining OLAP and information networks for bibliographic data analysis: a survey}. Scientometrics 103(2)
+\item \footnotesize Sabine Loudcher, Wararat Jakawat, Edmundo-Pavel Soriano-Morales, C\'{e}cile Favre:	\textbf{Combining OLAP and information networks for bibliographic data analysis: a survey}. Scientometrics 103(2) 2015
+\end{itemize}
+\end{frame}
+
+\setbeamertemplate{frametitle}
+{
+    \nointerlineskip
+    \begin{beamercolorbox}[sep=0.3cm,ht=2.5em,wd=\paperwidth]{frametitle}
+        \vbox{}\vskip-2ex%
+        \strut\hfill\insertframetitle\hfill\strut
+        \vskip-0.8ex%
+    \end{beamercolorbox}
+}
+
+\begin{frame}{Thank you for your attention}
+\begin{itemize}
+	\item \footnotesize Edmundo-Pavel Soriano-Morales, Julien Ah-Pine, Sabine Loudcher: \textbf{Fusion Techniques for Named Entity Recognition and Word Sense Induction and Disambiguation}. DS 2017
+	\item \footnotesize Edmundo-Pavel Soriano-Morales, Julien Ah-Pine, Sabine Loudcher:
+	\textbf{Using a Heterogeneous Linguistic Network for Word Sense Induction and Disambiguation.} CICLING 2016
+	\item \footnotesize Edmundo-Pavel Soriano-Morales, Julien Ah-Pine, Sabine Loudcher:
+		\textbf{Hypergraph Modelization of a Syntactically Annotated English Wikipedia Dump}. LREC 2016
+	\item \footnotesize Adrien Guille, Edmundo-Pavel Soriano-Morales, Ciprian-Octavian Truica:
+\textbf{Topic modeling and hypergraph mining to analyze the EGC conference history}. EGC 2016
+\item \footnotesize Adrien Guille, Edmundo-Pavel Soriano-Morales:
+\textbf{TOM: A library for topic modeling and browsing.} EGC 2016
+\item \footnotesize Julien Ah-Pine, Edmundo-Pavel Soriano-Morales: \textbf{A Study of Synthetic Oversampling for Twitter Imbalanced Sentiment Analysis}. DMNLP@PKDD/ECML 2016
+
+\item \footnotesize Sabine Loudcher, Wararat Jakawat, Edmundo-Pavel Soriano-Morales, C\'{e}cile Favre:	\textbf{Combining OLAP and information networks for bibliographic data analysis: a survey}. Scientometrics 103(2) 2015
 \end{itemize}
 \end{frame}
 
 %
-\begin{frame}{}
-\centering
-\LARGE Thank you for your attention
-\end{frame}
 
 %\begin{frame}[allowframebreaks]{References}
 
