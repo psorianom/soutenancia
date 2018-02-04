@@ -500,7 +500,7 @@ We extract useful information from a text based on the \textcolor{orangeEric}{di
 		\begin{itemize}
 		\item \textbf{Second Degree} 
 			\begin{itemize}
-			\item \textbf{Cross Feature Early Fusion}: $X_F(S^T , E(M^L , M^S ))$
+			\item \textbf{Cross Feature Early Fusion}: $X_F(S^T , E(M^S, M^L ))$
 			\item \textbf{Late Cross Feature Fusion}: $L(M^T, X_F (S^T , M^T ))$
 			\end{itemize}
 		\end{itemize}
@@ -553,20 +553,20 @@ We extract useful information from a text based on the \textcolor{orangeEric}{di
 				\item<1-> There are certain nodes (hubs) that are very well connected forming communities within the network
 			\end{itemize}
 %
-%		\item \large \textbf{Seminal approaches}
-%			\begin{itemize}
-%				\item Hyperlex \cite{2004.Veronis}
-%				\item University of York (UoY) \cite{2007.Klapaftis.UOY}
-%			\end{itemize}
-		\item<2-> \textbf{Limitations of existing approaches}
+		\item<2-> \large \textbf{Seminal approaches}
+			\begin{itemize}
+				\item<2-> Hyperlex \cite{2004.Veronis}
+				\item<2-> University of York (UoY) \cite{2007.Klapaftis.UOY}
+			\end{itemize}
+		\item<3-> \textbf{Limitations of existing approaches}
 		\begin{itemize}
-			\item<2-> Single typed networks
-			\item<2-> Large number of parameters
+			\item<3-> Single typed networks
+			\item<3-> Large number of parameters
 		\end{itemize}
-		\item<3-> \textbf{Proposition}
+		\item<4-> \textbf{Proposition}
 		\begin{itemize}
-				\item<3-> Be able to exploit different types of linguistic information (lexical or syntactic co-occurrence)
-				\item<3-> Keep  the number of parameters low and allow for their automatic adjusting according to the network's nature
+				\item<4-> Be able to exploit different types of linguistic information (lexical or syntactic co-occurrence)
+				\item<4-> Keep  the number of parameters low and allow for their automatic adjusting according to the network's nature
 %				\item Use a robust and interpretable similarity measure
 		
 		\end{itemize}
@@ -631,7 +631,7 @@ We extract useful information from a text based on the \textcolor{orangeEric}{di
 \item<2-> \large \textbf{Steps performed}	
 \begin{itemize}
 	\item<2->[] \begin{center}
-		\includegraphics[width=0.7\linewidth]{image2/Chapitre7/saewd}
+		\includegraphics[width=\linewidth]{image2/Chapitre7/saewd}
 		\end{center}
 
 \end{itemize}
@@ -843,58 +843,6 @@ We extract useful information from a text based on the \textcolor{orangeEric}{di
 	\vspace{\textheight}
 \end{frame}
 
-%\begin{frame}{Evaluation}
-%\textbf{F-measure on the three datasets using single features independently with the structured perceptron}
-%\vspace{1cm}
-%\begin{center}
-%	\begin{tabular}{@{}lccc@{}}
-%	\toprule
-%	$A$                           & \multicolumn{3}{c}{\textbf{Single Features}} \\ \midrule
-%	                & \textbf{CONLL}    & \textbf{WNER}     & \textbf{WGLD}    \\ \cmidrule{2-4}
-%	$\mstd$                        & \textbf{77.41}    & \textbf{77.50}    & \textbf{59.66}   \\
-%	$\mlex$                       & 69.40    & 69.17    & 52.34   \\
-%	$\msyn$                        & 32.95    & 28.47    & 25.49   \\ \bottomrule
-%	\end{tabular}
-%\end{center}
-%\vspace{\textheight}
-%\end{frame}
-
-
-%\begin{frame}[t]{Evaluation}
-%\textbf{F-measure on the three datasets using First Degree (1F)  fusion operators}
-%\vspace{1cm}
-%\begin{columns}
-%\column{0.5\textwidth}
-%\begin{minipage}[c][0.5\textheight][c]{\linewidth}
-%\includegraphics[width=1\linewidth]{image2/Chapitre4/1F_1.png}
-%\end{minipage}
-%\column{0.5\textwidth}
-%\begin{minipage}[c][0.5\textheight][c]{\linewidth}
-%\includegraphics[width=1\linewidth]{image2/Chapitre4/1f_2.png}
-%\end{minipage}
-%\end{columns}
-%
-%\vspace{\textheight}
-%\end{frame}
-
-%\begin{frame}[t]{Evaluation}
-%\textbf{F-measure on the three datasets using Second Degree (2F)  fusion operators}
-%\vspace{.3cm}
-%\begin{columns}
-%\column{0.5\textwidth}
-% \small In $X_FX_SF$, $\hat{a}$ corresponds to the best performing matrix in the set $\{ X_S(\sstd, \slex),X_S(\slex, \sstd), \allowbreak X_S(\sstd, \ssyn)\}$
-%\begin{minipage}[c][0.5\textheight][c]{\linewidth}
-%\includegraphics[width=1\linewidth]{image2/Chapitre4/2F_1.png}
-%\end{minipage}
-%\column{0.5\textwidth}
-%In $EX_FF$, $b^*_{\scriptscriptstyle EX_FF}$  $\in$ $\{X_F(\ssyn, \mlex), \allowbreak X_F(\slex, \mlex), X_F(\slex, \mstd), \allowbreak X_F(\ssyn, \mlex), X_F(\ssyn, \mstd) \}$
-%\begin{minipage}[c][0.5\textheight][c]{\linewidth}
-%\includegraphics[width=1\linewidth]{image2/Chapitre4/2F_2.png}
-%\end{minipage}
-%\end{columns}
-%
-%\vspace{\textheight}
-%\end{frame}
 
 \begin{frame}[t]{Evaluation}
 \begin{columns}

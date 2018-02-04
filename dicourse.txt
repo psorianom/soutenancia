@@ -128,6 +128,28 @@ In order to fully profit from the enriched spaces produced by fusion techniques,
 SLIDE 14
 
 To produce these operators we apply one function to the result of another function and produce a new fusion operator. We do this as our experiments show that there seem to be certain complementarity between different enriched representations. So intuitively, mixing them could benefit semantic tasks.
+We separate these combined operators in three levels:
 
-In order to 
+The first degree level consists on the basic fusion operators I just showed you : early and late fusion, and the two types of cross fusion depending on the second operand. Either cross feature fusion if it involves a feature matrix, or else a cross similarity fusion if we use a similarity fusion
 
+In the second degree we begin to see the function compositions, that is, we nest fusion functions within a fusion opeartor. For example, the first one displayed, cross feature fusion fusion consists first obtaining the early fusion of M^S with M^L and using this matrix as the second operand of a cross feature fusiion with S^L . The result is the cross feature early fusion matrix in blue at the end. We have defined other 3 similar operators. In this slide I only present two for sake of clarity.
+
+The higher degree operator is the result of computing several fusion operators and using the output as operands for further fusion functions.
+
+In particular, this higher degree operator the Triple Early Double Late Cross Feature Fusion 
+consists of five opreations, here shown in five distinct colors. The first one, starting from right to lef, a late cross feature fusion is the result of a cross fusion between matrix S^S and matrix M^L . The result is then used in a late fusion producing the matrix in yellow.
+
+A similar procedure for the second LXFF, this time with a standard feature matrix S^T and matrix M^T. The result is the summed to M^T and give us the output in red.
+
+Now in green we see an early fusion, taking as input the M^T matrix and the red fusion result, producing the green matrix on the right.
+
+The same procedure takes place here, with the green fusion matrix being concatenated with the first yellow one, producing a new pinkish enriched space.
+
+Finally, in blue the last operator, an early fusion taking the M^T matrix and joining it with the pinkish fusion matrix which englobes the rest of operators in this higher degree fusion.
+
+Our intuition is that within this enriched matrix, we will leverage the complemantarity of the available textual information, reduce the sparsity and be able to find communities of related words. 
+
+SECTION
+Finding communities
+
+We move onto the description of how to find groups of related wods within the enriched space.
