@@ -1,5 +1,5 @@
 INTRO
-Good afternon everybody. Thank you all for being here. In the followoinf minutes I will present
+Good afternon everybody. Thank you all for being here. In the followoing minutes I will present
 the work I have done in my Phd research. 
 
 SLIDE 1
@@ -153,3 +153,86 @@ SECTION
 Finding communities
 
 We move onto the description of how to find groups of related wods within the enriched space.
+
+We base our community finding algorithm on the fact that language networks tend to be scale free. This implies that there are certain vertices, or hubs,  that are well connected. In the particular case of finding possible senses of words, these hubs, and its closest nodes form a community that represent an specific sense of a word.
+
+This intuition has already been explored in the literature, still, these aproaches present two main drawback. They limit their study to a single type of network, that is, they do not test their approaches with heterogeneous features. And two, they employ several parameters in order to filter nodes and find these hubs.
+
+Our proposition addresses these two issues, first, based on the model presented before, we to use different types of features from where we find senses represented by communities of words. We define only two parameters, that adapt themselves to the specific nature of each feature, in order to filter nodes and find relevant hubs.
+
+SLIDE 18
+
+The process of our method is this. 
+1. We extract a subgraph from the 
+
+We validate the pertinence of this method in the experiments that we perfrom on word sense induction and disambiguaiton as we will see in the applications of our work.
+
+SECTION
+Apps to NLP, Hypergraph model
+
+We move onto the NLP applications of the proposed model and methods.
+We begin with a proof of concept of our hypergraph model. That is, we use a corpus, the English Wikipedia, as input to generate a resource following the proposed hypergraph model.
+
+SLIDE 19 
+
+In this proof of concept, we geenerated and shared two resources. First, we generated a parsed version of the english wikipedia which contains, for each word, its constituency tree path, from the parent to itself.  This information we found to be lacking in the existing wikipedia parses and as we needed it for our model we produced it and shared with the community.
+
+Secondly, the hypergraph structure itself, represented by a matrix and its associated metadata.
+
+SLIDE 20
+
+This is the wikipedia parse we created, using the stanford corenlp toolkoit. This column here, constituency is the path I was referring to. We show the pos tag of the word, and then the path of the word from its leaf node to the root of the tree, in this case S_97. 
+
+Also, we add the dependency information by means of the type of relation and the position of the head word in the phrase.
+
+SLIDE 21
+
+Regarding the hypergraph itself, we represent it via its incidence matrix. This matrix indicates the presence or abscence of a word (in rows) in a hyperedge (shown in columns). For example, the word copies belongs to the hyperedges of NP2, NP3, the direct object column and the sentence column, meaning it appears with all the other words of this sentence. 
+
+This hypergraph resource consists in the matrix itself and the metadata, what does each row and column mean, whcih together builds the instantiaion of the english wikipedia hypergraph.
+
+SLIDE 22
+
+We were also interested on the analysing the characteristics of the enriched space generated with the fusion operators and also how was sparsity affected by them.
+
+
+
+To get a glimpse of the behavior of the enriched spaces versus the use of indepoenden features, I selected the word priest which best  represents the differences among spaces. 
+
+For each one of the produced representation spaces, shown in columns, we can see its five most similar words according to the cosinus distance. In the lexical features we have words that seem topically related, such as priest burial nun. With the syntactic features, using dependency functions, as this type of context is shorter and more constrained, the relatedness seems to approach to a synonym similarity: monk aedile seer. Even if not synomyms, we could replace these words one with another, and have a grammatically correct phrase, while not semantically maybe. For the fusion enriched spaces, in general, we can see that there are some words that appear that werent found before, siuch as relic or chorus. 
+
+REgarding the sparsity of the matrices, the density of the lexical features, in the first column, goes from 5,49% to 16.75% on its cross fusion enriched representation. An increment of more than 10%.
+
+This analysis gave us a first confirmation on the usefulness of our propositions. We then applied our models and methods to proper nlp tasks.
+
+SECTION 
+Solving NER 
+
+The first task we address is named entity recognition.
+
+SLIDE 23
+Coming from information extraction, the objective of Named Entity Recognition is to automatically label sequences of words that represent a mention  of some semantic category. 
+
+Usually, these categories are persons, organizations, or locations.
+In oractical terms, our goal in this set of experiments is to 
+use lexical and syntactic features to create representation matrices that serve as input to a machine learning system in order to solve NER.
+
+The features we use in this experiment ar lexical, syntactic and what I call standard, or features that are commonly used to solve NER. 
+Lexical is again a window of surrounding words, we use the typical _2+2 words window.
+Syntactic features, based on the dependency tree. 
+And the standard features, the word itself, whether the word starts with capitall lletter, prefix, suffix of the word and of the surrounding words, the pos tag of the word.
+
+SLIDE 25
+
+As preprocessing, we simply normalize the numbers, converting all of them to a single representative token.
+
+We use three test corpus, CoNLL, Wikiner and Wikigold. The last two based on Wikipedia. Wikiner having so semi automatically generated tags, while Wikigold was tagged manually. hence the size difference.
+
+We use a structured perceptron as sequence classifier. We can think of it as a regular perceptron coupled to a Viterbi decoding algorithm to find the best possible sequence of tags, taking into account the tag of the previous word.
+
+We evaluate our experiments with the F-measure and for WNER and WGLD we use a 5 fold cross validation, CoNLL already has a dedicated test set
+
+
+SLIDE 26
+So I repeat, our goal is to test fusion enriched representations. But how to get to find the good operator or combination of operators ? Well we have to begin somewhere. Logically, we start by checking the performance of the features individually. 
+SLIDE 19

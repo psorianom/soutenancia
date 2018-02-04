@@ -46,7 +46,8 @@
 \usepackage{adjustbox}
 \usepackage{mathtools}
 \usepackage{tikz}
-\usepackage{xcolor}
+\usepackage{xcolor,colortbl}
+\usepackage{makecell}
 \definecolor{greenEric}{HTML}{297373}
 \newcommand*\circled[1]{\tikz[baseline=(char.base)]{
             \node[shape=circle,draw,inner sep=1pt] (char) {#1};}}
@@ -68,7 +69,7 @@
 \usepackage{FiraSans}
  
 
-
+\newcolumntype{a}{>{\columncolor{greenEric}}c}
 %\usepackage{bibentry}
 %\usepackage[ruled]{algorithm2e}
 %\SetKwRepeat{Do}{do}{while}%
@@ -641,7 +642,7 @@ We extract useful information from a text based on the \textcolor{orangeEric}{di
 \end{frame} 
 
 
-\begin{frame}{SAEWD: Parsed sample}
+\begin{frame}{Syntactically Annotated Wikipedia}
 
 
 			 	\centering	           
@@ -844,78 +845,167 @@ We extract useful information from a text based on the \textcolor{orangeEric}{di
 \end{frame}
 
 
-\begin{frame}[t]{Evaluation}
-\begin{columns}
-	\column{0.5\textwidth}
+\begin{frame}[t]{Evaluation Baselines (F-measure)}
 	\begin{minipage}[c][.8\textheight][c]{\linewidth}
-	
-	\onslide<1->\includegraphics[width=1\linewidth]{image2/Chapitre4/1F_1.png}
-	
+		\begin{table}[!tbp]
+		\centering
+		\begin{tabular}{@{}lccc@{}}
+		\toprule
+		$A$                           & \multicolumn{3}{c}{\textbf{Single Features}} \\ \midrule
+		                & \textbf{CONLL}    & \textbf{WNER}     & \textbf{WGLD}    \\ \cmidrule{2-4}
+		$\mstd$                        & 77.41    & 77.50    & 59.66   \\
+		$\mlex$                       & 69.40    & 69.17    & 52.34   \\
+		$\msyn$                        & 32.95    & 28.47    & 25.49   \\
+		 \bottomrule
+		\end{tabular}
+		\end{table}
+		\begin{table}
+		\centering
+		\begin{tabular}{@{}llccc@{}}
+				\toprule
+				    $A$      &    $B$       & \multicolumn{3}{r}{\textbf{Early Fusion (EF)} }                                            \\ \midrule
+				          &           & \textbf{CONLL}                      & \textbf{WNER}                      & \textbf{WGLD}                      \\ \cmidrule{3-5}
+				          
+				$\mlex$ & $\msyn$ & 72.01                      & 70.59                     & 59.38                     \\
+				$\mlex$ & $\mstd$ & 78.13                      & 79.78                     & 61.96                     \\
+				$\msyn$ & $\mstd$ & 77.70                      & 78.10                     & 60.93                     \\
+				\rowcolor{orangeEric}
+				$\mathbf{\mlex}$ & $\mathbf{E(M^S, M^T)}$ & \textbf{78.90}                      & \textbf{80.04}                     & \textbf{63.20}                   \\ \bottomrule
+		\end{tabular}
+		\end{table}
 	\end{minipage}
-	\column{0.5\textwidth}
-	\begin{minipage}[c][0.8\textheight][c]{\linewidth}
-	\onslide<2->\includegraphics[width=1\linewidth]{image2/Chapitre4/1f_2.png}
-	\\
-	$b^*_{X_FF} \in \{\mlex, \mstd\}$
-	\\
-	$b^*_{X_SF} \in \{\slex, \ssyn\}$
-	\end{minipage}
-	\end{columns}
 \end{frame}
 
-\begin{frame}[t]{Evaluation}
+\begin{frame}{Evaluation (F-measure)}
+\begin{minipage}[c][.3\textheight][c]{\linewidth}
+\centering
+	\begin{tabular}{@{}llccc@{}}
+			\toprule
+    $A$      &    $B$       & \multicolumn{3}{r}{\textbf{Baseline (EF)} }                                            \\ \midrule
+          &           & \textbf{CONLL}                      & \textbf{WNER}                      & \textbf{WGLD}                      \\ \cmidrule{3-5}
+          	\rowcolor{orangeEric}
+			$\mathbf{\mlex}$ & $\mathbf{E(M^S, M^T)}$ & \textbf{78.90}                      & \textbf{80.04}                     & \textbf{63.20}                   \\ \bottomrule
+	\end{tabular}
+\end{minipage}
 
-%\begin{itemize}
-%\item Best Fusion operators on the F-measure over the three datasets.  
-%\item Achieved using a higher Degree fusion operator
-%\item Notice the comparison with the Early Fusion baseline
-%\item Visually show the best fusion operator, not with the formula.
-%\end{itemize}
+\begin{overprint}
+	\onslide<1>
+		\begin{itemize}
+		\item[] \large \textbf{First Degree Fusion}
+		\end{itemize}
+		\begin{minipage}[c][.4\textheight][c]{\linewidth}
+		\centering
+		\begin{tabular}{@{}llccc@{}}
+		\toprule
+			          &           & \multicolumn{3}{r}{\textbf{Cross Feature Fusion ($\mathbf{X_FF}$)}} \\
+			\midrule
+			          &           & \textbf{CONLL}                      & \textbf{WNER}                      & \textbf{WGLD}                      \\ \cmidrule{3-5}
+			$\slex$ &$\mstd$        & 49.90                      & \textbf{70.27}                     & \textbf{62.69}                    \\
+			$\ssyn$ & $\mstd$ & 47.27                      & 51.38                     & 48.53                     \\
+			$\sstd$ & ${b}^*_{\scriptscriptstyle X_FF}$        & \textbf{52.89}                      & 62.21                     & 50.15                     \\
+			\bottomrule
+		\end{tabular}
+		\end{minipage}
+	\onslide<2>
+		\begin{itemize}
+			\item[] \large \textbf{Second Degree Fusion}
+		\end{itemize}
+		\begin{minipage}[c][.4\textheight][c]{\linewidth}
+		\centering
+		\begin{tabular}{@{}llccc@{}}
+		\toprule
+		$A$&$B$& \multicolumn{3}{r}{\textbf{Early Cross Feature Fusion ($\mathbf{EX_FF}$)}} \\ \midrule
+			                         &                & \textbf{CONLL} & \textbf{WNER}  &             \textbf{WGLD}             \\
+			\cmidrule{3-5}
+		
+		$\mstd$ & $ X_F(\ssyn, \mlex)$          & 49.58 & \textbf{77.32} &            \textbf{61.69}             \\
+		\bottomrule
+		\end{tabular}
+		\end{minipage}
+		
+	\onslide<3>
+		\begin{itemize}
+			\item[] \large \textbf{Second Degree Fusion}
+		\end{itemize}
+		\begin{minipage}[c][.4\textheight][c]{\linewidth}
+		\centering
+		\begin{tabular}{@{}llccc@{}}
+		\toprule
+		$A$&$B$& \multicolumn{3}{r}{\textbf{Late Cross Feature Fusion ($\mathbf{LX_FF}$)}} \\ \midrule
+			                         &                & \textbf{CONLL} & \textbf{WNER}  &             \textbf{WGLD}             \\
+			\cmidrule{3-5}
+		$\mstd$ & $ X_F(\ssyn, \mstd)$          & \textbf{56.53} & {62.27} &            {52.39}             \\
+		\bottomrule
+		\end{tabular}
+		\end{minipage}
+	\onslide<4>
+		\begin{itemize}
+			\item[] \large \textbf{High Degree Fusion}
+		\end{itemize}
+		\begin{minipage}[c][.4\textheight][c]{\linewidth}
+		\centering
+			\begin{tabular}{@{}llccc@{}}
+			\toprule
+			          &        &   \multicolumn{3}{r}{\makecell{\textbf{Triple Early} \\ \textbf{Double Late Cross Feature Fusion} \\ \textbf{($\mathbf{EEELX_FLX_F}$)}}}                                             \\
+			\midrule     
+			          &          & \textbf{CONLL}                      & \textbf{WNER}                      & \textbf{WGLD}                      \\ \cmidrule{3-5}
+			\rowcolor{greenEric!70} 
+			$\mathbf{\mlex_{\alpha=0.95}}$ & $ \mathbf{\hat{b}_{\scriptscriptstyle EEELX_FLX_F}}$  & \textbf{79.67}                      & \textbf{81.79}                     & \textbf{67.05}                     \\ \midrule
+			\end{tabular}
+		\small	$\hat{b}_{\scriptscriptstyle EEELX_FLX_F} =  E(E(\mstd, 	 L(\mstd, X_F(\ssyn, \mstd))), L(\mlex, X_F(\ssyn, \mlex)))$
+		\end{minipage}
+			
+\end{overprint}
+\end{frame}
 
 
-
-\begin{center}
+\begin{frame}{Analyzing the Best Fusion Operator}
 \begin{itemize}
-\onslide<1->\item[] \includegraphics[width=1\linewidth]{image2/Chapitre2/hybrid_fusiona_trim.pdf}%lexical
-\onslide<2->\item[] \includegraphics[width=1\linewidth]{image2/Chapitre4/hf_trim.png}
+\item  \textbf{Split the operator in four different models}
+	\begin{itemize}
+	\item[] \begin{equation*}
+	\overbrace{\underbrace{\overbrace{E_{\alpha=0.95}(\underbrace{\mlex}_{\circled{$M_1$}},\mstd}^{\circled{$M_2$}},L(\mstd, X_F(\ssyn, \mstd))}_{\circled{$M_3$}}, L(\mlex, X_F(\ssyn, \mlex))}^{\circled{$M_4$}})
+	\end{equation*}
+	\end{itemize}
+
+\item<2->[\circled{$M_1$}] $\mlex$ 
+\item<2->[\circled{$M_2$}] $E(\mlex, \mstd)$  
+\item<2->[\circled{$M_3$}] $E_\alpha(\mlex, \mstd, L(\mstd, X_F(\ssyn, \mstd)))$ 
+\item<2->[\circled{$M_4$}] $E_\alpha(\mlex, \mstd, L(\mstd, X_F(\ssyn, \mstd)), L(\mlex, X_F(\ssyn, \mlex)))$ 
+
+
+
+%\item[\circled{$M_1$}] $\mlex$ \label{eq:f1} used to train model $M_1$.
+%\item[\circled{$M_2$}] $E(\alpha_1\mlex, \alpha_2\mstd)$ \label{eq:f2} used to train model $M_2$, with $\alpha_1=0.95,\alpha_2=0.05$
+%\item[\circled{$M_3$}] $E_\alpha(\alpha_1\mlex, \alpha_2\mstd, \alpha_3L(\mstd, X_F(\ssyn, \mstd)))$ used to train model $M_3$, with $\alpha_1=0.95,\alpha_2=\alpha_3=0.05$
+%\item[\circled{$M_4$}] $E_\alpha(\alpha_1\mlex, \alpha_2\mstd, \alpha_3L(\mstd, X_F(\ssyn, \mstd)), \alpha_4L(\mlex, X_F(\ssyn, \mlex)))$ used to train model $M_4$, with $\alpha_1=0.95,\alpha_2=\alpha_3=\alpha_4=0.05$
 \end{itemize}
-
-
-
-
-\end{center}
-
-
-
-\vspace{\textheight}
 \end{frame}
 
 \begin{frame}{Analyzing the Best Fusion Operator}
-\begin{itemize}[<+- | alert@+>]
-\item  \textbf{Understand how the evolution towards and enriched space helps the model take the correct decision}
 \begin{itemize}
-\item Decompose the large fusion operator into 4 separate representations
-\item Train a model with each individual operator (4 models: $M_1$, $M_2$, $M_3$, $M_4$)
-\item Investigate how the features added at each step help the model predict the correct class
+\item<1-> \textbf{Error Analysis Model}
+	\begin{itemize}
+		\item<1-> To interpret the decision we change the prediction model to a logistic regression with $L_1$ normalization, which also benefits from the enriched spaces
+
+	\end{itemize}
+\item<2-> \textbf{Procedure}
+	\begin{itemize}
+		\item<2-> We find an error on a model and then see if this error was fixed in the next evolved model
+		\item<2-> We study the weights assigned to each feature and see if those added by the fusion makes the model change its decision
+	\end{itemize}
+\item<3-> \textbf{Experiment}
+	\begin{itemize}
+		\item We follow the proper name \textit{Kory} from \circled{$M_1$} (incorrectly classified as O) to \circled{$M_2$} (correctly classified as PER)
+		\item<2-> Similarly, we follow the proper name \textit{Green} from \circled{$M_3$} (incorrectly classified as ORG) to \circled{$M_4$} (correctly classified as PER)
+		
+	\end{itemize} 
 \end{itemize}
-\item[] \begin{equation*}
-\overbrace{\underbrace{\overbrace{E_{\alpha=0.95}(\underbrace{\mlex}_{\circled{1}},\mstd}^{\circled{2}},L(\mstd, X_F(\ssyn, \mstd))}_{\circled{3}}, L(\mlex, X_F(\ssyn, \mlex))}^{\circled{4}})
-\end{equation*}
-
-\end{itemize}
-
-
-%\begin{enumerate}
-%\item[\circled{1}] $\mlex$ \label{eq:f1} used to train model $M_1$.
-%\item[\circled{2}] $E(\alpha_1\mlex, \alpha_2\mstd)$ \label{eq:f2} used to train model $M_2$, with $\alpha_1=0.95,\alpha_2=0.05$
-%\item[\circled{3}] $E_\alpha(\alpha_1\mlex, \alpha_2\mstd, \alpha_3L(\mstd, X_F(\ssyn, \mstd)))$ used to train model $M_3$, with $\alpha_1=0.95,\alpha_2=\alpha_3=0.05$
-%\item[\circled{4}] $E_\alpha(\alpha_1\mlex, \alpha_2\mstd, \alpha_3L(\mstd, X_F(\ssyn, \mstd)), \alpha_4L(\mlex, X_F(\ssyn, \mlex)))$ used to train model $M_4$, with $\alpha_1=0.95,\alpha_2=\alpha_3=\alpha_4=0.05$
-%\end{enumerate}
 \end{frame}
 
 
 \begin{frame}{Analyzing the Best Fusion Operator}
-\large \textbf{We focus on the word \textit{Kory}, and its performance from model $M_1$ to $M_2$}
+\large \textbf{We focus on the word \textit{Kory}, and its performance from model \circled{$M_1$} to \circled{$M_2$}}
 \begin{center}
 \includegraphics[width=0.6\linewidth]{image2/Chapitre4/fanal1.png}
 \end{center}
@@ -923,7 +1013,7 @@ We extract useful information from a text based on the \textcolor{orangeEric}{di
 
 
 \begin{frame}{Analyzing the Best Fusion Operator}
-\large \textbf{We focus on the word \textit{Green}, and its performance from model $M_3$ to $M_4$}
+\large \textbf{We focus on the word \textit{Green}, and its performance from model \circled{$M_3$} to \circled{$M_4$}}
 \begin{center}
 \includegraphics[width=0.6\linewidth]{image2/Chapitre4/fanalm3_m4.png}
 \end{center}
