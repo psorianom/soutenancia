@@ -870,7 +870,7 @@ We extract useful information from a text based on the \textcolor{orangeEric}{di
 				$\mlex$ & $\mstd$ & 78.13                      & 79.78                     & 61.96                     \\
 				$\msyn$ & $\mstd$ & 77.70                      & 78.10                     & 60.93                     \\
 				\rowcolor{orangeEric}
-				$\mathbf{\mlex}$ & $\mathbf{E(M^S, M^T)}$ & \textbf{78.90}                      & \textbf{80.04}                     & \textbf{63.20}                   \\ \bottomrule
+				$\mlex$ & $E(M^S, M^T)$ & {78.90}                      & {80.04}                     & {63.20}                   \\ \bottomrule
 		\end{tabular}
 		\end{table}
 	\end{minipage}
@@ -884,7 +884,7 @@ We extract useful information from a text based on the \textcolor{orangeEric}{di
     $A$      &    $B$       & \multicolumn{3}{r}{\textbf{Baseline (EF)} }                                            \\ \midrule
           &           & \textbf{CONLL}                      & \textbf{WNER}                      & \textbf{WGLD}                      \\ \cmidrule{3-5}
           	\rowcolor{orangeEric}
-			$\mathbf{\mlex}$ & $\mathbf{E(M^S, M^T)}$ & \textbf{78.90}                      & \textbf{80.04}                     & \textbf{63.20}                   \\ \bottomrule
+			${\mlex}$ & ${E(M^S, M^T)}$ & {78.90}                      & {80.04}                     & {63.20}                   \\ \bottomrule
 	\end{tabular}
 \end{minipage}
 
@@ -902,7 +902,7 @@ We extract useful information from a text based on the \textcolor{orangeEric}{di
 			          &           & \textbf{CONLL}                      & \textbf{WNER}                      & \textbf{WGLD}                      \\ \cmidrule{3-5}
 			$\slex$ &$\mstd$        & 49.90                      & \textbf{70.27}                     & \textbf{62.69}                    \\
 			$\ssyn$ & $\mstd$ & 47.27                      & 51.38                     & 48.53                     \\
-			$\sstd$ & ${b}^*_{\scriptscriptstyle X_FF}$        & \textbf{52.89}                      & 62.21                     & 50.15                     \\
+			$\sstd$ & $\mlex$        & \textbf{52.89}                      & 62.21                     & 50.15                     \\
 			\bottomrule
 		\end{tabular}
 		\end{minipage}
@@ -961,7 +961,7 @@ We extract useful information from a text based on the \textcolor{orangeEric}{di
 
 \begin{frame}{Analyzing the Best Fusion Operator}
 \begin{itemize}
-\item  \textbf{Split the operator in four different models}
+\item \large  \textbf{Split the operator in four different models}
 	\begin{itemize}
 	\item[] \begin{equation*}
 	\overbrace{\underbrace{\overbrace{E_{\alpha=0.95}(\underbrace{\mlex}_{\circled{$M_1$}},\mstd}^{\circled{$M_2$}},L(\mstd, X_F(\ssyn, \mstd))}_{\circled{$M_3$}}, L(\mlex, X_F(\ssyn, \mlex))}^{\circled{$M_4$}})
@@ -969,7 +969,7 @@ We extract useful information from a text based on the \textcolor{orangeEric}{di
 	\end{itemize}
 
 \item<2->[\circled{$M_1$}] $\mlex$ 
-\item<2->[\circled{$M_2$}] $E(\mlex, \mstd)$  
+\item<2->[\circled{$M_2$}] $E_\alpha(\mlex, \mstd)$  
 \item<2->[\circled{$M_3$}] $E_\alpha(\mlex, \mstd, L(\mstd, X_F(\ssyn, \mstd)))$ 
 \item<2->[\circled{$M_4$}] $E_\alpha(\mlex, \mstd, L(\mstd, X_F(\ssyn, \mstd)), L(\mlex, X_F(\ssyn, \mlex)))$ 
 
@@ -986,18 +986,18 @@ We extract useful information from a text based on the \textcolor{orangeEric}{di
 \begin{itemize}
 \item<1-> \textbf{Error Analysis Model}
 	\begin{itemize}
-		\item<1-> To interpret the decision we change the prediction model to a logistic regression with $L_1$ normalization, which also benefits from the enriched spaces
+		\item<1-> To facilitate the interpretation, we change the prediction model to a logistic regression with $L_1$ normalization, which also benefits from the enriched spaces
 
 	\end{itemize}
 \item<2-> \textbf{Procedure}
 	\begin{itemize}
 		\item<2-> We find an error on a model and then see if this error was fixed in the next evolved model
-		\item<2-> We study the weights assigned to each feature and see if those added by the fusion makes the model change its decision
+		\item<2-> We study the weights assigned to each feature and see if those added by the fusion make the model change its decision
 	\end{itemize}
 \item<3-> \textbf{Experiment}
 	\begin{itemize}
-		\item We follow the proper name \textit{Kory} from \circled{$M_1$} (incorrectly classified as O) to \circled{$M_2$} (correctly classified as PER)
-		\item<2-> Similarly, we follow the proper name \textit{Green} from \circled{$M_3$} (incorrectly classified as ORG) to \circled{$M_4$} (correctly classified as PER)
+		\item<3-> We follow the proper name \textit{Kory} from \circled{$M_1$} (incorrectly classified as O) to \circled{$M_2$} (correctly classified as PER)
+		\item<3-> Similarly, we follow the proper name \textit{Green} from \circled{$M_3$} (incorrectly classified as ORG) to \circled{$M_4$} (correctly classified as PER)
 		
 	\end{itemize} 
 \end{itemize}
@@ -1006,17 +1006,34 @@ We extract useful information from a text based on the \textcolor{orangeEric}{di
 
 \begin{frame}{Analyzing the Best Fusion Operator}
 \large \textbf{We focus on the word \textit{Kory}, and its performance from model \circled{$M_1$} to \circled{$M_2$}}
-\begin{center}
-\includegraphics[width=0.6\linewidth]{image2/Chapitre4/fanal1.png}
-\end{center}
+	\begin{overprint}
+		\onslide<1>
+			\begin{center}
+			\includegraphics[width=0.4\linewidth]{image2/Chapitre4/M1_383.png}
+			\end{center}
+		\onslide<2>
+			\begin{center}
+			\includegraphics[width=0.8\linewidth]{image2/Chapitre4/M2_383.png}
+			\end{center}
+		
+	\end{overprint}
 \end{frame}
 
 
 \begin{frame}{Analyzing the Best Fusion Operator}
-\large \textbf{We focus on the word \textit{Green}, and its performance from model \circled{$M_3$} to \circled{$M_4$}}
-\begin{center}
-\includegraphics[width=0.6\linewidth]{image2/Chapitre4/fanalm3_m4.png}
-\end{center}
+\large \textbf{Now we focus on the word \textit{Green}, and its performance from model \circled{$M_3$} to \circled{$M_4$}}
+\vfill
+	\begin{overprint}
+		\onslide<1>
+			\begin{center}
+			\includegraphics[width=\linewidth]{image2/Chapitre4/M3_16029.png}
+			\end{center}
+		\onslide<2>	
+			\begin{center}
+			\includegraphics[width=\linewidth]{image2/Chapitre4/M4_16029.png}
+			\end{center}
+	\end{overprint}
+
 \end{frame}
 
 \section[Applications to NLP]{Solving Word Sense Induction and Disambiguation}
@@ -1040,27 +1057,36 @@ We extract useful information from a text based on the \textcolor{orangeEric}{di
 
 \begin{frame}{Experimental Protocol}
 	\begin{itemize}
-		\item<1-> \large \textbf{Preprocessing}
+		\item<1-> \textbf{Feature Space}
+			\begin{itemize}
+			\item Lexical (L) and Syntactic (S) Features
+			\end{itemize}
+		
+	
+		\item<1-> \textbf{Preprocessing}
 			\begin{itemize}
 				\item<1-> Remove very frequent and very infrequent words
 			\end{itemize}
 		\item<2-> \textbf{Test Corpora}
 			\begin{itemize}
-			\item<2-> Semeval 2007 \cite{SangM03}: Train: 219,554 lines. Test: 50,350 
+			\item<2-> Semeval Competition 2007: Train 219,554 lines. Test 50,350 lines
 			\end{itemize}
 		\item<3-> \textbf{Clustering Algorithm}
 			\begin{itemize}
-				\item<3-> Spectral Clustering \cite{Shi2000}
+				\item<3-> Spectral Clustering 
 				\item<3-> Proposed Community Algorithm
 			\end{itemize}
 
 		\item<4-> \textbf{Evaluation Metrics}
 			\begin{itemize}
-				\item<4-> Supervised Recall
-				\item<4-> Unsupervised  F-measure
-				\item<5-> Proposed: H-measure
+				\item<4-> Supervised Recall (SR)
+				\item<4-> Unsupervised  F-measure (UF)
+				\item<5-> \textcolor{orangeEric}{Proposed H-measure}
 				\begin{itemize}
-				\item<5->[] \includegraphics[width=0.6\linewidth]{image2/Chapitre4/h-measure}
+				\item<5->[] 
+					\begin{equation*}
+					\text{H-measure} = \dfrac{1}{2}\left(2*\dfrac{SR*UF}{SR+UF}+\dfrac{\delta}{\delta+|\#cl-\delta|}\right)
+					\end{equation*}
 				\item<5->[] \small $\delta$ is the average true number of senses of the words in a test corpus
 
 				\end{itemize}
@@ -1069,28 +1095,66 @@ We extract useful information from a text based on the \textcolor{orangeEric}{di
 	\vspace{\textheight}
 \end{frame}
 
-\begin{frame}{Spectral Clustering Evaluation}
-\begin{columns}
-	\column{0.5\textwidth}
-	\begin{minipage}[c][0.5\textheight][c]{\linewidth}
-	\onslide<1->
-	\begin{figure}
-		\centering
-		\includegraphics[width=1\linewidth]{image2/Chapitre4/wsd_SC_SR}
-		\caption{Supervised Recall}
-	\end{figure}
+\begin{frame}{Spectral Clustering Results}
+	\vspace{.3cm}
+	\begin{overprint}
+		\onslide<1>
+			\centering \large \textbf{Supervised Recall}
+			\normalsize
+			
+			\begin{minipage}[c][.8\textheight][c]{\linewidth}
+				\centering
+				\begin{tabular}{@{}lrrrr@{}}
+				\toprule
+				\textbf{Fusion Operation / System} & \multicolumn{3}{c}{\textbf{Recall (\%)}} & \#\textbf{cl}\\ 
+				  & \textbf{all}          & \textbf{nouns}          & \textbf{verbs} &          \\ 
+				  \midrule
+				  \multicolumn{5}{r}{\textbf{Single Features}} \\ %\midrule
+		          \rowcolor{orangeEric!70} 
+				  $\mlex$ &	79.20 & 82.10 & 75.80 & 4.13\\
+				  $\msyn$ & 79.10 & 81.60 & 76.20 & 4.47\\
+				  \midrule
+				  \multicolumn{5}{r}{\textbf{Early Fusion (EF)}} \\ 
+				         $E(\mlex, \msyn)$		& 78.70 & 81.11 & 76.10 & 4.46\\
+				  \midrule
+				  \midrule
+			   	  \multicolumn{5}{r}{\textbf{Late Cross Feature Fusion ($\mathbf{LX_FF}$)}}       \\ %\midrule	  
+				  $L(\msyn, X_F(\slex, \msyn))$		& 78.60 & 81.10 & 75.80 & 4.22\\
+		  		  \rowcolor{greenEric!70} 	   
+				  $L(\mlex, X_F(\slex, \mlex))$		& {79.50} & {82.80} & 75.70 & 3.96\\	   
+				  \midrule
+				\end{tabular}
+			\end{minipage}
+		\onslide<2>
+		\centering \large \textbf{Unsupervised F-measure}
+		\normalsize
+		\begin{minipage}[c][.8\textheight][c]{\linewidth}
+			\centering
+			\begin{tabular}{@{}lrrrr@{}}
+			\toprule
+			\textbf{Fusion Operation / System} & \multicolumn{3}{c}{\textbf{F-measure (\%)}} & \#\textbf{cl}\\ \midrule
+		    & \textbf{all}          & \textbf{nouns}          & \textbf{verbs}           \\ 
+		    \midrule
+		    \multicolumn{5}{r}{\textbf{Single Features}} \\ %\midrule
+		       $\mlex$                    &	72.70	 & 76.90 & 67.90 & 4.13\\
+		 	$\msyn$                    &	69.30	& 69.40 & 69.20 & 4.47\\
+		    \midrule 
+		    \multicolumn{5}{r}{\textbf{Early Fusion (EF)}} \\ %\midrule
+   			\rowcolor{orangeEric!70} 
+		    $E(\mlex, \msyn)$		&	{74.00}	& 76.66 & {71.11} & 4.46\\
+			  %\midrule
+			\midrule \midrule
+	       \multicolumn{5}{r}{\textbf{Cross Feature Fusion ($\mathbf{X_FF}$)}}       \\
+ 		   \rowcolor{greenEric!70} 
+       	   $X_F(\ssyn, \mlex)$		&	{78.90}	& 80.70 & {76.90}	 & 1.08 \\	   	         
+       	   \bottomrule
+			\end{tabular}		
+		\end{minipage}
+	
+	\end{overprint}
 
-	\end{minipage}
-	\column{0.5\textwidth}
-	\begin{minipage}[c][0.5\textheight][c]{\linewidth}
-	\onslide<2->
-	\begin{figure}
-		\centering
-		\includegraphics[width=1\linewidth]{image2/Chapitre4/wsd_SC_UF.png}
-		\caption{Unsupervised F-measure}
-	\end{figure}
-	\end{minipage}
-	\end{columns}
+
+	
 \end{frame}
 
 
