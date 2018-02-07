@@ -49,6 +49,8 @@
 \usepackage{xcolor,colortbl}
 \usepackage{makecell}
 \definecolor{greenEric}{HTML}{297373}
+\usepackage{pdfpcnotes}
+\usepackage[linesnumbered,ruled,vlined]{algorithm2e}
 \newcommand*\circled[1]{\tikz[baseline=(char.base)]{
             \node[shape=circle,draw,inner sep=1pt] (char) {#1};}}
 
@@ -56,7 +58,7 @@
 
 \usepackage[backend=bibtex,style=alphabetic,sorting=ynt]{biblatex}
 \addbibresource{Thesis_f.bib}
-
+\def\argmax{\operatornamewithlimits{arg\,max}}
 \usepackage{pgfplots}
 \usepgfplotslibrary{dateplot}
 
@@ -203,6 +205,7 @@
 				\item Constituency Tree
 				\item Dependency Tree
 		\end{itemize}
+		\item Semantic
 	\end{itemize}
 	\onslide<2-> \item \textbf{Example Phrase}
 	\begin{itemize}
@@ -214,45 +217,85 @@
   				
   \onslide<3>
 	  \vfill
-	  \centering	  
+	  \centering
+	  \textbf{Lexical Representation}
+	  \vspace{.3cm}
+	  	  
       \includegraphics[width=.8\linewidth]{img/tree/lexical_tree.pdf}
 	  \vfill
   \onslide<4>
 	  \vfill
   	  \centering
-      \includegraphics[width=.8\linewidth]{img/tree/tree.pdf}
+  	  \textbf{Constituency Tree Representation}
+      \includegraphics[width=.65\linewidth]{img/tree/tree.pdf}
       \vfill
   \onslide<5>
 	  \vfill
 	  \centering
+   	  \textbf{Dependency Tree Representation}
+   	  \vspace{.3cm}
+      
       \includegraphics[width=.8\linewidth]{img/tree/dep_tree.pdf}
       \vfill
 \end{overprint}
 \end{frame}
 
-\begin{frame}{Represention Models}
-\begin{itemize}
-\item \textbf{Two classic models}
-	\begin{itemize}
-		\item Graph-based 
-		\item Matrix-based
-	\end{itemize}
-\item \textbf{Leveraging the network structure}
-	\begin{itemize}
-		\item We can find communities of similiar words according to their meaning
-	\end{itemize}
-\end{itemize}
-\begin{overprint}
-	  % on every slide (not sure if it is officially supported)
-	  \onslide<2>
-	  \centering
-	      \includegraphics[width=.8\linewidth]{image2/Chapitre1/feature_types.pdf}	
-%	  \onslide<3>
-%	  \centering
-%		  \includegraphics[width=\linewidth]{image2/Chapitre1/feature_types_communities.pdf}	  
-	  % on slide two
-\end{overprint}
 
+
+%\begin{frame}{Represention Models}
+%\begin{itemize}
+%\item \textbf{Two classic models}
+%	\begin{itemize}
+%		\item Graph-based 
+%		\item Matrix-based
+%	\end{itemize}
+%\item \textbf{Leveraging the network structure}
+%	\begin{itemize}
+%		\item We can find communities of similiar words according to their meaning
+%	\end{itemize}
+%\end{itemize}
+%\begin{overprint}
+%	  % on every slide (not sure if it is officially supported)
+%	  \onslide<2>
+%	  \centering
+%	      \includegraphics[width=.8\linewidth]{image2/Chapitre1/feature_types.pdf}	
+%%	  \onslide<3>
+%%	  \centering
+%%		  \includegraphics[width=\linewidth]{image2/Chapitre1/feature_types_communities.pdf}	  
+%	  % on slide two
+%\end{overprint}
+%
+%\end{frame}
+
+\begin{frame}{Represention Models}
+	\begin{columns}
+		\column{.5\textwidth}
+		\begin{minipage}[c][0.3\textheight][c]{\linewidth}
+		 \centering
+		 \includegraphics[width=1\linewidth]{img/tree/lexical_tree.pdf}
+		\end{minipage}
+		\begin{minipage}[c][0.3\textheight][c]{\linewidth}
+		 \centering
+		\includegraphics[width=1\linewidth]{img/tree/tree.pdf}
+		\end{minipage}
+		\begin{minipage}[c][0.3\textheight][c]{\linewidth}
+		\centering
+		\includegraphics[width=1\linewidth]{img/tree/dep_tree.pdf}
+		\end{minipage}
+		\column{.5\textwidth}
+		\begin{minipage}[c][0.3\textheight][c]{\linewidth}
+		 \centering
+		 \includegraphics[width=.6\linewidth]{image2/Chapitre1/lexical.pdf}
+		\end{minipage}
+		\begin{minipage}[c][0.3\textheight][c]{\linewidth}
+		 \centering
+		 \includegraphics[width=.6\linewidth]{image2/Chapitre1/syn_1.pdf}
+		\end{minipage}
+		\begin{minipage}[c][0.3\textheight][c]{\linewidth}
+		\centering
+		\includegraphics[width=.6\linewidth]{image2/Chapitre1/dep_1.pdf}
+		\end{minipage}	
+	\end{columns}
 \end{frame}
 
 
@@ -287,7 +330,7 @@
 % \vspace{\textheight}
 \end{frame}
 
-\setbeamertemplate{section page}[mytheme][image2/Chapitre1/main_diag_presi.pdf]
+\setbeamertemplate{section page}[mytheme]
 
 \section[Contributions in Detail]{Hypergraph Linguistic Model}
 \metroset{sectionpage=none}
@@ -305,13 +348,21 @@
 
 \begin{frame}{Introduction}
 
-We extract useful information from a text based on the \textcolor{orangeEric}{distributional hypothesis} (a word is defined by its surroundings) 
+
 \begin{itemize}
-	\item \textbf{We choose network models} 
+	\item<1-> \textbf{Leveraging contexts}
+	\begin{itemize}
+	\item<1-> We extract linguistic information from words based on the \textcolor{orangeEric}{distributional hypothesis} (a word is defined by its surroundings)
+	\item<1-> These surroundings are defined as contexts
+	\item<1-> Contexts are formed by the interactions a word participates in. These interactions can be lexical or syntactical or other types.
+
+	\end{itemize}
+	\item<2-> \textbf{We use network models to represent contexts} 
 		\begin{itemize}
-		\item Used in a large quantity of NLP tasks 
-		\item Graphs structures can give us a clearer view into the relations of words within a text 	
-		\item Ultimately graphs are transformed to a vectorial representation through the adjacency/incidence matrices
+
+		\item<2-> Graphs structures can give us a clearer view into the relations of words within a text 	
+		\item<2-> Allow us to apply methods from graph theory
+		\item<2-> Ultimately graphs are transformed to a vectorial representation through the adjacency/incidence matrices
 		
 		\end{itemize}
 		
@@ -404,8 +455,14 @@ We extract useful information from a text based on the \textcolor{orangeEric}{di
 	\onslide<4>\includegraphics[width=1\linewidth]{image2/Chapitre2/hyper_network_ex_3.pdf}%constit
 	\onslide<5>\includegraphics[width=1\linewidth]{image2/Chapitre2/hyper_network_ex_4.pdf}%dep
 	\onslide<6>\includegraphics[width=1\linewidth]{image2/Chapitre2/hyper_network_ex_5.pdf}%dep
+	\onslide<7>\includegraphics[width=1\linewidth]{image2/Chapitre2/hyper_network_ex_6.pdf}%dep
+	
+	\begin{itemize}
+	\item[] How to combine these networks together?
+	\end{itemize}
 	\end{overprint}
 	\vspace{7cm}
+	\pnote{YOU SHOULD BE 12 MINS}
 \end{frame}
 
 %\includegraphics[width=.6\linewidth]{img/hypergraph_copies.pdf} <===== THIS!
@@ -642,7 +699,7 @@ We extract useful information from a text based on the \textcolor{orangeEric}{di
 \end{frame} 
 
 
-\begin{frame}{Syntactically Annotated Wikipedia}
+\begin{frame}<presentation:0>{Syntactically Annotated Wikipedia}
 
 
 			 	\centering	           
@@ -697,7 +754,7 @@ We extract useful information from a text based on the \textcolor{orangeEric}{di
 \multicolumn{1}{c}{\textbf{priest}} & \begin{tabular}[c]{@{}l@{}}priests\\ nun\\ canton\\ sailor\\ burial\end{tabular} & \begin{tabular}[c]{@{}l@{}}monk\\ regent\\ aedile\\ seer\\ meek\end{tabular} & \begin{tabular}[c]{@{}l@{}}sailor\\ regent\\ nuclei\\ nun\\ relic\end{tabular} & \begin{tabular}[c]{@{}l@{}}vassal\\ regent\\ nun\\ sailor\\ monk\end{tabular} & \begin{tabular}[c]{@{}l@{}}sailor\\ fluent\\ dean\\ nuclei\\ chorus\end{tabular} \\
 
  \bottomrule
-
+\pnote{!!YOU SHOULD BE ~22 mins!!!}
 \end{tabular}
 \end{frame}
 
@@ -772,8 +829,11 @@ We extract useful information from a text based on the \textcolor{orangeEric}{di
 	\hline 
 	 \textbf{Word} & \textbf{Features} & \textbf{Feature Type}\\ 
 	\hline 
+	\rowcolor{greenEric!70}	
 	Australian & word:Australian, word+1:scientist, ...& \textbf{Lexical (L)}\\ 
+	\rowcolor{orangeEric!70}	
 	scientist  &  Australian/JJ/amod, discovers/VBZ/nsubj\_inv & \textbf{Syntactic (S)}\\ 
+	\rowcolor{blue!30}
 	discover &discover, no-capital-letter, prf:dis, suf:ver, VBZ & \textbf{Standard (T)}\\ 
 	\hline 
 \end{tabular} 
@@ -996,24 +1056,24 @@ We extract useful information from a text based on the \textcolor{orangeEric}{di
 	\end{itemize}
 \item<3-> \textbf{Experiment}
 	\begin{itemize}
-		\item<3-> We follow the proper name \textit{Kory} from \circled{$M_1$} (incorrectly classified as O) to \circled{$M_2$} (correctly classified as PER)
-		\item<3-> Similarly, we follow the proper name \textit{Green} from \circled{$M_3$} (incorrectly classified as ORG) to \circled{$M_4$} (correctly classified as PER)
+%		\item<3-> We follow the proper name \textit{Kory} from \circled{$M_1$} (incorrectly classified as O) to \circled{$M_2$} (correctly classified as PER)
+		\item<3-> We follow the location name \textit{Green} from \circled{$M_3$} (incorrectly classified as ORG) to \circled{$M_4$} (correctly classified as LOC)
 		
 	\end{itemize} 
 \end{itemize}
 \end{frame}
 
 
-\begin{frame}{Analyzing the Best Fusion Operator}
-\large \textbf{We focus on the word \textit{Kory}, and its performance from model \circled{$M_1$} to \circled{$M_2$}}
+\begin{frame}<presentation:0>[noframenumbering]{Analyzing the Best Fusion Operator}
+\large \textbf{The proper name \textit{Kory} is classified as O by \circled{$M_1$}. It is fixed by  \circled{$M_2$}, classifying it as PER}
 	\begin{overprint}
 		\onslide<1>
 			\begin{center}
-			\includegraphics[width=0.4\linewidth]{image2/Chapitre4/M1_383.png}
+			\circled{$M_1$}\includegraphics[width=0.4\linewidth]{image2/Chapitre4/M1_383.png}
 			\end{center}
 		\onslide<2>
 			\begin{center}
-			\includegraphics[width=0.8\linewidth]{image2/Chapitre4/M2_383.png}
+			\circled{$M_2$}\includegraphics[width=0.8\linewidth]{image2/Chapitre4/M2_383.png}
 			\end{center}
 		
 	\end{overprint}
@@ -1021,16 +1081,20 @@ We extract useful information from a text based on the \textcolor{orangeEric}{di
 
 
 \begin{frame}{Analyzing the Best Fusion Operator}
-\large \textbf{Now we focus on the word \textit{Green}, and its performance from model \circled{$M_3$} to \circled{$M_4$}}
+\large \textbf{The location \textit{Green} is classified as ORG by \circled{$M_3$}. It is fixed by  \circled{$M_4$}, classifying it as LOC}
 \vfill
 	\begin{overprint}
 		\onslide<1>
 			\begin{center}
 			\includegraphics[width=\linewidth]{image2/Chapitre4/M3_16029.png}
+			\\
+			\circled{$M_3$}	
 			\end{center}
 		\onslide<2>	
 			\begin{center}
 			\includegraphics[width=\linewidth]{image2/Chapitre4/M4_16029.png}
+			\\
+			\circled{$M_4$}
 			\end{center}
 	\end{overprint}
 
@@ -1042,7 +1106,7 @@ We extract useful information from a text based on the \textcolor{orangeEric}{di
 \begin{itemize}
 \item<1-> \large \textbf{WSI/WSD Objective}
 \begin{itemize}
-\item<1->  The goal is to determine a set of possible senses to a given word according to its possible contexts (WSI). Then, assigning a correct sense to a particular instance of said word
+\item<1->  The goal is to determine a set of possible senses to a given word according to its possible contexts (WSI). Then, assigning a correct sense to a particular instance of said word (WSD)
 
 \end{itemize}
 \item<2-> \large \textbf{Our goals}
@@ -1150,51 +1214,81 @@ We extract useful information from a text based on the \textcolor{orangeEric}{di
        	   \bottomrule
 			\end{tabular}		
 		\end{minipage}
-	
 	\end{overprint}
-
-
-	
 \end{frame}
 
-\begin{frame}{Spectral Clustering Evaluation}
+\begin{frame}{Spectral Clustering Evaluation: H-measure}
 \begin{figure}
 	\centering 
-	\includegraphics[width=1\linewidth]{image2/Chapitre4/wsd_PA_SR}
+	\includegraphics[width=.6\linewidth]{image2/Chapitre4/spectral_hmeasure_bars.pdf}
 \end{figure}
 \end{frame}
 
 
 \begin{frame}{Proposed Algorithm Evaluation}
-\begin{columns}
-	\column{0.5\textwidth}
-	\begin{minipage}[c][0.5\textheight][c]{\linewidth}
-	\onslide<1->
-	\begin{figure}
-		\centering
-		\includegraphics[width=1\linewidth]{image2/Chapitre4/wsd_PA_SR}
-		\caption{Supervised Recall}
-	\end{figure}
-
-	\end{minipage}
-	\column{0.5\textwidth}
-	\begin{minipage}[c][0.5\textheight][c]{\linewidth}
-	\onslide<2->
-	\begin{figure}
-		\centering
-		\includegraphics[width=1\linewidth]{image2/Chapitre4/wsd_PA_UF.png}
-		\caption{Unsupervised F-measure}
-	\end{figure}
-	\end{minipage}
-	\end{columns}
+	\vspace{.3cm}
+	\begin{overprint}
+		\onslide<1>
+			\centering \large \textbf{Supervised Recall}
+			\normalsize
+			
+			\begin{minipage}[c][.8\textheight][c]{\linewidth}
+				\centering
+				\begin{tabular}{@{}lrrrr@{}}
+				\toprule
+				\textbf{Fusion Operation / System} & \multicolumn{3}{c}{\textbf{Recall (\%)}} & \#\textbf{cl}\\ 
+				  & \textbf{all}          & \textbf{nouns}          & \textbf{verbs} &          \\ 
+				  \midrule
+				  \multicolumn{5}{r}{\textbf{Single Features}} \\ %\midrule
+		          \rowcolor{orangeEric!70} 
+				  $\mlex$ &	78.70 & 81.00 & 76.00 & 4.21\\
+				  $\msyn$ & 78.41 & 80.30 & 76.10 & 2.26\\
+				  \midrule
+				  \multicolumn{5}{r}{\textbf{Early Fusion (EF)}} \\ 
+				         $E(\mlex, \msyn)$		& 78.80 & 81.00 & 76.40 & 2.43\\
+				  \midrule
+				  \midrule
+			   	  \multicolumn{5}{r}{\textbf{Cross Feature Fusion ($\mathbf{X_FF}$)}}       \\ %\midrule	  
+		  		  \rowcolor{greenEric!70} 	   
+				  $X_F(\slex, \mlex))$		& 79.10 & 81.60 & 76.40 & 1.73\\
+				  \bottomrule
+				\end{tabular}
+			\end{minipage}
+		\onslide<2>
+		\centering \large \textbf{Unsupervised F-measure}
+		\normalsize
+		\begin{minipage}[c][.8\textheight][c]{\linewidth}
+			\centering
+			\begin{tabular}{@{}lrrrr@{}}
+			\toprule
+			\textbf{Fusion Operation / System} & \multicolumn{3}{c}{\textbf{F-measure (\%)}} & \#\textbf{cl}\\ \midrule
+		    & \textbf{all}          & \textbf{nouns}          & \textbf{verbs}           \\ 
+		    \midrule
+		    \multicolumn{5}{r}{\textbf{Single Features}} \\ %\midrule
+		       $\mlex$                    &	63.80	 & 61.30.90 & 66.50 & 4.21\\
+		 	$\msyn$                    &	75.90	& 78.80 & 72.60 & 2.26\\
+		    \midrule 
+		    \multicolumn{5}{r}{\textbf{Early Fusion (EF)}} \\ %\midrule
+   			\rowcolor{orangeEric!70} 
+		    $E(\mlex, \msyn)$		&	{76.90}	& 80.20 & {73.10} & 2.43\\
+			  %\midrule
+			\midrule \midrule
+	       \multicolumn{5}{r}{\textbf{Cross Feature Fusion ($\mathbf{X_SF}$)}}       \\
+ 		   \rowcolor{greenEric!70} 
+       	   $X_F(\ssyn, \mlex)$		&	{78.30}	& 79.70 & {76.80}	 & 1.10 \\	   	         
+       	   \bottomrule
+			\end{tabular}		
+		\end{minipage}
+	\end{overprint}
 \end{frame}
 
 
-\begin{frame}{Proposed Algorithm Evaluation}
+
+
+\begin{frame}{Proposed Algorithm Evaluation: H-measure}
 \begin{figure}
 	\centering
-	\includegraphics[width=.5\linewidth]{image2/Chapitre4/wsd_PA_Hm.png}
-	\caption{Proposed H-measure}
+	\includegraphics[width=.66\linewidth]{image2/Chapitre4/proposed_hmeasure_bars.pdf}
 \end{figure}
 \end{frame}
 
@@ -1368,5 +1462,166 @@ We extract useful information from a text based on the \textcolor{orangeEric}{di
 %\bibliographystyle{alpha}
 
 %\end{frame}	
+\section{Appendix}	
+\appendix
+\begin{frame}{Proposed Method: Step One}
+
+\begin{itemize}
+	\item \textbf{Creation of the linguistic network}
+	\begin{itemize}
+		\item After preprocessing, we build a HLM $G_{tw}$ that contains the co-occurrent (lexically and syntactically) words for a target word $tw$.
+	\end{itemize}
+\end{itemize}
+\end{frame}	
 	
+\begin{frame}{Proposed Method: Step Two}
+\begin{itemize}
+
+\item \textbf{Computing the similarity between nodes}
+	\begin{itemize}
+		\item $G_{tw}$ is represented as a bipartite graph $B_{tw}$. Left nodes $U$ represent words and right nodes $W$ correspond to the hyperedges. An edge from a node $u$ to a node $w$ depicts the incidence of node $u$ in hyperedge $w$.
+		
+		\item A similarity matrix $S_{tw}$ of dimension $|U|\times|U|$ is calculated using the Jaccard similarity: given $n_{i,j} \in U$, then $Jaccard(i,j)=\frac{|N(i)\cap N(j)|}{|N(i)\cup N(j)|}$.
+	
+		
+		\item Induce a new incidence matrix $F_{tw}$ from $S_{tw}$ containing only the closest neighbours to each word $n_i \in U$. Each of these hyperedges represent a set of words that are deemed similar between them according to their Jaccard index value, which must be equal or higher than an assigned threshold $th_1$.
+		
+	\end{itemize}
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}{Proposed Method: Step Three}
+\begin{itemize}
+	\item \textbf{Clustering words together}
+	\begin{itemize}
+		\item We select the top $c$-nodes in $F_{tw}$ according to their degree. These nodes are candidate hubs, which must surpass a second threshold $th_2$ to be considered as proper hubs. We use the average Jaccard measure defined for each node $n$ as: $$AvgJaccard(n)=\frac{1}{|hedges(n)|}\sum_{h\in hedges(n)}\frac{\sum_{\substack{i\in h\\j\in h;i\neq j}}Jaccard(i,j)}{|h|}$$ 
+		where $hedeges(n)$ is the set of hyperedges $n$ is incident in and its cardinality is defined as $|hedges(n)|$. $|h|$ is the number of nodes in hyperedge $h$. 
+		\item Accepted hubs represent senses alongside with their co-occurrent words. The final set of senses is called $SoS_{tw}$.
+	\end{itemize}
+
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Structured Perceptron}
+\begin{center}
+\includegraphics[width=\linewidth]{image2/Appendix/structured_perceptron}
+\end{center}
+\end{frame}
+\begin{frame}{Spectral Clustering}
+The normalized Laplacian of an affinity (symmetric and positive) matrix $W\in \mathbb{R}^{n\times n}$, with $w_{ij} = w_{ji} \geq 0$, is defined as: 
+\begin{equation}\label{eq:norm_laplacian}
+\mathcal{L} = I - D^{-1/2}WD{-1/2}
+\end{equation}
+
+where $I$ is the identity matrix and $D$ is the degree matrix of $W$. $D$ is defined as the diagonal matrix with the degrees $d_1 ,\dots,d_n$ on the diagonal. As $W$ may not be an adjacency matrix, we define the degrees of each row in the matrix as: $d_i=\sum_{j=1}^{n}{w_{ij}}$.
+\end{frame}
+\begin{frame}{Spectral Clustering 2}
+Given a  symmetric and positive similarity matrix $W \in \mathbb{R}^{n \times n}$, and a number of desired clusters $k$, the steps required to perform spectral clustering are:
+
+\begin{enumerate}
+\item Obtain the normalized Laplacian $\mathcal{L}$ as indicated in Equation \ref{eq:norm_laplacian}.
+\item Obtain the first $k$ eigenvectors $u_{1\dots k}$ of $\mathcal{L}$.
+\item Store said eigenvectors as columns in a matrix $V \in \mathbb{R}^{n \times k}$. This matrix is akin to a lower-dimension projection of the original similarity matrix $W$.
+\item Cluster the points in $V_i$ with $k$-means. The clusters found and their members correspond to the cluster of the spectral algorithm.
+\end{enumerate}
+
+\end{frame}
+
+\begin{frame}{Precision and Recall for NER}
+% Please add the following required packages to your document preamble:
+% \usepackage{booktabs}
+% Please add the following required packages to your document preamble:
+% \usepackage{booktabs}
+\begin{table}[]
+\centering
+\begin{tabular}{@{}llll@{}}
+\textbf{CONLL}                                                                                                                  &                &                &                \\ \midrule
+\textbf{Method}                                                                                                        & \textbf{All\_F} & \textbf{ALL\_P} & \textbf{ALL\_R} \\ \midrule
+$\mstd$                                                                                                                & 77.41          & 77.39          & 77.42          \\
+$\mlex$                                                                                                                & 69.4           & 80.73          & 60.86          \\
+$\msyn$                                                                                                                & 32.95          & 53.79          & 23.75          \\
+$E(\mstd,\mlex,\msyn$                                                                                                  & 78.9           & 78.82          & 78.99          \\
+\begin{tabular}[c]{@{}l@{}}$E(M_L , E(E(M_T , L(M^T , X_F (S^T , M^T )))$ ,\\ $ L(M^L , X_F (S^S , M^L))))$\end{tabular} & 79.67          & 80.45          & 78.9           \\ \bottomrule
+\end{tabular}
+\end{table}
+
+\end{frame}
+
+\begin{frame}{Precision and Recall for NER}
+% Please add the following required packages to your document preamble:
+% \usepackage{booktabs}
+\begin{table}[]
+\centering
+\begin{tabular}{@{}llll@{}}
+\textbf{WNER}                                                                                                            &                &                &                \\ \midrule
+\textbf{Method}                                                                                                          & \textbf{All\_F} & \textbf{ALL\_P} & \textbf{ALL\_R} \\ \midrule
+$\mstd$                                                                                                                  & 77.5           & 77.83          & 77.18          \\
+$\mlex$                                                                                                                  & 69.17          & 79.07          & 61.47          \\
+$\msyn$                                                                                                                  & 28.47          & 38.36          & 22.45          \\
+$E(\mstd,\mlex,\msyn$                                                                                                    & 80.04          & 80.26          & 79.83          \\
+\begin{tabular}[c]{@{}l@{}}$E(M_L , E(E(M_T , L(M^T , X_F (S^T , M^T ))) ,$ \\ $L(M^L , X_F (S^S , M^L))))$\end{tabular} & 81.79          & 82.28          & 81.32          \\ \bottomrule
+\end{tabular}
+\end{table}
+\end{frame}
+
+\begin{frame}{Precision and Recall for NER}
+
+% Please add the following required packages to your document preamble:
+% \usepackage{booktabs}
+\begin{table}[]
+\centering
+\begin{tabular}{@{}llll@{}}
+\toprule
+\textbf{WGLD}                                                                                                            &                 &                 &                 \\ \midrule
+\textbf{Method}                                                                                                          & \textbf{All\_F} & \textbf{ALL\_P} & \textbf{ALL\_R} \\
+$\mstd$                                                                                                                  & 59.66           & 60.37           & 58.75           \\
+$\mlex$                                                                                                                  & 52.34           & 68.42           & 42.38           \\
+$\msyn$                                                                                                                  & 25.49           & 36.55           & 19.56           \\
+$E(\mstd,\mlex,\msyn$                                                                                                    & 63.2            & 63.88           & 62.54           \\
+\begin{tabular}[c]{@{}l@{}}$E(M_L , E(E(M_T , L(M^T , X_F (S^T , M^T ))) ,$\\  $L(M^L , X_F (S^S , M^L))))$\end{tabular} & 67.05           & 69.63           & 64.64           \\ \bottomrule
+\end{tabular}
+\end{table}
+
+\end{frame}
+
+\begin{frame}{Examples of Senses Found }
+\textbf{Word: authority}
+\begin{itemize}
+\item Dependencies
+\begin{itemize}
+	\item \textbf{process}: [neighborhood, lawyer, idea, seizure, council, subsidiary, need, collector, court, office]
+	\item \textbf{cabinet}: [create, trade, stability, manager, swine, department, misconduct, settlement, economist, math] 
+		
+\end{itemize}
+\item Lexical
+\begin{itemize}
+	\item \textbf{shop}: [shop, sketch, young, month, pareo, woman, moscow, opposite, tahitian, handler, verso]
+	\item \textbf{supply}: [supply, justice, money, hugo, telephone, authority, initiative, alberta, bundesbank, utility, impact] 
+	\item \textbf{evidence}: [council, machine, court, august, district, instance, fulham, auditor, hammersmith, plant]
+		
+\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Examples of Senses Found}
+\textbf{Word: authority}
+\begin{itemize}
+\item Best fusion operator: $X_F(\slex,\mlex)$
+\begin{itemize}
+	\item \textbf{block}: [allow, including, study, told,
+	       seek, make, support, claim, provide, lawyers]
+	\item \textbf{veto}: [says, court, companies, years, does, law,
+	       loans, congress, trading, days]
+	\item \textbf{federal}: [federal, president, new, u.s., line-item, banks, local, company, airline, transportation]
+	\item \textbf{government}: [legislation, million,
+	       bush, year, people, billion, secretary, department, officials, house]
+		
+\end{itemize}
+\end{itemize}
+
+
+\end{frame}
+
+
 \end{document}
